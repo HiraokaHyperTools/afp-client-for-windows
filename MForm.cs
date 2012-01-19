@@ -707,7 +707,8 @@ namespace AFPClient4Windows {
             }
         }
 
-        const string ExtResFork = ".resource-fork";
+        const string ExtResFork = ".AFP_Resource";
+        const string ExtFinderInfo = ".AFP_AfpInfo";
 
         VFCopy.SrcClass GetLvSrc(ListView sender) {
             VFCopy.SrcClass dataSrc = new VFCopy.SrcClass();
