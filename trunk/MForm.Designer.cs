@@ -305,8 +305,8 @@
             this.mGetResFork.CheckOnClick = true;
             this.mGetResFork.CheckState = System.Windows.Forms.CheckState.Checked;
             this.mGetResFork.Name = "mGetResFork";
-            this.mGetResFork.Size = new System.Drawing.Size(464, 22);
-            this.mGetResFork.Text = "リソースフォークDL：拡張子resource-forkを付けてリソースフォークをダウンロードする";
+            this.mGetResFork.Size = new System.Drawing.Size(468, 22);
+            this.mGetResFork.Text = "リソースフォークDL：拡張子AFP_Resourceを付けて他のファイルにダウンロードする";
             // 
             // mPutResFork
             // 
@@ -314,8 +314,8 @@
             this.mPutResFork.CheckOnClick = true;
             this.mPutResFork.CheckState = System.Windows.Forms.CheckState.Checked;
             this.mPutResFork.Name = "mPutResFork";
-            this.mPutResFork.Size = new System.Drawing.Size(464, 22);
-            this.mPutResFork.Text = "リソースフォークUP：拡張子resource-forkをリソースフォークと見なしてアップロードする";
+            this.mPutResFork.Size = new System.Drawing.Size(468, 22);
+            this.mPutResFork.Text = "リソースフォークUP：拡張子AFP_Resourceをリソースフォークと見なしてアップロードする";
             this.mPutResFork.Visible = false;
             // 
             // MForm
