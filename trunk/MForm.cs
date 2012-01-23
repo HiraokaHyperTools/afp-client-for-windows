@@ -1,4 +1,4 @@
-using System;
+Ôªøusing System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -58,7 +58,7 @@ namespace AFPClient4Windows {
                         }
                     }
                     catch (Exception err) {
-                        MessageBox.Show(this, "é∏îsÇµÇ‹ÇµÇΩ:\n\n" + err.Message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        MessageBox.Show(this, "Â§±Êïó„Åó„Åæ„Åó„Åü:\n\n" + err.Message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         return;
                     }
                 }
@@ -183,7 +183,7 @@ namespace AFPClient4Windows {
                     }
 
                     if (!authDone) {
-                        throw new UnauthorizedAccessException("îFèÿÇ…é∏îsÇµÇ‹ÇµÇΩÅB");
+                        throw new UnauthorizedAccessException("Ë™çË®º„Å´Â§±Êïó„Åó„Åæ„Åó„Åü„ÄÇ");
                     }
                     else {
                         avail = true;
@@ -198,7 +198,7 @@ namespace AFPClient4Windows {
                 avail = false;
             }
 
-            #region IDisposable ÉÅÉìÉo
+            #region IDisposable „É°„É≥„Éê
 
             public void Dispose() {
                 Disconnect();
@@ -242,7 +242,7 @@ namespace AFPClient4Windows {
             public bool isListed = false;
             public Exception listErr = null;
 
-            #region IDisposable ÉÅÉìÉo
+            #region IDisposable „É°„É≥„Éê
 
             public void Dispose() {
                 ents.Clear();
@@ -398,6 +398,13 @@ namespace AFPClient4Windows {
         }
 
         private void MForm_FormClosing(object sender, FormClosingEventArgs e) {
+            if (e.Cancel) return;
+            if (cntAsyncOp != 0) {
+                if (MessageBox.Show(this, "ÁµÇ‰∫Ü„Åó„Çà„ÅÜ„Å®„Åó„Å¶„ÅÑ„Åæ„Åô„ÄÇÁµÇ‰∫Ü„Åô„Çã„Å®„Éï„Ç°„Ç§„É´Ëª¢ÈÄÅ„ÅåÂÅúÊ≠¢„Åó„Åæ„Åô„ÄÇÁµÇ‰∫Ü„Åó„Åæ„Åô„Åã?", Application.ProductName, MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) != DialogResult.Yes) {
+                    e.Cancel = true;
+                    return;
+                }
+            }
         }
 
         private void MForm_FormClosed(object sender, FormClosedEventArgs e) {
@@ -464,7 +471,7 @@ namespace AFPClient4Windows {
                 this.fe = fe;
             }
 
-            #region IOpenSt ÉÅÉìÉo
+            #region IOpenSt „É°„É≥„Éê
 
             public VFCopy.ISt OpenSt() {
                 return fe.OpenSt(true);
@@ -526,7 +533,7 @@ namespace AFPClient4Windows {
                 return new ForkSt(pack, comm);
             }
 
-            #region IOpenSt ÉÅÉìÉo
+            #region IOpenSt „É°„É≥„Éê
 
             public VFCopy.ISt OpenSt() {
                 return OpenSt(false);
@@ -544,7 +551,7 @@ namespace AFPClient4Windows {
                     this.comm = comm;
                 }
 
-                #region ISt ÉÅÉìÉo
+                #region ISt „É°„É≥„Éê
 
                 public void CloseSt() {
                     if (!isOpened) return;
@@ -598,7 +605,7 @@ namespace AFPClient4Windows {
 
                 public Str(int i, bool asc) { this.i = i; ord = asc ? 1 : -1; }
 
-                #region IComparer ÉÅÉìÉo
+                #region IComparer „É°„É≥„Éê
 
                 public int Compare(object xx, object yy) {
                     ListViewItem x = (ListViewItem)xx;
@@ -614,7 +621,7 @@ namespace AFPClient4Windows {
 
                 public Mt(bool asc) { ord = asc ? 1 : -1; }
 
-                #region IComparer ÉÅÉìÉo
+                #region IComparer „É°„É≥„Éê
 
                 public int Compare(object xx, object yy) {
                     ListViewItem vx = (ListViewItem)xx;
@@ -638,7 +645,7 @@ namespace AFPClient4Windows {
 
                 public Cb(bool asc) { ord = asc ? 1 : -1; }
 
-                #region IComparer ÉÅÉìÉo
+                #region IComparer „É°„É≥„Éê
 
                 public int Compare(object xx, object yy) {
                     ListViewItem vx = (ListViewItem)xx;
@@ -692,11 +699,15 @@ namespace AFPClient4Windows {
         }
 
         private void AddWalk(VFCopy.SrcClass dataSrc, TreeNode tnCur, String prefix) {
+            GetSel(tnCur, false);
+
             LBaseDir lbd = tnCur.Tag as LBaseDir;
             if (lbd == null) return;
 
             foreach (FileParameters fparm in lbd.ents) {
                 FEnt fe = new FEnt(fparm, lbd);
+                if (fe.IsDir)
+                    continue;
                 if (true)
                     dataSrc.AddFile(Path.Combine(prefix, NUt.Clean(fe.Name)), fe.GetMT(), fe.DataSize, fe);
                 if (mGetResFork.Checked)
@@ -707,8 +718,37 @@ namespace AFPClient4Windows {
             }
         }
 
+        private void GetSel(TreeNode tn, bool force) {
+            if (tn == null)
+                return;
+            LBaseDir lbd = tn.Tag as LBaseDir;
+            if (lbd != null) {
+                if (force || !lbd.isListed) {
+                    if (!EnumDir(lbd, tn))
+                        return;
+                }
+                return;
+            }
+        }
+
         const string ExtResFork = ".AFP_Resource";
         const string ExtFinderInfo = ".AFP_AfpInfo";
+
+        VFCopy.SrcClass GetTvSrc(TreeNode tn) {
+            VFCopy.SrcClass dataSrc = new VFCopy.SrcClass();
+
+            using (AH ah = new AH()) {
+                TreeNode tnSub = tn;
+                if (tnSub != null)
+                    AddWalk(dataSrc, tnSub, NUt.Clean(tnSub.Name));
+            }
+            dataSrc.Make();
+            dataSrc.SetAsyncMode(1);
+
+            dataSrc.OnStartOperation += delegate { ++cntAsyncOp; };
+            dataSrc.OnEndOperation += delegate { --cntAsyncOp; };
+            return dataSrc;
+        }
 
         VFCopy.SrcClass GetLvSrc(ListView sender) {
             VFCopy.SrcClass dataSrc = new VFCopy.SrcClass();
@@ -742,7 +782,11 @@ namespace AFPClient4Windows {
         int cntAsyncOp = 0;
 
         private void lvF_ItemDrag(object sender, ItemDragEventArgs e) {
-            DoDragDrop(GetLvSrc(lvF), DragDropEffects.Copy);
+            if (0 != (e.Button & MouseButtons.Left)) DoDragDrop(GetLvSrc(lvF), DragDropEffects.Copy);
+        }
+
+        private void tvF_ItemDrag(object sender, ItemDragEventArgs e) {
+            if (0 != (e.Button & MouseButtons.Left)) DoDragDrop(GetTvSrc(e.Item as TreeNode ?? tvF.SelectedNode), DragDropEffects.Copy);
         }
 
     }

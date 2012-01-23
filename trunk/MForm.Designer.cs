@@ -112,6 +112,7 @@
             this.tvF.StateImageList = this.ils;
             this.tvF.TabIndex = 1;
             this.tvF.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvF_AfterSelect);
+            this.tvF.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.tvF_ItemDrag);
             // 
             // il16
             // 
@@ -316,7 +317,6 @@
             this.mPutResFork.Name = "mPutResFork";
             this.mPutResFork.Size = new System.Drawing.Size(468, 22);
             this.mPutResFork.Text = "リソースフォークUP：拡張子AFP_Resourceをリソースフォークと見なしてアップロードする";
-            this.mPutResFork.Visible = false;
             // 
             // MForm
             // 
