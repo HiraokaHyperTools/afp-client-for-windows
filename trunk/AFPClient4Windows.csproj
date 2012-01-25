@@ -114,7 +114,7 @@
     <COMReference Include="VFCopy">
       <Guid>{2BABD037-1C20-4369-BFEA-464C817ABCBD}</Guid>
       <VersionMajor>1</VersionMajor>
-      <VersionMinor>0</VersionMinor>
+      <VersionMinor>2</VersionMinor>
       <Lcid>0</Lcid>
       <WrapperTool>tlbimp</WrapperTool>
       <Isolated>True</Isolated>

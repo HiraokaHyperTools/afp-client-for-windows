@@ -464,7 +464,7 @@ namespace AFPClient4Windows {
             }
         }
 
-        class AsResFork : VFCopy.IOpenSt {
+        class AsResFork : VFCopy.IOpenSt2 {
             FEnt fe;
 
             public AsResFork(FEnt fe) {
@@ -473,14 +473,14 @@ namespace AFPClient4Windows {
 
             #region IOpenSt メンバ
 
-            public VFCopy.ISt OpenSt() {
-                return fe.OpenSt(true);
+            public VFCopy.ISt2 OpenSt2() {
+                return fe.OpenSt2(true);
             }
 
             #endregion
         }
 
-        class FEnt : VFCopy.IOpenSt {
+        class FEnt : VFCopy.IOpenSt2 {
             public FileParameters fe;
             public LBaseDir lbd;
 
@@ -512,7 +512,7 @@ namespace AFPClient4Windows {
                 }
             }
 
-            public VFCopy.ISt OpenSt(bool resfork) {
+            public VFCopy.ISt2 OpenSt2(bool resfork) {
                 lbd.lvol.ConnectUpper();
 
                 MyDSI3 comm = lbd.lvol.lpc.comm;
@@ -535,13 +535,13 @@ namespace AFPClient4Windows {
 
             #region IOpenSt メンバ
 
-            public VFCopy.ISt OpenSt() {
-                return OpenSt(false);
+            public VFCopy.ISt2 OpenSt2() {
+                return OpenSt2(false);
             }
 
             #endregion
 
-            class ForkSt : VFCopy.ISt {
+            class ForkSt : VFCopy.ISt2 {
                 OpenForkPack forkPack;
                 MyDSI3 comm;
                 bool isOpened = true;
@@ -551,9 +551,9 @@ namespace AFPClient4Windows {
                     this.comm = comm;
                 }
 
-                #region ISt メンバ
+                #region ISt2 メンバ
 
-                public void CloseSt() {
+                public void CloseSt2() {
                     if (!isOpened) return;
 
                     TransmitRes res2 = comm.Transmit(new DSICommand().WithRequestPayload(new FPCloseFork()
@@ -563,7 +563,7 @@ namespace AFPClient4Windows {
                     isOpened = false;
                 }
 
-                public void ReadAt(Int64 pos, IntPtr pv, UInt32 cb, out UInt32 pcbRead) {
+                public void ReadAt(Int64 pos, out byte[] bin, UInt32 cb, out UInt32 pcbRead) {
                     TransmitRes res = comm.Transmit(new DSICommand().WithRequestPayload(new FPRead()
                         .WithOffset(Convert.ToUInt32(pos))
                         .WithOForkRefNum(forkPack.Fork)
@@ -578,9 +578,18 @@ namespace AFPClient4Windows {
                         throw new DSIException(res.pack.ErrorCode, res.pack);
                     }
 
-                    int r = res.pack.Payload.Length;
+                    bin = res.pack.Payload;
                     pcbRead = Convert.ToUInt32(res.pack.Payload.Length);
-                    Marshal.Copy(res.pack.Payload, 0, pv, r);
+                }
+
+                #endregion
+
+                #region ISt2 メンバ
+
+                public void ReadAt(long pos, out Array pparray, uint cb, out uint pcbRead) {
+                    byte[] bin;
+                    ReadAt(pos, out bin, cb, out pcbRead);
+                    pparray = bin;
                 }
 
                 #endregion
@@ -709,9 +718,9 @@ namespace AFPClient4Windows {
                 if (fe.IsDir)
                     continue;
                 if (true)
-                    dataSrc.AddFile(Path.Combine(prefix, NUt.Clean(fe.Name)), fe.GetMT(), fe.DataSize, fe);
+                    dataSrc.AddFile2(Path.Combine(prefix, NUt.Clean(fe.Name)), fe.GetMT(), fe.DataSize, fe);
                 if (mGetResFork.Checked)
-                    dataSrc.AddFile(Path.Combine(prefix, NUt.Clean(fe.Name) + ExtResFork), fe.GetMT(), fe.ResSize, new AsResFork(fe));
+                    dataSrc.AddFile2(Path.Combine(prefix, NUt.Clean(fe.Name) + ExtResFork), fe.GetMT(), fe.ResSize, new AsResFork(fe));
             }
             foreach (TreeNode tnSub in tnCur.Nodes) {
                 AddWalk(dataSrc, tnSub, Path.Combine(prefix, NUt.Clean(Path.GetFileName(tnSub.Name))));
@@ -761,9 +770,9 @@ namespace AFPClient4Windows {
                     if (fe == null) continue;
                     if (!fe.IsDir) {
                         if (true)
-                            dataSrc.AddFile(NUt.Clean(fe.Name), fe.GetMT(), fe.DataSize, fe);
+                            dataSrc.AddFile2(NUt.Clean(fe.Name), fe.GetMT(), fe.DataSize, fe);
                         if (mGetResFork.Checked)
-                            dataSrc.AddFile(NUt.Clean(fe.Name) + ExtResFork, fe.GetMT(), fe.ResSize, new AsResFork(fe));
+                            dataSrc.AddFile2(NUt.Clean(fe.Name) + ExtResFork, fe.GetMT(), fe.ResSize, new AsResFork(fe));
                     }
                     else {
                         TreeNode tnSub = tn.Nodes[fe.Name];
