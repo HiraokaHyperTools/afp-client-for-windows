@@ -69,6 +69,12 @@
       <DependentUpon>MForm.cs</DependentUpon>
     </Compile>
     <Compile Include="MyDSI3.cs" />
+    <Compile Include="PasteForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PasteForm.Designer.cs">
+      <DependentUpon>PasteForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="ConnForm.resx">
@@ -79,10 +85,18 @@
       <SubType>Designer</SubType>
       <DependentUpon>MForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="PasteForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>PasteForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="QueryOverwriteForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>QueryOverwriteForm.cs</DependentUpon>
     </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -98,6 +112,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="QueryOverwriteForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="QueryOverwriteForm.Designer.cs">
+      <DependentUpon>QueryOverwriteForm.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
