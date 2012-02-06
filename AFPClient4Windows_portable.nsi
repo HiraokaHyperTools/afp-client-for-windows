@@ -8,8 +8,8 @@
 ;--------------------------------
 
 !define APP "AFPClient4Windows"
-!define VER "0.2"
-!define APV "0_2"
+!define VER "0.3"
+!define APV "0_3"
 
 ; The name of the installer
 Name "${APP} ${VER}"

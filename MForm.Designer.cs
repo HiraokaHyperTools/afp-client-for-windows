@@ -101,6 +101,7 @@
             // 
             // tvF
             // 
+            this.tvF.AllowDrop = true;
             this.tvF.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tvF.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tvF.ImageIndex = 0;
@@ -111,8 +112,11 @@
             this.tvF.Size = new System.Drawing.Size(251, 422);
             this.tvF.StateImageList = this.ils;
             this.tvF.TabIndex = 1;
+            this.tvF.DragDrop += new System.Windows.Forms.DragEventHandler(this.tvF_DragDrop);
             this.tvF.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvF_AfterSelect);
+            this.tvF.DragEnter += new System.Windows.Forms.DragEventHandler(this.tvF_DragEnter);
             this.tvF.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.tvF_ItemDrag);
+            this.tvF.DragOver += new System.Windows.Forms.DragEventHandler(this.tvF_DragOver);
             // 
             // il16
             // 
@@ -143,6 +147,7 @@
             // 
             // lvF
             // 
+            this.lvF.AllowDrop = true;
             this.lvF.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.lvF.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.chfn,
@@ -160,8 +165,12 @@
             this.lvF.UseCompatibleStateImageBehavior = false;
             this.lvF.View = System.Windows.Forms.View.Details;
             this.lvF.ItemActivate += new System.EventHandler(this.lvF_ItemActivate);
+            this.lvF.DragDrop += new System.Windows.Forms.DragEventHandler(this.lvF_DragDrop);
             this.lvF.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lvF_ColumnClick);
+            this.lvF.DragEnter += new System.Windows.Forms.DragEventHandler(this.lvF_DragEnter);
+            this.lvF.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lvF_KeyDown);
             this.lvF.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.lvF_ItemDrag);
+            this.lvF.DragOver += new System.Windows.Forms.DragEventHandler(this.lvF_DragOver);
             // 
             // chfn
             // 

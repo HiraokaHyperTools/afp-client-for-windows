@@ -40,5 +40,8 @@ namespace AFPt {
             wr.Write((byte)(qw >> 8));
             wr.Write((byte)(qw >> 0));
         }
+        public void Write(byte[] buffer, int index, int count) {
+            wr.Write(buffer, index, count);
+        }
     }
 }
