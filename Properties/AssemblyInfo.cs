@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("AFPClient4Windows")]
-[assembly: AssemblyCopyright("Copyright (C)  2012")]
+[assembly: AssemblyCopyright("Copyright (C)  2012,2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -29,5 +29,5 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-[assembly:     AssemblyVersion("0.3.0.0")] // here
-[assembly: AssemblyFileVersion("0.3.0.0")] // here
+[assembly:     AssemblyVersion("0.11.0.0")] // here
+[assembly: AssemblyFileVersion("0.11.0.0")] // here

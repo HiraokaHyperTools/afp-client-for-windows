@@ -44,6 +44,8 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Oyster.IntX, Version=0.9.3.3, Culture=neutral, PublicKeyToken=1744b76c74eaee1e, processorArchitecture=MSIL" />
+    <Reference Include="Renci.SshNet, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
@@ -56,11 +58,18 @@
     <Compile Include="AH.cs" />
     <Compile Include="BER.cs" />
     <Compile Include="BEW.cs" />
+    <Compile Include="Conn.cs" />
     <Compile Include="ConnForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ConnForm.Designer.cs">
       <DependentUpon>ConnForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ConnsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConnsForm.Designer.cs">
+      <DependentUpon>ConnsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="MForm.cs">
       <SubType>Form</SubType>
@@ -80,6 +89,10 @@
     <EmbeddedResource Include="ConnForm.resx">
       <SubType>Designer</SubType>
       <DependentUpon>ConnForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConnsForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ConnsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MForm.resx">
       <SubType>Designer</SubType>
@@ -124,8 +137,11 @@
     <None Include="Resources\DialHS.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Oyster.IntX.dll" />
+    <Content Include="Renci.SshNet.dll" />
     <Content Include="Resources\1326862183_button_ok.png" />
     <Content Include="Resources\1326862315_agt_action_fail1.png" />
+    <Content Include="TODO.txt" />
     <None Include="Resources\PlayHS.png" />
     <None Include="Resources\RefreshDocViewHS.png" />
     <None Include="Resources\error.ico" />
