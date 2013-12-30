@@ -755,13 +755,17 @@ namespace AFPClient4Windows {
             }
         }
 
+        LPC GetLPC(LBaseDir lbd) {
+            LVol lvol = lbd as LVol;
+            if (lvol != null) return lvol.lpc;
+            LDir ldir = lbd as LDir;
+            if (ldir != null) return ldir.lpc;
+            return null;
+        }
+
         List<FEnt> Gen(FileParameters ent, LBaseDir lbd) {
             List<FEnt> al = new List<FEnt>();
-            LPC lpc = null;
-            LVol lvol = lbd as LVol;
-            if (lvol != null) lpc = lvol.lpc;
-            LDir ldir = lbd as LDir;
-            if (ldir != null) lpc = ldir.lpc;
+            LPC lpc = GetLPC(lbd);
             if (Settings.Default.ForkTyp == 1) { // News
                 al.Add(new FEnt(ent, lbd, FTy.Data, lpc));
                 al.Add(new FEnt(ent, lbd, FTy.ResNews, lpc));
@@ -814,7 +818,7 @@ namespace AFPClient4Windows {
             public Int64 LocalSize {
                 get {
                     if (fty == FTy.ResMac || fty == FTy.ResNews)
-                        return fe.ResourceForkSize ?? 0;
+                        return Convert.ToInt64(fe.AnyResourceForkSize);
                     if (fty == FTy.FI)
                         return 32;
                     return Convert.ToInt64(fe.AnyDataForkSize);

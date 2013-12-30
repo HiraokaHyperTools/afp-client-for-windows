@@ -91,7 +91,7 @@
             // 
             this.hsc.Panel2.Controls.Add(this.tbLOG);
             this.hsc.Size = new System.Drawing.Size(796, 433);
-            this.hsc.SplitterDistance = 315;
+            this.hsc.SplitterDistance = 313;
             this.hsc.SplitterWidth = 6;
             this.hsc.TabIndex = 1;
             // 
@@ -111,7 +111,7 @@
             // 
             this.vsc.Panel2.Controls.Add(this.lvF);
             this.vsc.Panel2.Controls.Add(this.label2);
-            this.vsc.Size = new System.Drawing.Size(796, 315);
+            this.vsc.Size = new System.Drawing.Size(796, 313);
             this.vsc.SplitterDistance = 251;
             this.vsc.SplitterWidth = 6;
             this.vsc.TabIndex = 0;
@@ -126,7 +126,7 @@
             this.tvF.Location = new System.Drawing.Point(0, 12);
             this.tvF.Name = "tvF";
             this.tvF.SelectedImageIndex = 0;
-            this.tvF.Size = new System.Drawing.Size(251, 303);
+            this.tvF.Size = new System.Drawing.Size(251, 301);
             this.tvF.TabIndex = 1;
             this.tvF.DragDrop += new System.Windows.Forms.DragEventHandler(this.tvF_DragDrop);
             this.tvF.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvF_AfterSelect);
@@ -167,7 +167,7 @@
             this.lvF.GridLines = true;
             this.lvF.Location = new System.Drawing.Point(0, 12);
             this.lvF.Name = "lvF";
-            this.lvF.Size = new System.Drawing.Size(539, 303);
+            this.lvF.Size = new System.Drawing.Size(539, 301);
             this.lvF.SmallImageList = this.il16;
             this.lvF.TabIndex = 2;
             this.lvF.UseCompatibleStateImageBehavior = false;
@@ -214,7 +214,7 @@
             this.tbLOG.Multiline = true;
             this.tbLOG.Name = "tbLOG";
             this.tbLOG.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.tbLOG.Size = new System.Drawing.Size(796, 112);
+            this.tbLOG.Size = new System.Drawing.Size(796, 114);
             this.tbLOG.TabIndex = 0;
             // 
             // toolStrip1

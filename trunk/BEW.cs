@@ -19,26 +19,35 @@ namespace AFPt {
         }
         public void Write(short sw) { Write((ushort)sw); }
         public void Write(ushort w) {
-            wr.Write((byte)(w >> 8));
-            wr.Write((byte)(w >> 0));
+            byte[] bin = new byte[]{
+                (byte)(w >> 8),
+                (byte)(w >> 0),
+            };
+            wr.Write(bin);
         }
         public void Write(int sdw) { Write((uint)sdw); }
         public void Write(uint dw) {
-            wr.Write((byte)(dw >> 24));
-            wr.Write((byte)(dw >> 16));
-            wr.Write((byte)(dw >> 8));
-            wr.Write((byte)(dw >> 0));
+            byte[] bin = new byte[]{
+                (byte)(dw >> 24),
+                (byte)(dw >> 16),
+                (byte)(dw >> 8),
+                (byte)(dw >> 0),
+            };
+            wr.Write(bin);
         }
         public void Write(long sqw) { Write((ulong)sqw); }
         public void Write(ulong qw) {
-            wr.Write((byte)(qw >> 56));
-            wr.Write((byte)(qw >> 48));
-            wr.Write((byte)(qw >> 40));
-            wr.Write((byte)(qw >> 32));
-            wr.Write((byte)(qw >> 24));
-            wr.Write((byte)(qw >> 16));
-            wr.Write((byte)(qw >> 8));
-            wr.Write((byte)(qw >> 0));
+            byte[] bin = new byte[]{
+                (byte)(qw >> 56),
+                (byte)(qw >> 48),
+                (byte)(qw >> 40),
+                (byte)(qw >> 32),
+                (byte)(qw >> 24),
+                (byte)(qw >> 16),
+                (byte)(qw >> 8),
+                (byte)(qw >> 0),
+            };
+            wr.Write(bin);
         }
         public void Write(byte[] buffer, int index, int count) {
             wr.Write(buffer, index, count);
