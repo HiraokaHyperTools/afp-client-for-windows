@@ -60,6 +60,20 @@ namespace AFPClient4Windows.Properties {
             }
         }
         
+        internal static byte[] About {
+            get {
+                object obj = ResourceManager.GetObject("About", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap DeleteHS {
+            get {
+                object obj = ResourceManager.GetObject("DeleteHS", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap DialHS {
             get {
                 object obj = ResourceManager.GetObject("DialHS", resourceCulture);
@@ -80,6 +94,13 @@ namespace AFPClient4Windows.Properties {
         internal static string FExt {
             get {
                 return ResourceManager.GetString("FExt", resourceCulture);
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Help {
+            get {
+                object obj = ResourceManager.GetObject("Help", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         

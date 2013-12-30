@@ -1,2 +1,4 @@
-﻿todo: 途中でセッションが切断される
+﻿todo: DSIタイムアウト対策
 todo: UP時、拡張子判定
+todo: BackSpaceで上へ
+todo: 選択中フォルダがわからない
