@@ -54,6 +54,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AboutForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AboutForm.Designer.cs">
+      <DependentUpon>AboutForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="AFPComm2.cs" />
     <Compile Include="AH.cs" />
     <Compile Include="BER.cs" />
@@ -71,6 +77,12 @@
     <Compile Include="ConnsForm.Designer.cs">
       <DependentUpon>ConnsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="IfDelForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IfDelForm.Designer.cs">
+      <DependentUpon>IfDelForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="MForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -86,6 +98,10 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="AboutForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>AboutForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ConnForm.resx">
       <SubType>Designer</SubType>
       <DependentUpon>ConnForm.cs</DependentUpon>
@@ -93,6 +109,10 @@
     <EmbeddedResource Include="ConnsForm.resx">
       <SubType>Designer</SubType>
       <DependentUpon>ConnsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IfDelForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>IfDelForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MForm.resx">
       <SubType>Designer</SubType>
@@ -141,6 +161,9 @@
     <Content Include="Renci.SshNet.dll" />
     <Content Include="Resources\1326862183_button_ok.png" />
     <Content Include="Resources\1326862315_agt_action_fail1.png" />
+    <None Include="Resources\About.rtf" />
+    <None Include="Resources\Help.png" />
+    <None Include="Resources\DeleteHS.png" />
     <Content Include="TODO.txt" />
     <None Include="Resources\PlayHS.png" />
     <None Include="Resources\RefreshDocViewHS.png" />

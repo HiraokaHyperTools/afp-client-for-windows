@@ -311,12 +311,38 @@ namespace AFPt2 {
         public FPCreateDir WithVolumeID(ushort VolumeID) { this.VolumeID = VolumeID; return this; }
         public FPCreateDir WithDirectoryID(uint DirectoryID) { this.DirectoryID = DirectoryID; return this; }
         public FPCreateDir WithPathType(byte PathType) { this.PathType = PathType; return this; }
+        public FPCreateDir WithPathType(AfpPathType PathType) { this.PathType = (byte)PathType; return this; }
         public FPCreateDir WithPath(String Path) { this.Path = Path; return this; }
 
         public byte[] ToArray() {
             MemoryStream os = new MemoryStream();
             BEW wr = new BEW(os);
             wr.Write((byte)6); // kFPCreateDir  
+            wr.Write((byte)0);
+            wr.Write((ushort)VolumeID);
+            wr.Write((uint)DirectoryID);
+            wr.Write((byte)PathType);
+            UtAfp.Write1Str(os, Path, (AfpPathType)PathType);
+            UtPadding.Write2(os);
+            return os.ToArray();
+        }
+    }
+    public class FPOpenDir : IFP {
+        public ushort VolumeID;
+        public uint DirectoryID;
+        public byte PathType = (byte)AfpPathType.kFPLongName;
+        public String Path;
+
+        public FPOpenDir WithVolumeID(ushort VolumeID) { this.VolumeID = VolumeID; return this; }
+        public FPOpenDir WithDirectoryID(uint DirectoryID) { this.DirectoryID = DirectoryID; return this; }
+        public FPOpenDir WithPathType(byte PathType) { this.PathType = PathType; return this; }
+        public FPOpenDir WithPathType(AfpPathType PathType) { this.PathType = (byte)PathType; return this; }
+        public FPOpenDir WithPath(String Path) { this.Path = Path; return this; }
+
+        public byte[] ToArray() {
+            MemoryStream os = new MemoryStream();
+            BEW wr = new BEW(os);
+            wr.Write((byte)25); // kFPOpenDir  
             wr.Write((byte)0);
             wr.Write((ushort)VolumeID);
             wr.Write((uint)DirectoryID);
@@ -338,6 +364,7 @@ namespace AFPt2 {
         public FPCreateFile WithVolumeID(ushort VolumeID) { this.VolumeID = VolumeID; return this; }
         public FPCreateFile WithDirectoryID(uint DirectoryID) { this.DirectoryID = DirectoryID; return this; }
         public FPCreateFile WithPathType(byte PathType) { this.PathType = PathType; return this; }
+        public FPCreateFile WithPathType(AfpPathType PathType) { this.PathType = (byte)PathType; return this; }
         public FPCreateFile WithPath(String Path) { this.Path = Path; return this; }
 
         public FPCreateFile WithSoftCreate() { this.Flag &= 0x7F; return this; }
@@ -366,6 +393,7 @@ namespace AFPt2 {
         public FPDelete WithVolumeID(ushort VolumeID) { this.VolumeID = VolumeID; return this; }
         public FPDelete WithDirectoryID(uint DirectoryID) { this.DirectoryID = DirectoryID; return this; }
         public FPDelete WithPathType(byte PathType) { this.PathType = PathType; return this; }
+        public FPDelete WithPathType(AfpPathType PathType) { this.PathType = (byte)PathType; return this; }
         public FPDelete WithPath(String Path) { this.Path = Path; return this; }
 
         public byte[] ToArray() {
@@ -433,6 +461,24 @@ namespace AFPt2 {
             wr.Write((byte)2); // kFPCloseVol  
             wr.Write((byte)0);
             wr.Write((ushort)VolumeID);
+            return os.ToArray();
+        }
+    }
+
+    public class FPCloseDir : IFP {
+        public ushort VolumeID;
+        public uint DirectoryID;
+
+        public FPCloseDir WithVolumeID(ushort VolumeID) { this.VolumeID = VolumeID; return this; }
+        public FPCloseDir WithDirectoryID(uint DirectoryID) { this.DirectoryID = DirectoryID; return this; }
+
+        public byte[] ToArray() {
+            MemoryStream os = new MemoryStream();
+            BEW wr = new BEW(os);
+            wr.Write((byte)3); // kFPCloseDir   
+            wr.Write((byte)0);
+            wr.Write((ushort)VolumeID);
+            wr.Write((uint)DirectoryID);
             return os.ToArray();
         }
     }
@@ -919,6 +965,22 @@ namespace AFPt2 {
             Bitmap = br.ReadUInt16();
             Fork = br.ReadUInt16();
             Parms = new FileParameters(br, true, Bitmap);
+        }
+    }
+
+    public class CreateDirPack {
+        public uint DirectoryID;
+
+        public CreateDirPack(BER br) {
+            DirectoryID = br.ReadUInt32();
+        }
+    }
+
+    public class OpenDirPack {
+        public uint DirectoryID;
+
+        public OpenDirPack(BER br) {
+            DirectoryID = br.ReadUInt32();
         }
     }
 
