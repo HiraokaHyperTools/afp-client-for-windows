@@ -174,6 +174,14 @@ namespace AFPt2 {
 
             }
         }
+
+        public bool Alive {
+            get {
+                if (t.Join(0))
+                    return false;
+                return true;
+            }
+        }
     }
 
     public class TransmitFailureException : ApplicationException {
