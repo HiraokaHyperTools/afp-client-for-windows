@@ -528,6 +528,78 @@ namespace AFPt2 {
         }
     }
 
+    public class FPSetFileParms : IFP {
+        public ushort VolumeID;
+        public uint DirectoryID;
+        public ushort Bitmap = (ushort)(0);
+        public byte PathType;
+        public String Path;
+        public bool IsFile = true;
+
+        public ushort Attributes;
+        public uint ParentDirectoryID, CreationDate, ModificationDate, BackupDate, NodeID;
+        byte[] FinderInfo = null;
+
+        public FPSetFileParms WithVolumeID(ushort VolumeID) { this.VolumeID = VolumeID; return this; }
+        public FPSetFileParms WithDirectoryID(uint DirectoryID) { this.DirectoryID = DirectoryID; return this; }
+        public FPSetFileParms WithFileBitmap(ushort FileBitmap) { this.Bitmap = FileBitmap; this.IsFile = true; return this; }
+        public FPSetFileParms WithFileBitmap(AfpFileBitmap FileBitmap) { this.Bitmap = (ushort)FileBitmap; this.IsFile = true; return this; }
+        public FPSetFileParms WithDirectoryBitmap(ushort DirectoryBitmap) { this.Bitmap = DirectoryBitmap; this.IsFile = false; return this; }
+        public FPSetFileParms WithDirectoryBitmap(AfpDirectoryBitmap DirectoryBitmap) { this.Bitmap = (ushort)DirectoryBitmap; this.IsFile = false; return this; }
+        public FPSetFileParms WithPathType(byte PathType) { this.PathType = PathType; return this; }
+        public FPSetFileParms WithPathType(AfpPathType PathType) { this.PathType = (byte)PathType; return this; }
+        public FPSetFileParms WithPath(String Path) { this.Path = Path; return this; }
+
+        public FPSetFileParms WithModDate(DateTime ModDate) { this.MT = ModDate; Bitmap |= (ushort)8; return this; }
+
+        public DateTime CT { get { return new DateTime(2000, 1, 1).AddSeconds(CreationDate).ToLocalTime(); } set { CreationDate = Convert.ToUInt32(value.Subtract(new DateTime(2000, 1, 1)).TotalSeconds); } }
+        public DateTime MT { get { return new DateTime(2000, 1, 1).AddSeconds(ModificationDate).ToLocalTime(); } set { ModificationDate = Convert.ToUInt32(value.Subtract(new DateTime(2000, 1, 1)).TotalSeconds); } }
+        public DateTime BT { get { return new DateTime(2000, 1, 1).AddSeconds(BackupDate).ToLocalTime(); } set { BackupDate = Convert.ToUInt32(value.Subtract(new DateTime(2000, 1, 1)).TotalSeconds); } }
+
+        public byte[] ToArray() {
+            MemoryStream os = new MemoryStream();
+            BEW wr = new BEW(os);
+            wr.Write((byte)30); // kFPSetFileParms   
+            wr.Write((byte)0);
+            wr.Write((ushort)VolumeID);
+            wr.Write((uint)DirectoryID);
+            wr.Write((ushort)Bitmap);
+            wr.Write((byte)PathType);
+            UtAfp.Write1Str(os, Path, (AfpPathType)PathType);
+            UtAfp.Even(os);
+
+            if (0 != (Bitmap & 1U)) wr.Write((ushort)Attributes);
+            if (0 != (Bitmap & 2U)) wr.Write((uint)ParentDirectoryID);
+            if (0 != (Bitmap & 4U)) wr.Write((uint)CreationDate);
+            if (0 != (Bitmap & 8U)) wr.Write((uint)ModificationDate);
+            if (0 != (Bitmap & 16U)) wr.Write((uint)BackupDate);
+            if (0 != (Bitmap & 32U)) wr.Write(FinderInfo);
+            if (0 != (Bitmap & 64U)) throw new NotSupportedException("Long Name");
+            if (0 != (Bitmap & 128U)) throw new NotSupportedException("Short Name");
+            if (0 != (Bitmap & 256U)) wr.Write((uint)NodeID);
+            if (IsFile) {
+                if (0 != (Bitmap & 512U)) throw new NotSupportedException("Data Fork Length");
+                if (0 != (Bitmap & 1024U)) throw new NotSupportedException("Resource Fork Length");
+                if (0 != (Bitmap & 2048U)) throw new NotSupportedException("Ext. Data Fork Length");
+                if (0 != (Bitmap & 4096U)) throw new NotSupportedException("Launch Limit");
+                if (0 != (Bitmap & 8192U)) throw new NotSupportedException("Unicode Name");
+                if (0 != (Bitmap & 16384U)) throw new NotSupportedException("Ext. Resource Fork Length");
+                if (0 != (Bitmap & 32768U)) throw new NotSupportedException("Unix privileges");
+            }
+            else {
+                if (0 != (Bitmap & 512U)) throw new NotSupportedException("Offspring Count");
+                if (0 != (Bitmap & 1024U)) throw new NotSupportedException("Owner ID");
+                if (0 != (Bitmap & 2048U)) throw new NotSupportedException("Group ID");
+                if (0 != (Bitmap & 4096U)) throw new NotSupportedException("Access Rights");
+                if (0 != (Bitmap & 8192U)) throw new NotSupportedException("Unicode Name");
+
+                if (0 != (Bitmap & 32768U)) throw new NotSupportedException("Unix privileges");
+            }
+
+            return os.ToArray();
+        }
+    }
+
     public class FPRead : IFP {
         public ushort OForkRefNum;
         public int Offset = 0;
@@ -952,9 +1024,17 @@ namespace AFPt2 {
             }
         }
 
-        public DateTime? CT { get { return CreationDate.HasValue ? new DateTime(2000, 1, 1).AddSeconds(CreationDate.Value).ToLocalTime() : new DateTime?(); } }
-        public DateTime? MT { get { return ModificationDate.HasValue ? new DateTime(2000, 1, 1).AddSeconds(ModificationDate.Value).ToLocalTime() : new DateTime?(); } }
-        public DateTime? BT { get { return (!BackupDate.HasValue || BackupDate == 0x80000000U) ? new DateTime?() : new DateTime(2000, 1, 1).AddSeconds(BackupDate.Value).ToLocalTime(); } }
+        //public DateTime? CT { get { return CreationDate.HasValue ? new DateTime(2000, 1, 1).AddSeconds(CreationDate.Value) : new DateTime?(); } }
+        //public DateTime? MT { get { return ModificationDate.HasValue ? new DateTime(2000, 1, 1).AddSeconds(ModificationDate.Value) : new DateTime?(); } }
+        //public DateTime? BT { get { return (!BackupDate.HasValue || BackupDate == 0x80000000U) ? new DateTime?() : new DateTime(2000, 1, 1).AddSeconds(BackupDate.Value); } }
+
+        public DateTime? GetMT(bool v3) {
+            if (ModificationDate.HasValue) {
+                DateTime dt = new DateTime(2000, 1, 1).AddSeconds(ModificationDate.Value);
+                return v3 ? dt : dt.ToLocalTime();
+            }
+            return null;
+        }
     }
 
     public class OpenForkPack {

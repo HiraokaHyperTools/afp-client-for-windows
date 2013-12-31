@@ -161,6 +161,7 @@ namespace AFPClient4Windows {
             public bool HasFPWriteExt { get { return IsVer(300); } }
             public bool HasFPEnumerateExt { get { return IsVer(300); } }
             public bool HasFPEnumerateExt2 { get { return IsVer(310); } }
+            public bool UseUTC { get { return IsVer(300); } }
 
             public AfpPathType MaxPathType {
                 get {
@@ -258,6 +259,8 @@ namespace AFPClient4Windows {
                                     .WithBody(dhx2.Compute(conn.P))
                                     ));
                                 RUt.Report(logging, res5);
+                                if (res5.pack.IsResponse && res5.pack.ErrorCode == (int)DSIException.ResultCode.kFPNoMoreSessions)
+                                    throw new IOException("接続数の上限に達しました。\n・パソコン、又はファイル共有を再起動するか、\n・しばらく時間を置いて再接続してください。");
                                 if (res5.pack.IsResponse && res5.pack.ErrorCode == 0) {
                                     authDone = true;
 
@@ -292,6 +295,8 @@ namespace AFPClient4Windows {
                                 .WithNonce1Passwd(dhx2.Compute(conn.P))
                                 ));
                             RUt.Report(logging, res4);
+                            if (res4.pack.IsResponse && res4.pack.ErrorCode == (int)DSIException.ResultCode.kFPNoMoreSessions)
+                                throw new IOException("接続数の上限に達しました。\n・パソコン、又はファイル共有を再起動するか、\n・しばらく時間を置いて再接続してください。");
                             if (res4.pack.IsResponse && res4.pack.ErrorCode == 0) {
                                 authDone = true;
 
@@ -763,16 +768,16 @@ namespace AFPClient4Windows {
             List<FEnt> al = new List<FEnt>();
             LPC lpc = lbd.lvol.lpc;
             if (Settings.Default.ForkTyp == 1) { // News
-                al.Add(new FEnt(ent, lbd, FTy.Data, lpc));
-                al.Add(new FEnt(ent, lbd, FTy.ResNews, lpc));
-                al.Add(new FEnt(ent, lbd, FTy.FI, lpc));
+                al.Add(new FEnt(ent, lbd, FTy.Data));
+                al.Add(new FEnt(ent, lbd, FTy.ResNews));
+                al.Add(new FEnt(ent, lbd, FTy.FI));
             }
             else if (Settings.Default.ForkTyp == 2) { // Mac
-                al.Add(new FEnt(ent, lbd, FTy.Data, lpc));
-                al.Add(new FEnt(ent, lbd, FTy.ResMac, lpc));
+                al.Add(new FEnt(ent, lbd, FTy.Data));
+                al.Add(new FEnt(ent, lbd, FTy.ResMac));
             }
             else {
-                al.Add(new FEnt(ent, lbd, FTy.Data, lpc));
+                al.Add(new FEnt(ent, lbd, FTy.Data));
             }
 
             return al;
@@ -786,13 +791,11 @@ namespace AFPClient4Windows {
             public FileParameters fe;
             public LBaseDir lbd;
             FTy fty;
-            IVerDesc vd;
 
-            public FEnt(FileParameters fe, LBaseDir lbd, FTy fty, IVerDesc vd) {
+            public FEnt(FileParameters fe, LBaseDir lbd, FTy fty) {
                 this.fe = fe;
                 this.lbd = lbd;
                 this.fty = fty;
-                this.vd = vd;
             }
 
             public string RealName { get { return fe.Name; } }
@@ -824,9 +827,11 @@ namespace AFPClient4Windows {
             public Int64 DataSize { get { return Convert.ToInt64(fe.ExtDataForkSize ?? fe.DataForkSize ?? 0); } }
             public Int64 ResSize { get { return Convert.ToInt64(fe.ExtResourceForkSize ?? fe.ResourceForkSize ?? 0); } }
 
-            public String FormatMT() { return fe.MT.HasValue ? fe.MT.Value.ToString("yyyy/MM/dd HH:mm:ss") : ""; }
+            public String FormatMT() { return fe.GetMT(v3).HasValue ? fe.GetMT(v3).Value.ToString("yyyy/MM/dd HH:mm:ss") : ""; }
 
-            public DateTime GetMT() { return fe.MT ?? DateTime.Now; }
+            public DateTime GetMT() { return fe.GetMT(v3) ?? DateTime.Now; }
+
+            bool v3 { get { return lbd != null && lbd.lvol.lpc.UseUTC; } }
 
             public string RefPath {
                 get {
@@ -991,10 +996,10 @@ namespace AFPClient4Windows {
                     if (!fx || !fy) return fx.CompareTo(fy) * ord;
                     FEnt x = (FEnt)vx.Tag;
                     FEnt y = (FEnt)vy.Tag;
-                    fx = x.fe.MT.HasValue;
-                    fy = y.fe.MT.HasValue;
+                    fx = x.fe.GetMT(false).HasValue;
+                    fy = y.fe.GetMT(false).HasValue;
                     if (!fx || !fy) return fx.CompareTo(fy) * ord;
-                    return x.fe.MT.Value.CompareTo(y.fe.MT.Value) * ord;
+                    return x.fe.GetMT(false).Value.CompareTo(y.fe.GetMT(false).Value) * ord;
                 }
 
                 #endregion
@@ -1087,13 +1092,15 @@ namespace AFPClient4Windows {
             LBaseDir lbd = tnCur.Tag as LBaseDir;
             if (lbd == null) return;
 
+            bool v3 = lbd.lvol.lpc.UseUTC;
+
             foreach (FileParameters fparm in lbd.ents) {
                 foreach (FEnt fe in Gen(fparm, lbd)) {
                     if (fe.IsDir) {
                         EnumDir(lbd, tnCur);
                         continue;
                     }
-                    dataSrc.AddFile2(Path.Combine(prefix, NUt.Clean(fe.LocalName)), fe.GetMT(), fe.LocalSize, fe);
+                    dataSrc.AddFile2(Path.Combine(prefix, NUt.Clean(fe.LocalName)), v3 ? fe.GetMT().ToUniversalTime() : fe.GetMT(), fe.LocalSize, fe);
                 }
             }
             foreach (TreeNode tnSub in tnCur.Nodes) {
@@ -1138,12 +1145,16 @@ namespace AFPClient4Windows {
 
             TreeNode tn = tvF.SelectedNode;
 
+            LBaseDir lbd = (tn != null) ? tn.Tag as LBaseDir : null;
+
+            bool v3 = (lbd != null) && lbd.lvol.lpc.UseUTC;
+
             using (AH ah = new AH())
                 foreach (ListViewItem lvi in sender.SelectedItems) {
                     FEnt fe = lvi.Tag as FEnt;
                     if (fe == null) continue;
                     if (!fe.IsDir) {
-                        dataSrc.AddFile2(NUt.Clean(fe.LocalName), fe.GetMT(), fe.LocalSize, fe);
+                        dataSrc.AddFile2(NUt.Clean(fe.LocalName), v3 ? fe.GetMT().ToUniversalTime() : fe.GetMT(), fe.LocalSize, fe);
                     }
                     else {
                         TreeNode tnSub = tn.Nodes[fe.RealName];
@@ -1273,6 +1284,8 @@ namespace AFPClient4Windows {
         private void DropIt(TreeNode treeNode, IDataObject data) {
             LBaseDir lbd = treeNode.Tag as LBaseDir;
             if (lbd == null) throw new ArgumentException("treeNode.Tag");
+
+            lbd.lvol.ConnectUpper();
 
             com.IStream dataStm;
             CoMarshalInterThreadInterfaceInStream(ref IID_IDataObject, data, out dataStm);
@@ -1435,12 +1448,13 @@ namespace AFPClient4Windows {
                                         }
                                     }
                                 }
+
                                 TransmitRes res5 = lbd.lvol.lpc.Comm.Transmit(new DSICommand().WithRequestPayload(new FPSetFileParms()
                                     .WithVolumeID(dcr.VolumeID)
                                     .WithDirectoryID(dcr.DirectoryID)
                                     .WithPath(dcr.LastName)
                                     .WithPathType(lbd.lvol.lpc.MaxPathType)
-                                    .WithModDate(ent.LastWriteTime)
+                                    .WithModDate(lbd.lvol.lpc.UseUTC ? ent.LastWriteTime.ToLocalTime() : ent.LastWriteTime)
                                     ));
                             }
                         }
@@ -1919,5 +1933,6 @@ namespace AFPClient4Windows {
         bool HasFPWriteExt { get; }
         bool HasFPEnumerateExt { get; }
         bool HasFPEnumerateExt2 { get; }
+        bool UseUTC { get; }
     }
 }
