@@ -450,6 +450,83 @@ namespace AFPt2 {
         }
     }
 
+    public class FPRename : IFP {
+        public ushort VolumeID;
+        public uint DirectoryID;
+        public byte PathType = (byte)AfpPathType.kFPLongName;
+        public String Path;
+        public byte NewType = (byte)AfpPathType.kFPLongName;
+        public String NewPath;
+
+        public FPRename WithVolumeID(ushort VolumeID) { this.VolumeID = VolumeID; return this; }
+        public FPRename WithDirectoryID(uint DirectoryID) { this.DirectoryID = DirectoryID; return this; }
+        public FPRename WithPath(String Path) { this.Path = Path; return this; }
+        public FPRename WithPathType(byte PathType) { this.PathType = PathType; return this; }
+        public FPRename WithPathType(AfpPathType PathType) { this.PathType = (byte)PathType; return this; }
+        public FPRename WithNewPath(String NewPath) { this.NewPath = NewPath; return this; }
+        public FPRename WithNewType(byte NewType) { this.NewType = NewType; return this; }
+        public FPRename WithNewType(AfpPathType NewType) { this.NewType = (byte)NewType; return this; }
+
+        public byte[] ToArray() {
+            MemoryStream os = new MemoryStream();
+            BEW wr = new BEW(os);
+            wr.Write((byte)28); // kFPRename  
+            wr.Write((byte)0);
+            wr.Write((ushort)VolumeID);
+            wr.Write((uint)DirectoryID);
+            wr.Write((byte)PathType);
+            UtAfp.Write1Str(os, Path, (AfpPathType)PathType);
+            wr.Write((byte)NewType);
+            UtAfp.Write1Str(os, NewPath, (AfpPathType)NewType);
+            return os.ToArray();
+        }
+    }
+
+    public class FPMoveAndRename : IFP {
+        public ushort VolumeID;
+        public uint SourceDirectoryID;
+        public uint DestDirectoryID;
+        public byte SourcePathType = (byte)AfpPathType.kFPLongName;
+        public String SourcePath;
+        public byte DestPathType = (byte)AfpPathType.kFPLongName;
+        public String DestPath;
+        public byte NewType = (byte)AfpPathType.kFPLongName;
+        public String NewName;
+
+        public FPMoveAndRename WithVolumeID(ushort VolumeID) { this.VolumeID = VolumeID; return this; }
+        public FPMoveAndRename WithSourceDirectoryID(uint SourceDirectoryID) { this.SourceDirectoryID = SourceDirectoryID; return this; }
+        public FPMoveAndRename WithDestDirectoryID(uint DestDirectoryID) { this.DestDirectoryID = DestDirectoryID; return this; }
+
+        public FPMoveAndRename WithSourcePath(String SourcePath) { this.SourcePath = SourcePath; return this; }
+        public FPMoveAndRename WithSourcePathType(byte SourcePathType) { this.SourcePathType = SourcePathType; return this; }
+        public FPMoveAndRename WithSourcePathType(AfpPathType SourcePathType) { this.SourcePathType = (byte)SourcePathType; return this; }
+
+        public FPMoveAndRename WithDestPath(String DestPath) { this.DestPath = DestPath; return this; }
+        public FPMoveAndRename WithDestPathType(byte DestPathType) { this.DestPathType = DestPathType; return this; }
+        public FPMoveAndRename WithDestPathType(AfpPathType DestPathType) { this.DestPathType = (byte)DestPathType; return this; }
+
+        public FPMoveAndRename WithNewName(String NewName) { this.NewName = NewName; return this; }
+        public FPMoveAndRename WithNewType(byte NewType) { this.NewType = NewType; return this; }
+        public FPMoveAndRename WithNewType(AfpPathType NewType) { this.NewType = (byte)NewType; return this; }
+
+        public byte[] ToArray() {
+            MemoryStream os = new MemoryStream();
+            BEW wr = new BEW(os);
+            wr.Write((byte)23); // kFPMoveAndRename   
+            wr.Write((byte)0);
+            wr.Write((ushort)VolumeID);
+            wr.Write((uint)SourceDirectoryID);
+            wr.Write((uint)DestDirectoryID);
+            wr.Write((byte)SourcePathType);
+            UtAfp.Write1Str(os, SourcePath, (AfpPathType)SourcePathType);
+            wr.Write((byte)DestPathType);
+            UtAfp.Write1Str(os, DestPath, (AfpPathType)DestPathType);
+            wr.Write((byte)NewType);
+            UtAfp.Write1Str(os, NewName, (AfpPathType)NewType);
+            return os.ToArray();
+        }
+    }
+
     public class FPCloseVol : IFP {
         public ushort VolumeID;
 
@@ -509,8 +586,11 @@ namespace AFPt2 {
         public FPGetFileDirParms WithVolumeID(ushort VolumeID) { this.VolumeID = VolumeID; return this; }
         public FPGetFileDirParms WithDirectoryID(uint DirectoryID) { this.DirectoryID = DirectoryID; return this; }
         public FPGetFileDirParms WithFileBitmap(ushort FileBitmap) { this.FileBitmap = FileBitmap; return this; }
+        public FPGetFileDirParms WithFileBitmap(AfpFileBitmap FileBitmap) { this.FileBitmap = (ushort)FileBitmap; return this; }
         public FPGetFileDirParms WithDirectoryBitmap(ushort DirectoryBitmap) { this.DirectoryBitmap = DirectoryBitmap; return this; }
+        public FPGetFileDirParms WithDirectoryBitmap(AfpDirectoryBitmap DirectoryBitmap) { this.DirectoryBitmap = (ushort)DirectoryBitmap; return this; }
         public FPGetFileDirParms WithPathType(byte PathType) { this.PathType = PathType; return this; }
+        public FPGetFileDirParms WithPathType(AfpPathType PathType) { this.PathType = (byte)PathType; return this; }
         public FPGetFileDirParms WithPath(String Path) { this.Path = Path; return this; }
 
         public byte[] ToArray() {
@@ -549,6 +629,7 @@ namespace AFPt2 {
         public FPSetFileParms WithPathType(byte PathType) { this.PathType = PathType; return this; }
         public FPSetFileParms WithPathType(AfpPathType PathType) { this.PathType = (byte)PathType; return this; }
         public FPSetFileParms WithPath(String Path) { this.Path = Path; return this; }
+        public FPSetFileParms WithFinderInfo(byte[] FinderInfo) { this.FinderInfo = FinderInfo; Bitmap |= (ushort)32; return this; }
 
         public FPSetFileParms WithModDate(DateTime ModDate) { this.MT = ModDate; Bitmap |= (ushort)8; return this; }
 
@@ -623,6 +704,27 @@ namespace AFPt2 {
             wr.Write((int)ReqCount);
             wr.Write((byte)NewLineMask);
             wr.Write((byte)NewLineChar);
+            return os.ToArray();
+        }
+    }
+
+    public class FPReadExt : IFP {
+        public ushort OForkRefNum;
+        public Int64 Offset = 0;
+        public Int64 ReqCount = 10000;
+
+        public FPReadExt WithOForkRefNum(ushort OForkRefNum) { this.OForkRefNum = OForkRefNum; return this; }
+        public FPReadExt WithOffset(Int64 Offset) { this.Offset = Offset; return this; }
+        public FPReadExt WithReqCount(Int64 ReqCount) { this.ReqCount = ReqCount; return this; }
+
+        public byte[] ToArray() {
+            MemoryStream os = new MemoryStream();
+            BEW wr = new BEW(os);
+            wr.Write((byte)60); // kFPReadExt     
+            wr.Write((byte)0);
+            wr.Write((ushort)OForkRefNum);
+            wr.Write((Int64)Offset);
+            wr.Write((Int64)ReqCount);
             return os.ToArray();
         }
     }
@@ -1481,6 +1583,20 @@ namespace AFPt2 {
             BEW wr = new BEW(os);
             wr.Write((byte)0);// REQ
             wr.Write((byte)1); // Command.CloseSession
+            wr.Write((ushort)RequestID);
+            wr.Write((uint)0); // off
+            wr.Write((uint)0); // len
+            wr.Write((uint)0); // reserved
+            return os.ToArray();
+        }
+    }
+
+    public class DSITickle : IDSI {
+        public byte[] ToArray(ushort RequestID) {
+            MemoryStream os = new MemoryStream();
+            BEW wr = new BEW(os);
+            wr.Write((byte)0);// REQ
+            wr.Write((byte)5); // DSITickle
             wr.Write((ushort)RequestID);
             wr.Write((uint)0); // off
             wr.Write((uint)0); // len

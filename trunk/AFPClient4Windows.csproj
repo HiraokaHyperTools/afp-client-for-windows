@@ -9,6 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>AFPClient4Windows</RootNamespace>
     <AssemblyName>AFPClient4Windows</AssemblyName>
+    <ApplicationIcon>1.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -90,6 +91,12 @@
       <DependentUpon>MForm.cs</DependentUpon>
     </Compile>
     <Compile Include="MyDSI3.cs" />
+    <Compile Include="NewDirForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewDirForm.Designer.cs">
+      <DependentUpon>NewDirForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="PasteForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -118,6 +125,10 @@
       <SubType>Designer</SubType>
       <DependentUpon>MForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="NewDirForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>NewDirForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PasteForm.resx">
       <SubType>Designer</SubType>
       <DependentUpon>PasteForm.cs</DependentUpon>
@@ -130,6 +141,10 @@
     <EmbeddedResource Include="QueryOverwriteForm.resx">
       <SubType>Designer</SubType>
       <DependentUpon>QueryOverwriteForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RenForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>RenForm.cs</DependentUpon>
     </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -152,11 +167,20 @@
     <Compile Include="QueryOverwriteForm.Designer.cs">
       <DependentUpon>QueryOverwriteForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="RenForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RenForm.Designer.cs">
+      <DependentUpon>RenForm.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\DialHS.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="1.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Oyster.IntX.dll" />
     <Content Include="Renci.SshNet.dll" />
     <Content Include="Resources\1326862183_button_ok.png" />

@@ -47,22 +47,99 @@ namespace AFPClient4Windows {
             evStop.Set();
         }
 
-        internal bool answer = false, all = false;
+        internal ExistSel es = ExistSel.Abort;
+        internal bool all = false;
+        internal String fpaAlt = String.Empty;
 
-        internal bool QueryOverwrite() {
+        internal ExistSel QueryOverwrite() {
             QueryOverwriteForm form = new QueryOverwriteForm();
             form.lfp.Text = lfp.Text;
-            switch (form.ShowDialog()) {
+            form.Location = PointToScreen(Point.Empty);
+            DialogResult r = form.ShowDialog();
+            if (false) { }
+            else if (form.radioButton1.Checked) es = ExistSel.Overwrite;
+            else if (form.radioButton2.Checked) es = ExistSel.IfNewer;
+            else if (form.radioButton3.Checked) es = ExistSel.Resume;
+            else if (form.radioButton4.Checked) es = ExistSel.Numbers;
+            else if (form.radioButton5.Checked) es = ExistSel.SKip;
+            else es = ExistSel.Abort;
+            switch (r) {
                 case DialogResult.Yes:
-                    all = form.cbAll.Checked;
-                    return answer = true;
-                case DialogResult.No:
-                    all = form.cbAll.Checked;
-                    return answer = false;
+                    all = false;
+                    break;
+                case DialogResult.Retry:
+                    all = true;
+                    break;
                 default:
                     evStop.Set();
-                    return false;
+                    break;
+            }
+            fpaAlt = form.lfp.Text;
+            return es;
+        }
+
+        private void PasteForm_Load(object sender, EventArgs e) {
+
+        }
+
+        DateTime dt0 = DateTime.Now;
+
+        Int64 total = 0;
+
+        internal void AddSize(uint cbRead) {
+            total += cbRead;
+
+            lStat.Text = "開始: " + dt0.ToString("yyyy/MM/dd HH:mm:ss")
+                + " 経過: " + GoodUt.Format(DateTime.Now.Subtract(dt0))
+                + " 送信量: " + GoodUt.FormatSize(total)
+                ;
+        }
+
+        class GoodUt {
+            internal static string Format(TimeSpan timeSpan) {
+                Double s = timeSpan.TotalSeconds;
+                if (s < 0)
+                    return "-" + Format(timeSpan);
+                if (s < 60)
+                    return ((int)s) + "秒";
+                s /= 60;
+                if (s < 60)
+                    return ((int)s) + "分";
+                s /= 60;
+                if (s < 24)
+                    return ((int)s) + "時間";
+                s /= 24;
+                return ((int)s) + "日間";
+            }
+
+            internal static string FormatSize(long total) {
+                if (total < 0)
+                    return "-" + FormatSize(-total);
+                if (total < 1)
+                    return "0";
+                if (total < 1024)
+                    return total + "B";
+                total /= 1024;
+                if (total < 1024)
+                    return total + "KB";
+                double val = total;
+                val /= 1024;
+                if (val < 1024)
+                    return val.ToString("0.0") + "MB";
+                val /= 1024;
+                return val.ToString("0.0") + "GB";
             }
         }
+    }
+
+    public enum ExistSel {
+        None = 0,
+
+        Overwrite,
+        IfNewer,
+        Resume,
+        Numbers,
+        SKip,
+        Abort,
     }
 }

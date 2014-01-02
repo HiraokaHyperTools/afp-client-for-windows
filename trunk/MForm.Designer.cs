@@ -38,6 +38,8 @@
             this.chi = new System.Windows.Forms.ColumnHeader();
             this.cmsLvF = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.mDelf = new System.Windows.Forms.ToolStripMenuItem();
+            this.mRenf = new System.Windows.Forms.ToolStripMenuItem();
+            this.mNewDir = new System.Windows.Forms.ToolStripMenuItem();
             this.label2 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -52,6 +54,8 @@
             this.bTypData = new System.Windows.Forms.ToolStripMenuItem();
             this.bTypNews = new System.Windows.Forms.ToolStripMenuItem();
             this.bTypMacOSX = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsddbOpts = new System.Windows.Forms.ToolStripDropDownButton();
+            this.bNoTimeout = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.bAbout = new System.Windows.Forms.ToolStripButton();
             this.tsc.ContentPanel.SuspendLayout();
@@ -104,7 +108,7 @@
             // 
             this.hsc.Panel2.Controls.Add(this.tabControl1);
             this.hsc.Size = new System.Drawing.Size(796, 433);
-            this.hsc.SplitterDistance = 305;
+            this.hsc.SplitterDistance = 295;
             this.hsc.SplitterWidth = 6;
             this.hsc.TabIndex = 1;
             // 
@@ -124,7 +128,7 @@
             // 
             this.vsc.Panel2.Controls.Add(this.lvF);
             this.vsc.Panel2.Controls.Add(this.label2);
-            this.vsc.Size = new System.Drawing.Size(796, 305);
+            this.vsc.Size = new System.Drawing.Size(796, 295);
             this.vsc.SplitterDistance = 251;
             this.vsc.SplitterWidth = 6;
             this.vsc.TabIndex = 0;
@@ -139,7 +143,7 @@
             this.tvF.Location = new System.Drawing.Point(0, 12);
             this.tvF.Name = "tvF";
             this.tvF.SelectedImageIndex = 0;
-            this.tvF.Size = new System.Drawing.Size(251, 293);
+            this.tvF.Size = new System.Drawing.Size(251, 283);
             this.tvF.TabIndex = 1;
             this.tvF.DragDrop += new System.Windows.Forms.DragEventHandler(this.tvF_DragDrop);
             this.tvF.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvF_AfterSelect);
@@ -156,6 +160,8 @@
             this.il16.Images.SetKeyName(2, "Vol");
             this.il16.Images.SetKeyName(3, "Dir");
             this.il16.Images.SetKeyName(4, "File");
+            this.il16.Images.SetKeyName(5, "VolOpen");
+            this.il16.Images.SetKeyName(6, "DirOpen");
             // 
             // label1
             // 
@@ -163,9 +169,9 @@
             this.label1.Dock = System.Windows.Forms.DockStyle.Top;
             this.label1.Location = new System.Drawing.Point(0, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(70, 12);
+            this.label1.Size = new System.Drawing.Size(86, 12);
             this.label1.TabIndex = 0;
-            this.label1.Text = "フォルダ一覧：";
+            this.label1.Text = "フォルダ一覧(&D)：";
             // 
             // lvF
             // 
@@ -182,7 +188,7 @@
             this.lvF.GridLines = true;
             this.lvF.Location = new System.Drawing.Point(0, 12);
             this.lvF.Name = "lvF";
-            this.lvF.Size = new System.Drawing.Size(539, 293);
+            this.lvF.Size = new System.Drawing.Size(539, 283);
             this.lvF.SmallImageList = this.il16;
             this.lvF.TabIndex = 2;
             this.lvF.UseCompatibleStateImageBehavior = false;
@@ -219,17 +225,36 @@
             // cmsLvF
             // 
             this.cmsLvF.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mDelf});
+            this.mDelf,
+            this.mRenf,
+            this.mNewDir});
             this.cmsLvF.Name = "cmsLvF";
-            this.cmsLvF.Size = new System.Drawing.Size(187, 26);
+            this.cmsLvF.Size = new System.Drawing.Size(210, 70);
             // 
             // mDelf
             // 
             this.mDelf.Image = global::AFPClient4Windows.Properties.Resources.DeleteHS;
             this.mDelf.Name = "mDelf";
-            this.mDelf.Size = new System.Drawing.Size(186, 22);
-            this.mDelf.Text = "ファイルやフォルダを削除";
+            this.mDelf.ShortcutKeyDisplayString = "Delete";
+            this.mDelf.Size = new System.Drawing.Size(209, 22);
+            this.mDelf.Text = "削除(&R)...";
             this.mDelf.Click += new System.EventHandler(this.mDelf_Click);
+            // 
+            // mRenf
+            // 
+            this.mRenf.Name = "mRenf";
+            this.mRenf.ShortcutKeyDisplayString = "F2";
+            this.mRenf.Size = new System.Drawing.Size(209, 22);
+            this.mRenf.Text = "名前変更(&N)...";
+            this.mRenf.Click += new System.EventHandler(this.mRenf_Click);
+            // 
+            // mNewDir
+            // 
+            this.mNewDir.Name = "mNewDir";
+            this.mNewDir.ShortcutKeyDisplayString = "Ctrl+K";
+            this.mNewDir.Size = new System.Drawing.Size(209, 22);
+            this.mNewDir.Text = "フォルダ作成(&K)...";
+            this.mNewDir.Click += new System.EventHandler(this.mNewDir_Click);
             // 
             // label2
             // 
@@ -237,9 +262,9 @@
             this.label2.Dock = System.Windows.Forms.DockStyle.Top;
             this.label2.Location = new System.Drawing.Point(0, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(86, 12);
+            this.label2.Size = new System.Drawing.Size(102, 12);
             this.label2.TabIndex = 1;
-            this.label2.Text = "オブジェクト一覧：";
+            this.label2.Text = "オブジェクト一覧(&O)：";
             // 
             // tabControl1
             // 
@@ -249,7 +274,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(796, 122);
+            this.tabControl1.Size = new System.Drawing.Size(796, 132);
             this.tabControl1.TabIndex = 1;
             // 
             // tabPage1
@@ -258,7 +283,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(788, 96);
+            this.tabPage1.Size = new System.Drawing.Size(788, 106);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "エラーログ";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -270,7 +295,7 @@
             this.tbELog.Multiline = true;
             this.tbELog.Name = "tbELog";
             this.tbELog.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.tbELog.Size = new System.Drawing.Size(782, 90);
+            this.tbELog.Size = new System.Drawing.Size(782, 100);
             this.tbELog.TabIndex = 0;
             // 
             // tabPage2
@@ -279,7 +304,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(788, 96);
+            this.tabPage2.Size = new System.Drawing.Size(788, 106);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "詳細ログ";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -292,7 +317,7 @@
             this.tbLOG.Multiline = true;
             this.tbLOG.Name = "tbLOG";
             this.tbLOG.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.tbLOG.Size = new System.Drawing.Size(782, 90);
+            this.tbLOG.Size = new System.Drawing.Size(782, 100);
             this.tbLOG.TabIndex = 0;
             // 
             // toolStrip1
@@ -303,11 +328,12 @@
             this.bRefreshSel,
             this.toolStripSeparator1,
             this.tsddForks,
+            this.tsddbOpts,
             this.toolStripSeparator2,
             this.bAbout});
             this.toolStrip1.Location = new System.Drawing.Point(3, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(361, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(456, 25);
             this.toolStrip1.TabIndex = 3;
             // 
             // bConn
@@ -342,29 +368,49 @@
             this.tsddForks.Image = ((System.Drawing.Image)(resources.GetObject("tsddForks.Image")));
             this.tsddForks.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsddForks.Name = "tsddForks";
-            this.tsddForks.Size = new System.Drawing.Size(114, 22);
-            this.tsddForks.Text = "フォークの見せ方";
+            this.tsddForks.Size = new System.Drawing.Size(131, 22);
+            this.tsddForks.Text = "フォークの見せ方(&F)";
             // 
             // bTypData
             // 
             this.bTypData.Name = "bTypData";
-            this.bTypData.Size = new System.Drawing.Size(493, 22);
-            this.bTypData.Text = "データフォークのみ";
+            this.bTypData.ShortcutKeyDisplayString = "";
+            this.bTypData.Size = new System.Drawing.Size(504, 22);
+            this.bTypData.Text = "&1 データフォークのみ";
             this.bTypData.Click += new System.EventHandler(this.bTypData_Click);
             // 
             // bTypNews
             // 
             this.bTypNews.Name = "bTypNews";
-            this.bTypNews.Size = new System.Drawing.Size(493, 22);
-            this.bTypNews.Text = "(独自方式) FILE に対して FILE.AFP_Resource と FILE.AFP_FinderInfo で表現";
+            this.bTypNews.ShortcutKeyDisplayString = "";
+            this.bTypNews.Size = new System.Drawing.Size(504, 22);
+            this.bTypNews.Text = "&2 (独自方式) FILE に対して FILE.AFP_Resource と FILE.AFP_FinderInfo で表現";
             this.bTypNews.Click += new System.EventHandler(this.bTypData_Click);
             // 
             // bTypMacOSX
             // 
             this.bTypMacOSX.Name = "bTypMacOSX";
-            this.bTypMacOSX.Size = new System.Drawing.Size(493, 22);
-            this.bTypMacOSX.Text = "(Mac OS X方式) FILE に対して ._FILE で表現";
+            this.bTypMacOSX.ShortcutKeyDisplayString = "";
+            this.bTypMacOSX.Size = new System.Drawing.Size(504, 22);
+            this.bTypMacOSX.Text = "&3 (Mac OS X方式) FILE に対して ._FILE で表現";
             this.bTypMacOSX.Click += new System.EventHandler(this.bTypData_Click);
+            // 
+            // tsddbOpts
+            // 
+            this.tsddbOpts.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.bNoTimeout});
+            this.tsddbOpts.Image = ((System.Drawing.Image)(resources.GetObject("tsddbOpts.Image")));
+            this.tsddbOpts.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsddbOpts.Name = "tsddbOpts";
+            this.tsddbOpts.Size = new System.Drawing.Size(78, 22);
+            this.tsddbOpts.Text = "設定(&S)";
+            // 
+            // bNoTimeout
+            // 
+            this.bNoTimeout.Name = "bNoTimeout";
+            this.bNoTimeout.Size = new System.Drawing.Size(310, 22);
+            this.bNoTimeout.Text = "30秒ごとにDSITickleを送って、タイムアウトを防ぐ";
+            this.bNoTimeout.Click += new System.EventHandler(this.bNoTimeout_Click);
             // 
             // toolStripSeparator2
             // 
@@ -377,7 +423,7 @@
             this.bAbout.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.bAbout.Name = "bAbout";
             this.bAbout.Size = new System.Drawing.Size(61, 22);
-            this.bAbout.Text = "Ab&out";
+            this.bAbout.Text = "Abo&ut";
             this.bAbout.Click += new System.EventHandler(this.bAbout_Click);
             // 
             // MForm
@@ -386,6 +432,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(796, 458);
             this.Controls.Add(this.tsc);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AFPClient4Windows (*)";
@@ -448,6 +495,10 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TextBox tbELog;
+        private System.Windows.Forms.ToolStripDropDownButton tsddbOpts;
+        private System.Windows.Forms.ToolStripMenuItem mRenf;
+        private System.Windows.Forms.ToolStripMenuItem mNewDir;
+        private System.Windows.Forms.ToolStripMenuItem bNoTimeout;
     }
 }
 

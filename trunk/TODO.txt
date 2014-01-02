@@ -1,4 +1,18 @@
-﻿todo: DSIタイムアウト対策
-todo: UP時、拡張子判定
-todo: BackSpaceで上へ
+﻿
+完了
+todo: 新規ファイルが送信できない
+todo: 1.?GBまで表示
+todo: 1.?KBはいらない
+todo: 削除・アップロード完了で、更新
+todo: pasteform tb
 todo: 選択中フォルダがわからない
+todo: ダメ文字対策”＜＞？＊｜：
+todo: BackSpaceで上へ
+todo: 名前の変更 移動も対応
+todo: フォルダ作成
+todo: タイムアウト対策
+todo: session閉じ logout発行
+todo: 拡張子で開く
+todo: UP時、拡張子判定
+todo: フォルダだけ送信も
+todo: numbers実装

@@ -25,11 +25,12 @@ namespace AFPt2 {
         NetworkStream st;
         ushort RId = 0;
         BER br;
-        Thread t;
+        Thread t, tickle;
         Object SyncSendSock = new Object();
         Object SyncServs = new Object();
         ManualResetEvent evExit = new ManualResetEvent(false);
         int MaxSim = 10;
+        public bool NoTimeout = true;
 
         public MyDSI3(IPEndPoint afp) {
             Sock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
@@ -38,6 +39,8 @@ namespace AFPt2 {
             br = new BER(st);
             t = new Thread(this.Receiver);
             t.Start();
+            tickle = new Thread(this.DoTickle);
+            tickle.Start();
         }
 
         class ServerDS { // server to client DS
@@ -88,6 +91,17 @@ namespace AFPt2 {
         void DisconnecthServerDS(ServerDS serv) {
             lock (SyncServs) {
                 servs.Remove(serv);
+            }
+        }
+
+        void DoTickle() {
+            try {
+                while (!t.Join(30000)) {
+                    if (NoTimeout) SendNow(new DSITickle());
+                }
+            }
+            catch (Exception) {
+
             }
         }
 
@@ -145,6 +159,30 @@ namespace AFPt2 {
                 if (sv.err != null) throw new TransmitFailureException(sv.err);
 
                 return new TransmitRes(sv.dsiRes);
+            }
+            finally {
+                DisconnecthServerDS(sv);
+            }
+        }
+
+        public void SendNow(IDSI dsiReq) {
+            ServerDS sv;
+            try {
+                sv = NewServerDS(dsiReq);
+            }
+            catch (ExitShotException err) {
+                throw new TransmitFailureException(err);
+            }
+
+            try {
+                try {
+                    lock (SyncSendSock) {
+                        Sock.Send(dsiReq.ToArray(sv.RId));
+                    }
+                }
+                catch (SocketException err) {
+                    throw new TransmitFailureException(err);
+                }
             }
             finally {
                 DisconnecthServerDS(sv);
