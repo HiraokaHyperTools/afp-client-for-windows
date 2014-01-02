@@ -7,27 +7,21 @@ using System.Text;
 using System.Windows.Forms;
 
 namespace AFPClient4Windows {
-    public partial class QueryOverwriteForm : Form {
-        public QueryOverwriteForm() {
+    public partial class NewDirForm : Form {
+        public NewDirForm() {
             InitializeComponent();
         }
 
-        private void QueryOverwriteForm_Load(object sender, EventArgs e) {
-
-        }
+        public String fp1;
 
         private void button1_Click(object sender, EventArgs e) {
+            fp1 = tb1.Text;
             DialogResult = DialogResult.Yes;
             Close();
         }
 
         private void button2_Click(object sender, EventArgs e) {
-            DialogResult = DialogResult.Retry;
-            Close();
-        }
-
-        private void button3_Click(object sender, EventArgs e) {
-            DialogResult = DialogResult.Cancel;
+            DialogResult = DialogResult.No;
             Close();
         }
     }

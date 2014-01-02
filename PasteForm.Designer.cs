@@ -23,22 +23,14 @@
         /// コード エディタで変更しないでください。
         /// </summary>
         private void InitializeComponent() {
-            this.lfp = new System.Windows.Forms.Label();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.bCancel = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.progressBar2 = new System.Windows.Forms.ProgressBar();
             this.label2 = new System.Windows.Forms.Label();
+            this.lStat = new System.Windows.Forms.Label();
+            this.lfp = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
-            // 
-            // lfp
-            // 
-            this.lfp.AutoSize = true;
-            this.lfp.Location = new System.Drawing.Point(12, 9);
-            this.lfp.Name = "lfp";
-            this.lfp.Size = new System.Drawing.Size(11, 12);
-            this.lfp.TabIndex = 0;
-            this.lfp.Text = "...";
             // 
             // progressBar1
             // 
@@ -52,8 +44,8 @@
             // 
             // bCancel
             // 
-            this.bCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.bCancel.Location = new System.Drawing.Point(450, 106);
+            this.bCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.bCancel.Location = new System.Drawing.Point(450, 115);
             this.bCancel.Name = "bCancel";
             this.bCancel.Size = new System.Drawing.Size(125, 23);
             this.bCancel.TabIndex = 2;
@@ -89,23 +81,45 @@
             this.label2.TabIndex = 5;
             this.label2.Text = "ファイル：";
             // 
+            // lStat
+            // 
+            this.lStat.AutoSize = true;
+            this.lStat.Location = new System.Drawing.Point(61, 92);
+            this.lStat.Name = "lStat";
+            this.lStat.Size = new System.Drawing.Size(11, 12);
+            this.lStat.TabIndex = 6;
+            this.lStat.Text = "...";
+            // 
+            // lfp
+            // 
+            this.lfp.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.lfp.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lfp.Location = new System.Drawing.Point(12, 12);
+            this.lfp.Name = "lfp";
+            this.lfp.ReadOnly = true;
+            this.lfp.Size = new System.Drawing.Size(563, 12);
+            this.lfp.TabIndex = 7;
+            // 
             // PasteForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(587, 141);
+            this.ClientSize = new System.Drawing.Size(587, 150);
+            this.Controls.Add(this.lfp);
+            this.Controls.Add(this.lStat);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.progressBar2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.bCancel);
             this.Controls.Add(this.progressBar1);
-            this.Controls.Add(this.lfp);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(225, 136);
             this.Name = "PasteForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "貼り付け";
+            this.Load += new System.EventHandler(this.PasteForm_Load);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PasteForm_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -114,11 +128,12 @@
 
         #endregion
 
-        private System.Windows.Forms.Label lfp;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Button bCancel;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ProgressBar progressBar2;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lStat;
+        private System.Windows.Forms.TextBox lfp;
     }
 }

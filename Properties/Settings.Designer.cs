@@ -34,5 +34,17 @@ namespace AFPClient4Windows.Properties {
                 this["ForkTyp"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool NoTimeout {
+            get {
+                return ((bool)(this["NoTimeout"]));
+            }
+            set {
+                this["NoTimeout"] = value;
+            }
+        }
     }
 }
