@@ -17,82 +17,160 @@ using System.Text.RegularExpressions;
 using AFPt;
 using System.Runtime.InteropServices;
 using com = System.Runtime.InteropServices.ComTypes;
+using Microsoft.Win32;
 
 namespace AFPClient4Windows {
-    public partial class MForm : Form {
+    public partial class MForm : Form, IHostParm {
         public MForm() {
             InitializeComponent();
         }
 
         private void MForm_Load(object sender, EventArgs e) {
+            DelRefs.Add(lpc);
 
+            Naviloc(Environment.CurrentDirectory);
         }
 
-        private void mConn_Click(object sender, EventArgs e) {
-            using (ConnForm form = new ConnForm()) {
-                if (form.ShowDialog() == DialogResult.OK) {
-                    CloseAFP();
-                    LPC lpc = new LPC();
-                    lpc.afp = new IPEndPoint(IPAddress.Parse(form.tbHost.Text), 548);
-                    lpc.fNoUserAuthStr = form.cb0.Checked;
-                    lpc.fClearTextUAMStr = form.cb1.Checked;
-                    lpc.fTwoWayRandNumUAMStr = form.cb2w.Checked;
-                    lpc.userId = form.tbU.Text;
-                    lpc.passwd = form.tbP.Text;
-                    lpc.hostDir = form.tbHostDir.Text;
-                    DelRefs.Add(lpc);
+        private void Naviloc(String dir) {
+            cbDirLoc.Items.Add(dir);
+            cbDirLoc.Text = dir;
 
-                    TreeNode tnPC = AddPC(lpc);
+            lvLoc.Items.Clear();
 
-                    try {
-                        EnumPC(lpc, tnPC, 1);
+            foreach (String fp in Directory.GetDirectories(dir)) {
+                ListViewItem lvi = new ListViewItem(Path.GetFileName(fp));
+                lvi.SubItems.Add("");
+                lvi.SubItems.Add("");
+                lvi.SubItems.Add(new FileInfo(fp).LastWriteTime.ToString("yyyy/MM/dd HH:mm:ss"));
+                lvi.ImageKey = "Dir";
+                lvi.Tag = fp;
+                lvLoc.Items.Add(lvi);
+            }
+            foreach (LFEnt lf in LFLUt.GetFiles(dir)) {
+                String fp = lf.fp;
+                FileInfo fi = new FileInfo(fp);
+                FileInfo fir = (lf.fpr != null) ? new FileInfo(lf.fpr) : null;
+                ListViewItem lvi = new ListViewItem(Path.GetFileName(lf.fn));
+                lvi.SubItems.Add(String.Format("{0:##,#0}", fi.Length));
+                lvi.SubItems.Add(String.Format("{0:##,#0}", (fir != null) ? fir.Length : 0));
+                lvi.SubItems.Add(fi.LastWriteTime.ToString("yyyy/MM/dd HH:mm:ss"));
+                lvi.ImageKey = "File";
+                lvi.Tag = fp;
+                lvLoc.Items.Add(lvi);
+            }
+        }
 
-                        if (!String.IsNullOrEmpty(lpc.hostDir)) {
-                            TreeNode tnCur = tnPC;
-                            tvF.SelectedNode = tnCur;
-                            foreach (String part in lpc.hostDir.Split(new char[] { '\\' }, StringSplitOptions.RemoveEmptyEntries)) {
-                                UpdateSel(tnCur, false);
-                                tnCur = tnCur.Nodes[part];
-                                if (tnCur == null) break;
-                                tvF.SelectedNode = tnCur;
-                            }
-                        }
-                    }
-                    catch (Exception err) {
-                        MessageBox.Show(this, "失敗しました:\n\n" + err.Message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                        return;
-                    }
+        class LFEnt {
+            public String fp, fpr, fn;
+        }
+        class LFLUt {
+            public static IEnumerable<LFEnt> GetFiles(String dir) {
+                foreach (String fp in Directory.GetFiles(dir)) {
+                    LFEnt lf = new LFEnt();
+                    lf.fn = Path.GetFileName(fp);
+                    if (lf.fn.StartsWith("._")) continue;
+                    lf.fp = fp;
+                    String fpr = Path.Combine(dir, "._" + lf.fn);
+                    if (File.Exists(fpr)) lf.fpr = fpr;
+                    yield return lf;
                 }
             }
         }
 
-        public interface IHier {
-            void ConnectUpper();
+        private void mConn_Click(object sender, EventArgs e) {
+            using (HostsForm form = new HostsForm(this)) {
+                if (form.ShowDialog() == DialogResult.OK) {
+                    CloseAFP();
+                    DelRefs.Add(lpc);
+                    try {
+                        lpc.Connect(form.SelHost);
+                    }
+                    catch (Exception err) {
+                        MessageBox.Show(this, "接続に失敗しました：" + err.Message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        return;
+                    }
+
+                    TransmitRes res = lpc.Comm.Transmit(new DSICommand().WithRequestPayload(new FPGetSrvrParms()
+                        ));
+                    if (!res.pack.IsResponse || res.pack.ErrorCode != 0) throw new DSIException(res.pack.ErrorCode, res.pack);
+
+                    GetSrvrParmsPack pack = new GetSrvrParmsPack(res.br);
+
+                    cmsVols.Items.Clear();
+
+                    foreach (VolStruc vs in pack.Volumes) {
+                        LVol lvol1 = new LVol(lpc, vs.VolName);
+
+                        ToolStripItem tsiVol = cmsVols.Items.Add(lvol1.VolName);
+                        tsiVol.Click += new EventHandler(tsiVol_Click);
+                        tsiVol.Tag = lvol1;
+                    }
+
+                    bPCRem.Text = lpc.RemoteHost;
+                    yh = form.SelHost;
+
+                    if (yh.HostVol.Length == 0) {
+                        bVolRem_Click(sender, e);
+                        return;
+                    }
+
+                    lvol = new LVol(lpc, yh.HostVol);
+                    try {
+                        lvol.ConnectUpper();
+                    }
+                    catch (Exception err) {
+                        MessageBox.Show(this, "接続に失敗しました：" + err.Message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        return;
+                    }
+                    bVolRem.Text = lvol.VolName;
+                    Navi(yh.RemoteDir);
+                }
+            }
+
         }
 
-        class LPC : IHier, IDisposable {
-            public IPEndPoint afp;
+        void tsiVol_Click(object sender, EventArgs e) {
+            lvol = new LVol(lpc, ((LVol)((ToolStripItem)sender).Tag).VolName);
+            try {
+                lvol.ConnectUpper();
+            }
+            catch (Exception err) {
+                MessageBox.Show(this, "接続に失敗しました：" + err.Message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+            bVolRem.Text = lvol.VolName;
+            Navi("");
+            if (saveIndex >= 0) {
+                Cnf.SaveVol(saveIndex, bVolRem.Text);
+            }
+        }
+
+        CHost yh = null;
+        LPC lpc = new LPC();
+        LVol lvol = null;
+
+        class LPC : IDisposable {
+            IPEndPoint afp;
+
+            public bool Connected { get { return avail; } }
 
             const string kNoUserAuthStr = "No User Authent";
             const string kClearTextUAMStr = "Cleartxt Passwrd";
             const string kTwoWayRandNumUAMStr = "2-Way Randnum";
 
-            public bool fNoUserAuthStr = false;
-            public bool fClearTextUAMStr = false;
-            public bool fTwoWayRandNumUAMStr = false;
-            public String userId, passwd, afpVer = "AFP2.2", hostDir;
+            public string afpVer = "AFP2.2";
 
             public string Name { get { return afp.ToString(); } }
+
+            internal CHost cHost = null;
 
             MyDSI3 comm = null;
 
             public MyDSI3 Comm { get { return comm; } }
 
-            bool avail = false;
+            public String RemoteHost { get { return afp.Address.ToString(); } }
 
-            public void ConnectUpper() {
-                if (avail) return;
-
+            void ConnectUpper() {
                 GetSrvrInfoPack pack;
 
                 using (comm = new MyDSI3(afp)) {
@@ -113,16 +191,16 @@ namespace AFPClient4Windows {
 
                 {
                     bool authDone = false;
-                    if (!authDone && fTwoWayRandNumUAMStr && pack.UAMsList.Contains(kTwoWayRandNumUAMStr)) {
+                    if (!authDone && cHost.cb2WayRandnumExchange && pack.UAMsList.Contains(kTwoWayRandNumUAMStr)) {
 
                         TransmitRes res3 = comm.Transmit(new DSICommand().WithRequestPayload(new FPLogin_2w()
                             .WithAFPVersion(afpVer)
-                            .WithUserID(userId)
+                            .WithUserID(cHost.UserName)
                             ));
                         if (res3.pack.IsResponse && res3.pack.ErrorCode == (int)DSIException.ResultCode.kFPAuthContinue) {
                             TwoWay1stPack blk3 = new TwoWay1stPack(res3.br);
 
-                            byte[] key_buffer = Encoding.ASCII.GetBytes(passwd.PadRight(8, '\0').Substring(0, 8));
+                            byte[] key_buffer = Encoding.ASCII.GetBytes(cHost.Password.PadRight(8, '\0').Substring(0, 8));
                             byte carry = (byte)(key_buffer[0] >> 7);
                             int i;
                             for (i = 0; i < 7; i++) {
@@ -161,12 +239,12 @@ namespace AFPClient4Windows {
 
                     }
 
-                    if (!authDone && fClearTextUAMStr && pack.UAMsList.Contains(kClearTextUAMStr)) {
+                    if (!authDone && cHost.cbCleartxtPasswrd && pack.UAMsList.Contains(kClearTextUAMStr)) {
 
                         TransmitRes res3 = comm.Transmit(new DSICommand().WithRequestPayload(new FPLogin_Cleartext_Password()
                             .WithAFPVersion(afpVer)
-                            .WithUserName(userId)
-                            .WithPasswd(passwd)
+                            .WithUserName(cHost.UserName)
+                            .WithPasswd(cHost.Password)
                         ));
                         if (res3.pack.IsResponse && res3.pack.ErrorCode == 0) {
                             authDone = true;
@@ -174,7 +252,7 @@ namespace AFPClient4Windows {
 
                     }
 
-                    if (!authDone && fNoUserAuthStr && pack.UAMsList.Contains(kNoUserAuthStr)) {
+                    if (!authDone && cHost.cbNoUserAuthent && pack.UAMsList.Contains(kNoUserAuthStr)) {
 
                         TransmitRes res3 = comm.Transmit(new DSICommand().WithRequestPayload(new FPLogin()
                             .WithAFPVersion(afpVer)
@@ -194,11 +272,15 @@ namespace AFPClient4Windows {
                 }
             }
 
-            private void Disconnect() {
-                if (comm != null)
-                    comm.Dispose();
+            bool avail = false;
 
+            private void Disconnect() {
                 avail = false;
+
+                if (comm != null) {
+                    comm.Dispose();
+                    comm = null;
+                }
             }
 
             #region IDisposable メンバ
@@ -208,30 +290,24 @@ namespace AFPClient4Windows {
             }
 
             #endregion
-        }
 
-        void EnumPC(LPC lpc, TreeNode tnPC, int depth) {
-            tnPC.Nodes.Clear();
+            internal void Connect(CHost cHost) {
+                Disconnect();
+                this.cHost = cHost;
 
-            if (depth < 1) return;
+                IPAddress adr = null;
+                IPHostEntry h;
+                if (IPAddress.TryParse(cHost.HostAdrs, out adr)) {
 
-            lpc.ConnectUpper();
-
-            TransmitRes res = lpc.Comm.Transmit(new DSICommand().WithRequestPayload(new FPGetSrvrParms()
-                ));
-            if (!res.pack.IsResponse || res.pack.ErrorCode != 0) throw new DSIException(res.pack.ErrorCode, res.pack);
-
-            GetSrvrParmsPack pack = new GetSrvrParmsPack(res.br);
-
-            using (AH ah = new AH())
-                foreach (VolStruc vs in pack.Volumes) {
-                    LVol lvol = new LVol(lpc, vs.VolName);
-
-                    TreeNode tnVol = AddVol(tnPC, lvol);
-                    EnumVol(lvol, tnVol, depth - 1);
+                }
+                else if ((h = Dns.GetHostEntry(cHost.HostAdrs)) != null && h.AddressList.Length != 0) {
+                    adr = h.AddressList[0];
                 }
 
-            tnPC.ExpandAll();
+                afp = new IPEndPoint((adr), 548);
+
+                ConnectUpper();
+            }
         }
 
         class LBaseDir : IDisposable {
@@ -251,7 +327,7 @@ namespace AFPClient4Windows {
             #endregion
         }
 
-        class LVol : LBaseDir, IHier, IDisposable {
+        class LVol : LBaseDir, IDisposable {
             public LPC lpc;
 
             string volName = "";
@@ -286,7 +362,6 @@ namespace AFPClient4Windows {
             }
 
             public void ConnectUpper() {
-                lpc.ConnectUpper();
                 if (avail) return;
 
                 TransmitRes res = lpc.Comm.Transmit(new DSICommand().WithRequestPayload(new FPOpenVol()
@@ -305,17 +380,22 @@ namespace AFPClient4Windows {
 
         }
 
-        void EnumVol(LVol lvol, TreeNode tnVol, int depth) {
-            if (depth < 1) return;
-
-            lvol.ConnectUpper();
-
-            EnumDir(lvol, tnVol);
+        private void Listup(LBaseDir lbd) {
+            lvRem.Items.Clear();
+            if (lbd == null) return;
+            foreach (FileParameters ent in lbd.ents) {
+                FEnt fe = new FEnt(ent, lbd);
+                ListViewItem lvi = new ListViewItem(fe.Name);
+                lvi.SubItems.Add(fe.IsDir ? "" : String.Format("{0:##,#0}", fe.DataSize));
+                lvi.SubItems.Add(fe.IsDir ? "" : String.Format("{0:##,#0}", fe.ResSize));
+                lvi.SubItems.Add(fe.FormatMT());
+                lvi.ImageKey = fe.IsDir ? "Dir" : "File";
+                lvi.Tag = fe;
+                lvRem.Items.Add(lvi);
+            }
         }
 
-        private bool EnumDir(LBaseDir lbd, TreeNode tnVol) {
-            tnVol.Nodes.Clear();
-            tnVol.StateImageKey = null;
+        private bool EnumDir(LBaseDir lbd) {
             lbd.ents.Clear();
 
             lbd.isListed = false;
@@ -343,24 +423,15 @@ namespace AFPClient4Windows {
                         ldir.lvol = lbd.lvol;
                         ldir.ent = ent;
                         ldir.path = lbd.path + DirSep + ent.LongName;
-
-                        if (ldir.ent.IsDirectory) {
-                            AddDir(tnVol, ldir);
-                        }
                     }
 
                     pos += pack.ActualCount;
                 }
                 lbd.isListed = true;
-                tnVol.StateImageKey = "OK";
                 return true;
             }
             catch (Exception err) {
-                lbd.listErr = err;
-                tnVol.StateImageKey = "E";
-                tlpErr.Show();
-                lErr1.Text = err.Message;
-                lErrDetail.Tag = err.ToString();
+                MessageBox.Show(this, err.Message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return false;
             }
         }
@@ -383,116 +454,31 @@ namespace AFPClient4Windows {
             }
         }
 
-        private TreeNode AddVol(TreeNode tnPC, LVol lvol) {
-            TreeNode tn = tnPC.Nodes.Add(lvol.VolName);
-            tn.ImageKey = tn.SelectedImageKey = "Vol";
-            tn.Tag = lvol;
-            tn.Name = tn.Text;
-            return tn;
-        }
-
-        private TreeNode AddPC(LPC lpc) {
-            TreeNode tn = tvF.Nodes.Add(lpc.Name);
-            tn.ImageKey = tn.SelectedImageKey = "PC";
-            tn.Tag = lpc;
-            tn.Name = tn.Text;
-            return tn;
-        }
-
         List<IDisposable> DelRefs = new List<IDisposable>();
 
         private void CloseAFP() {
             foreach (IDisposable one in DelRefs) one.Dispose();
             DelRefs.Clear();
 
-            tvF.Nodes.Clear();
-            lvF.Items.Clear();
+            lvRem.Items.Clear();
+            cmsVols.Items.Clear();
+
+            bPCRem.Text = "---";
+            bVolRem.Text = "---";
+            cbDirRem.Text = "";
         }
 
         private void MForm_FormClosing(object sender, FormClosingEventArgs e) {
-            if (e.Cancel) return;
-            if (cntAsyncOp != 0) {
-                if (MessageBox.Show(this, "終了しようとしています。終了するとファイル転送が停止します。終了しますか?", Application.ProductName, MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) != DialogResult.Yes) {
-                    e.Cancel = true;
-                    return;
-                }
-            }
+
         }
 
         private void MForm_FormClosed(object sender, FormClosedEventArgs e) {
             CloseAFP();
         }
 
-        const char DirSep = '\\';
+        const char DirSep = ':';
 
-        private void tvF_AfterSelect(object sender, TreeViewEventArgs e) {
-            TreeNode tn = e.Node ?? tvF.SelectedNode;
-            if (tn == null) return;
-            UpdateSel(tn, false);
-        }
-
-        private void UpdateSel(TreeNode tn, bool force) {
-            if (tn == null)
-                return;
-            LPC lpc = tn.Tag as LPC;
-            if (lpc != null) {
-                if (force)
-                    EnumPC(lpc, tn, 1);
-                Listup(null);
-                return;
-            }
-            LVol lvol = tn.Tag as LVol;
-            if (lvol != null) {
-                if (force || !lvol.isListed)
-                    EnumVol(lvol, tn, 1);
-                Listup(lvol);
-                return;
-            }
-            LBaseDir lbd = tn.Tag as LBaseDir;
-            if (lbd != null) {
-                lvF.Items.Clear();
-                if (force || !lbd.isListed) {
-                    if (!EnumDir(lbd, tn))
-                        return;
-                }
-                tlpErr.Hide();
-                Listup(lbd);
-                return;
-            }
-        }
-
-        private void Listup(LBaseDir lbd) {
-            lvF.Items.Clear();
-            if (lbd == null) return;
-            foreach (FileParameters ent in lbd.ents) {
-                FEnt fe = new FEnt(ent, lbd);
-                ListViewItem lvi = new ListViewItem(fe.Name);
-                lvi.SubItems.Add(fe.IsDir ? "" : String.Format("{0:##,#0}", fe.DataSize));
-                lvi.SubItems.Add(fe.IsDir ? "" : String.Format("{0:##,#0}", fe.ResSize));
-                lvi.SubItems.Add(fe.FormatMT());
-                lvi.ImageKey = fe.IsDir ? "Dir" : "File";
-                lvi.Tag = fe;
-                lvF.Items.Add(lvi);
-            }
-        }
-
-        class AsResFork : VFCopy.IOpenSt2 {
-            FEnt fe;
-
-            public AsResFork(FEnt fe) {
-                this.fe = fe;
-            }
-
-            #region IOpenSt メンバ
-
-            public VFCopy.ISt2 OpenSt2() {
-                return fe.OpenSt2(true);
-            }
-
-            #endregion
-        }
-
-        class FEnt : VFCopy.IOpenSt2 {
+        class FEnt {
             public FileParameters fe;
             public LBaseDir lbd;
 
@@ -514,7 +500,7 @@ namespace AFPClient4Windows {
 
             public string RefPath {
                 get {
-                    return (lbd.path + "\\" + Name).TrimStart('\\');
+                    return (lbd.path + DirSep + Name).TrimStart(DirSep);
                 }
             }
 
@@ -523,101 +509,7 @@ namespace AFPClient4Windows {
                     return RefPath.TrimStart(DirSep).Replace(DirSep, '\0');
                 }
             }
-
-            public VFCopy.ISt2 OpenSt2(bool resfork) {
-                lbd.lvol.ConnectUpper();
-
-                MyDSI3 comm = lbd.lvol.lpc.Comm;
-
-                TransmitRes res = comm.Transmit(new DSICommand().WithRequestPayload(new FPOpenFork()
-                    .WithVolumeID(lbd.lvol.VolID)
-                    .WithDirectoryID(lbd.lvol.DirID)
-                    .WithPath(MacPath)
-                    .WithFlag((byte)(resfork ? 0x80 : 0x00))
-                    .WithAccessMode(AfpAccessMode.Read | AfpAccessMode.DenyWrite)
-                ));
-
-                if (!res.pack.IsResponse) throw new InvalidDataException();
-                if (res.pack.ErrorCode != 0) throw new DSIException(res.pack.ErrorCode, res.pack);
-
-                OpenForkPack pack = new OpenForkPack(res.br);
-
-                return new ForkSt(pack, comm);
-            }
-
-            #region IOpenSt メンバ
-
-            public VFCopy.ISt2 OpenSt2() {
-                return OpenSt2(false);
-            }
-
-            #endregion
-
-            class ForkSt : VFCopy.ISt2 {
-                OpenForkPack forkPack;
-                MyDSI3 comm;
-                bool isOpened = true;
-
-                public ForkSt(OpenForkPack forkPack, MyDSI3 comm) {
-                    this.forkPack = forkPack;
-                    this.comm = comm;
-                }
-
-                #region ISt2 メンバ
-
-                public void CloseSt2() {
-                    if (!isOpened) return;
-
-                    TransmitRes res2 = comm.Transmit(new DSICommand().WithRequestPayload(new FPCloseFork()
-                        .WithFork(forkPack.Fork)
-                    ));
-
-                    isOpened = false;
-                }
-
-                public void ReadAt(Int64 pos, out byte[] bin, UInt32 cb, out UInt32 pcbRead) {
-                    TransmitRes res = comm.Transmit(new DSICommand().WithRequestPayload(new FPRead()
-                        .WithOffset(Convert.ToInt32(pos))
-                        .WithOForkRefNum(forkPack.Fork)
-                        .WithReqCount(Convert.ToInt32(cb))
-                    ));
-
-                    if (!res.pack.IsResponse) throw new InvalidDataException();
-                    if (res.pack.ErrorCode == (int)DSIException.ResultCode.kFPEOFErr) {
-
-                    }
-                    else if (res.pack.ErrorCode != 0) {
-                        throw new DSIException(res.pack.ErrorCode, res.pack);
-                    }
-
-                    bin = res.pack.Payload;
-                    pcbRead = Convert.ToUInt32(res.pack.Payload.Length);
-                }
-
-                #endregion
-
-                #region ISt2 メンバ
-
-                public void ReadAt(long pos, out Array pparray, uint cb, out uint pcbRead) {
-                    byte[] bin;
-                    ReadAt(pos, out bin, cb, out pcbRead);
-                    pparray = bin;
-                }
-
-                #endregion
-            }
         }
-
-        private void lErrDetail_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
-            MessageBox.Show(this, "" + lErrDetail.Tag, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-        }
-
-        private void mRefreshSel_Click(object sender, EventArgs e) {
-            TreeNode tn = tvF.SelectedNode;
-            if (tn == null) return;
-            UpdateSel(tn, true);
-        }
-
 
         class Sort {
             internal class Str : System.Collections.IComparer {
@@ -686,28 +578,11 @@ namespace AFPClient4Windows {
             }
         }
 
-        private void lvF_ColumnClick(object sender, ColumnClickEventArgs e) {
+        private void lvRem_ColumnClick(object sender, ColumnClickEventArgs e) {
             bool asc = 0 == (ModifierKeys & Keys.Shift);
-            if (e.Column == chfn.Index) lvF.ListViewItemSorter = new Sort.Str(e.Column, asc);
-            if (e.Column == chmt.Index) lvF.ListViewItemSorter = new Sort.Mt(!asc);
-            if (e.Column == chcbData.Index) lvF.ListViewItemSorter = new Sort.Cb(asc);
-        }
-
-        private void lvF_ItemActivate(object sender, EventArgs e) {
-            ListViewItem lvi = lvF.FocusedItem;
-            if (lvi == null) return;
-            FEnt curl = lvi.Tag as FEnt;
-            if (curl != null) {
-                TreeNode tn = tvF.SelectedNode;
-                if (tn == null)
-                    return;
-                TreeNode tnFound = tn.Nodes[curl.Name];
-                if (tnFound == null)
-                    return;
-
-                tvF.SelectedNode = tnFound;
-                return;
-            }
+            if (e.Column == chfn.Index) lvRem.ListViewItemSorter = new Sort.Str(e.Column, asc);
+            if (e.Column == chmt.Index) lvRem.ListViewItemSorter = new Sort.Mt(!asc);
+            if (e.Column == chcbData.Index) lvRem.ListViewItemSorter = new Sort.Cb(asc);
         }
 
         class NUt {
@@ -719,152 +594,8 @@ namespace AFPClient4Windows {
             }
         }
 
-        private void AddWalk(VFCopy.SrcClass dataSrc, TreeNode tnCur, String prefix) {
-            GetSel(tnCur, false);
-
-            LBaseDir lbd = tnCur.Tag as LBaseDir;
-            if (lbd == null) return;
-
-            foreach (FileParameters fparm in lbd.ents) {
-                FEnt fe = new FEnt(fparm, lbd);
-                if (fe.IsDir)
-                    continue;
-                if (true)
-                    dataSrc.AddFile2(Path.Combine(prefix, NUt.Clean(fe.Name)), fe.GetMT(), fe.DataSize, fe);
-                if (mGetResFork.Checked)
-                    dataSrc.AddFile2(Path.Combine(prefix, NUt.Clean(fe.Name) + ExtResFork), fe.GetMT(), fe.ResSize, new AsResFork(fe));
-            }
-            foreach (TreeNode tnSub in tnCur.Nodes) {
-                AddWalk(dataSrc, tnSub, Path.Combine(prefix, NUt.Clean(Path.GetFileName(tnSub.Name))));
-            }
-        }
-
-        private void GetSel(TreeNode tn, bool force) {
-            if (tn == null)
-                return;
-            LBaseDir lbd = tn.Tag as LBaseDir;
-            if (lbd != null) {
-                if (force || !lbd.isListed) {
-                    if (!EnumDir(lbd, tn))
-                        return;
-                }
-                return;
-            }
-        }
-
         const string ExtResFork = ".AFP_Resource";
         const string ExtFinderInfo = ".AFP_AfpInfo";
-
-        VFCopy.SrcClass GetTvSrc(TreeNode tn) {
-            VFCopy.SrcClass dataSrc = new VFCopy.SrcClass();
-
-            using (AH ah = new AH()) {
-                TreeNode tnSub = tn;
-                if (tnSub != null)
-                    AddWalk(dataSrc, tnSub, NUt.Clean(tnSub.Name));
-            }
-            dataSrc.Make();
-            dataSrc.SetAsyncMode(1);
-
-            dataSrc.OnStartOperation += delegate { ++cntAsyncOp; };
-            dataSrc.OnEndOperation += delegate { --cntAsyncOp; };
-            return dataSrc;
-        }
-
-        VFCopy.SrcClass GetLvSrc(ListView sender) {
-            VFCopy.SrcClass dataSrc = new VFCopy.SrcClass();
-
-            TreeNode tn = tvF.SelectedNode;
-
-            using (AH ah = new AH())
-                foreach (ListViewItem lvi in sender.SelectedItems) {
-                    FEnt fe = lvi.Tag as FEnt;
-                    if (fe == null) continue;
-                    if (!fe.IsDir) {
-                        if (true)
-                            dataSrc.AddFile2(NUt.Clean(fe.Name), fe.GetMT(), fe.DataSize, fe);
-                        if (mGetResFork.Checked)
-                            dataSrc.AddFile2(NUt.Clean(fe.Name) + ExtResFork, fe.GetMT(), fe.ResSize, new AsResFork(fe));
-                    }
-                    else {
-                        TreeNode tnSub = tn.Nodes[fe.Name];
-                        if (tnSub != null)
-                            AddWalk(dataSrc, tnSub, NUt.Clean(tnSub.Name));
-                    }
-                }
-            dataSrc.Make();
-            dataSrc.SetAsyncMode(1);
-
-            dataSrc.OnStartOperation += delegate { ++cntAsyncOp; };
-            dataSrc.OnEndOperation += delegate { --cntAsyncOp; };
-            return dataSrc;
-        }
-
-        int cntAsyncOp = 0;
-
-        private void lvF_ItemDrag(object sender, ItemDragEventArgs e) {
-            if (0 != (e.Button & MouseButtons.Left)) DoDragDrop(GetLvSrc(lvF), DragDropEffects.Copy);
-        }
-
-        private void tvF_ItemDrag(object sender, ItemDragEventArgs e) {
-            if (0 != (e.Button & MouseButtons.Left)) DoDragDrop(GetTvSrc(e.Item as TreeNode ?? tvF.SelectedNode), DragDropEffects.Copy);
-        }
-
-        private void lvF_DragEnter(object sender, DragEventArgs e) {
-            return;
-
-            e.Effect = DragDropEffects.None;
-
-            TreeNode tn = tvF.SelectedNode;
-            LBaseDir lbd;
-            if (tn == null || null == (lbd = tn.Tag as LBaseDir)) return;
-
-            VFCopy.ReadSrcClass readSrc = new VFCopy.ReadSrcClass();
-            try {
-                readSrc.ParseDataObject(e.Data, VFCopy.PDOFlags.AllowParseMany | VFCopy.PDOFlags.DisallowEnumObjects);
-                e.Effect = e.AllowedEffect & DragDropEffects.Copy;
-            }
-            catch (Exception) {
-            }
-        }
-
-        private void lvF_DragOver(object sender, DragEventArgs e) {
-            lvF_DragEnter(sender, e);
-        }
-
-        private void tvF_DragOver(object sender, DragEventArgs e) {
-            tvF_DragEnter(sender, e);
-        }
-
-        private void tvF_DragEnter(object sender, DragEventArgs e) {
-            return;
-
-            e.Effect = DragDropEffects.None;
-
-            TreeNode tn = tvF.SelectedNode;
-            LBaseDir lbd;
-            if (tn == null || null == (lbd = tn.Tag as LBaseDir)) return;
-
-            VFCopy.ReadSrcClass readSrc = new VFCopy.ReadSrcClass();
-            try {
-                readSrc.ParseDataObject(e.Data, VFCopy.PDOFlags.AllowParseMany | VFCopy.PDOFlags.DisallowEnumObjects);
-                e.Effect = e.AllowedEffect & DragDropEffects.Copy;
-            }
-            catch (Exception) {
-            }
-        }
-
-        private void lvF_DragDrop(object sender, DragEventArgs e) {
-            DropIt(tvF.SelectedNode, e.Data);
-
-            e.Effect = DragDropEffects.Copy & e.AllowedEffect;
-        }
-
-        private void tvF_DragDrop(object sender, DragEventArgs e) {
-            DropIt(tvF.SelectedNode, e.Data);
-
-            e.Effect = DragDropEffects.Copy & e.AllowedEffect;
-        }
 
         class AFPath {
             public String fp;
@@ -899,188 +630,6 @@ namespace AFPClient4Windows {
             }
         }
 
-        [DllImport("ole32.dll")]
-        static extern int CoGetInterfaceAndReleaseStream(
-            [In] com.IStream pStm,
-            [In] ref Guid riid,
-            [MarshalAs(UnmanagedType.IUnknown)] out object ppv
-            );
-
-        [DllImport("ole32.dll")]
-        static extern int CoMarshalInterThreadInterfaceInStream(
-            [In] ref Guid riid,
-            [MarshalAs(UnmanagedType.IUnknown)] object pUnk,
-            out com.IStream ppStm
-            );
-
-        static Guid IID_IDataObject = new Guid("0000010e-0000-0000-C000-000000000046");
-
-        private void DropIt(TreeNode treeNode, IDataObject data) {
-            LBaseDir lbd = treeNode.Tag as LBaseDir;
-            if (lbd == null) throw new ArgumentException("treeNode.Tag");
-
-            com.IStream dataStm;
-            CoMarshalInterThreadInterfaceInStream(ref IID_IDataObject, data, out dataStm);
-
-            PasteForm form = new PasteForm();
-
-            SynchronizationContext Sync = SynchronizationContext.Current;
-
-            Thread t = new Thread((ThreadStart)delegate {
-                try {
-                    Application.OleRequired();
-
-                    Object dataRaw;
-                    CoGetInterfaceAndReleaseStream(dataStm, ref IID_IDataObject, out dataRaw);
-                    com.IDataObject dataObj = (com.IDataObject)dataRaw;
-
-                    VFCopy.ReadSrcClass readSrc = new VFCopy.ReadSrcClass();
-                    Object aryRaw = readSrc.ParseDataObject(dataObj, VFCopy.PDOFlags.AllowParseMany);
-                    Object[] ary = (Object[])aryRaw as Object[];
-                    if (ary != null) {
-                        int ypos = 0;
-                        bool lastAnswer = false, answerAll = false;
-                        foreach (VFCopy.IFDEnt ent in ary) {
-                            ++ypos;
-                            if (form.evStop.WaitOne(0))
-                                throw new UserCancelException();
-                            if (ent == null)
-                                continue;
-                            if (0 != ((FileAttributes)ent.FileAttributes & FileAttributes.Directory))
-                                continue;
-                            AFPath pathSrc = new AFPath(ent.FileName);
-                            Sync.Send(delegate { form.StartFile(ent.FileName, ypos, ary.Length); }, null);
-                            String[] partsSrc = pathSrc.fp.Split(new char[] { '\\' }, StringSplitOptions.RemoveEmptyEntries);
-                            for (int x1 = 1; x1 < partsSrc.Length; x1++) {
-                                String fpaDir = APUt.EncodeApplePath(Path.Combine(lbd.path, String.Join("\\", partsSrc, 0, x1)));
-                                TransmitRes res4 = lbd.lvol.lpc.Comm.Transmit(new DSICommand().WithRequestPayload(new FPCreateDir()
-                                    .WithVolumeID(lbd.lvol.VolID)
-                                    .WithDirectoryID(lbd.lvol.DirID)
-                                    .WithPath(fpaDir)
-                                    ));
-                                if ((res4.pack.ErrorCode != 0 && res4.pack.ErrorCode != (int)DSIException.ResultCode.kFPObjectExists)) throw new DSIException(res4.pack.ErrorCode, res4.pack);
-                            }
-
-                            String fpaDst = APUt.EncodeApplePath(Path.Combine(lbd.path, Path.Combine(Path.GetDirectoryName(pathSrc.fp), NUt.Clean(Path.GetFileName(pathSrc.fp)))));
-
-                            bool dstExists = false;
-
-                            TransmitRes res2 = lbd.lvol.lpc.Comm.Transmit(new DSICommand().WithRequestPayload(new FPOpenFork()
-                                .WithVolumeID(lbd.lvol.VolID)
-                                .WithDirectoryID(lbd.lvol.DirID)
-                                .WithPath(fpaDst)
-                                .WithOpenDataFork()
-                                .WithAccessMode(AfpAccessMode.Read | AfpAccessMode.Write | AfpAccessMode.DenyWrite)
-                                ));
-                            if (res2.pack.ErrorCode != 0) {
-                                if (res2.pack.ErrorCode != (int)DSIException.ResultCode.kFPItemNotFound && res2.pack.ErrorCode != (int)DSIException.ResultCode.kFPObjectNotFound)
-                                    throw new DSIException(res2.pack.ErrorCode, res2.pack);
-
-                                TransmitRes res1 = lbd.lvol.lpc.Comm.Transmit(new DSICommand().WithRequestPayload(new FPCreateFile()
-                                    .WithVolumeID(lbd.lvol.VolID)
-                                    .WithDirectoryID(lbd.lvol.DirID)
-                                    .WithPath(fpaDst)
-                                    .WithSoftCreate()
-                                    ));
-                                if (res1.pack.ErrorCode != 0) throw new DSIException(res1.pack.ErrorCode, res1.pack);
-
-                                res2 = lbd.lvol.lpc.Comm.Transmit(new DSICommand().WithRequestPayload(new FPOpenFork()
-                                    .WithVolumeID(lbd.lvol.VolID)
-                                    .WithDirectoryID(lbd.lvol.DirID)
-                                    .WithPath(fpaDst)
-                                    .WithOpenForkOfData(pathSrc.IsDataFork)
-                                    .WithAccessMode(AfpAccessMode.Read | AfpAccessMode.Write | AfpAccessMode.DenyWrite)
-                                    ));
-                                if (res2.pack.ErrorCode != 0) throw new DSIException(res2.pack.ErrorCode, res2.pack);
-                            }
-                            else dstExists = true;
-                            OpenForkPack pack2 = new OpenForkPack(res2.br);
-
-                            bool incomplete = true;
-
-                            Int64 cbFile = ent.FileSize;
-                            try {
-                                if (dstExists) {
-                                    if (!answerAll)
-                                        Sync.Send(delegate { lastAnswer = form.QueryOverwrite(); answerAll = form.all; }, null);
-                                    if (!lastAnswer) continue;
-                                }
-
-                                VFCopy.ISt2 sIn = (VFCopy.ISt2)ent.OpenSt2();
-                                try {
-                                    Int64 pos = 0;
-                                    while (true) {
-                                        Array parray;
-                                        uint cbRead;
-                                        sIn.ReadAt(pos, out parray, 20000, out cbRead);
-                                        if (cbRead == 0) {
-                                            incomplete = false;
-                                            break;
-                                        }
-
-                                        if (form.evStop.WaitOne(0))
-                                            throw new UserCancelException();
-
-                                        TransmitRes res3 = lbd.lvol.lpc.Comm.Transmit(new DSIWrite().WithRequestPayload(new FPWrite()
-                                            .WithOffset(Convert.ToInt32(pos))
-                                            .WithOForkRefNum(pack2.Fork)
-                                            .WithForkData((byte[])parray)
-                                            .WithReqCount(Convert.ToInt32(cbRead))
-                                            ));
-                                        if (res3.pack.ErrorCode != 0) throw new DSIException(res3.pack.ErrorCode, res3.pack);
-
-                                        pos += cbRead;
-
-                                        Sync.Send(delegate { form.ReportSend(pos, cbFile); }, null);
-                                    }
-                                }
-                                finally {
-                                    sIn.CloseSt2();
-                                }
-
-                            }
-                            finally {
-                                try {
-                                    lbd.lvol.lpc.Comm.Transmit(new DSICommand().WithRequestPayload(new FPCloseFork()
-                                        .WithFork(pack2.Fork)
-                                        ));
-                                }
-                                finally {
-                                    if (incomplete) {
-                                        lbd.lvol.lpc.Comm.Transmit(new DSICommand().WithRequestPayload(new FPDelete()
-                                            .WithVolumeID(lbd.lvol.VolID)
-                                            .WithDirectoryID(lbd.lvol.DirID)
-                                            .WithPath(fpaDst)
-                                            ));
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                    Sync.Send(delegate {
-                        form.Done();
-                    }, null);
-                }
-                catch (Exception err) {
-                    Sync.Send(delegate {
-                        MessageBox.Show(this, "失敗しました：\n\n" + err.Message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                        form.Done();
-                    }, null);
-                }
-            });
-            t.SetApartmentState(ApartmentState.STA);
-            form.Load += delegate {
-                t.Start();
-            };
-
-            using (form) {
-                form.ShowDialog();
-
-                UpdateSel(treeNode, true);
-            }
-        }
-
         public class UserCancelException : Exception {
             public UserCancelException()
                 : base("ご要望により、中止しました。") {
@@ -1093,5 +642,298 @@ namespace AFPClient4Windows {
                 e.Handled = true;
             }
         }
+
+        private void bPCRem_Click(object sender, EventArgs e) {
+            mConn_Click(sender, e);
+        }
+
+        private void bVolRem_Click(object sender, EventArgs e) {
+            cmsVols.Show(bVolRem, 0, bVolRem.Height);
+        }
+
+        private void lvRem_ItemActivate(object sender, EventArgs e) {
+            foreach (ListViewItem lvi in lvRem.SelectedItems) {
+                FEnt fe = (FEnt)lvi.Tag;
+                if (fe == null) break;
+
+                if (fe.IsDir) {
+                    String at = cbDirRem.Text;
+                    Navi(((at.Length != 0) ? (at + DirSep) : "") + fe.Name);
+                }
+                else {
+                }
+
+                break;
+            }
+        }
+
+        private void Navi(String dir) {
+            if (!lpc.Connected) {
+                mConn_Click(this, new EventArgs());
+                return;
+            }
+            LBaseDir lb = new LBaseDir();
+            lb.lvol = lvol;
+            lb.path = dir.TrimStart(DirSep).Replace(DirSep, '\0');
+            if (EnumDir(lb)) {
+                Listup(lb);
+                cbDirRem.Text = dir;
+
+                if (saveIndex >= 0) {
+                    Cnf.SaveRemoteDir(saveIndex, dir);
+                }
+            }
+        }
+
+        private void bGoRem_Click(object sender, EventArgs e) {
+            Navi(cbDirRem.Text);
+        }
+
+        private void bUpRem_Click(object sender, EventArgs e) {
+            String s = cbDirRem.Text;
+            int i = s.LastIndexOf(':');
+            String t = (i < 0) ? "" : s.Substring(0, i);
+            if (s != t) Navi(t);
+        }
+
+        private void mDiscon_Click(object sender, EventArgs e) {
+            CloseAFP();
+        }
+
+        private void bConn_Click(object sender, EventArgs e) {
+            mConn_Click(sender, e);
+        }
+
+        private void bDisconn_Click(object sender, EventArgs e) {
+            mDiscon_Click(sender, e);
+        }
+
+        private void mDown_Click(object sender, EventArgs e) {
+            using (WForm form = new WForm()) {
+                form.Show(this);
+                foreach (ListViewItem lvi in lvRem.SelectedItems) {
+                    FEnt fe = (FEnt)lvi.Tag;
+                    form.lfp.Text = fe.Name;
+                    if (fe.IsDir) {
+
+                    }
+                    else {
+                        String fn = NUt.Clean(fe.Name);
+                        for (int t = 0; t < 2; t++) {
+                            bool isResFork = (t == 1);
+                            String fpto = Path.Combine(cbDirLoc.Text, isResFork
+                                ? "._" + fn
+                                : fn);
+                            using (FileStream fs = File.Create(fpto)) {
+                                OpenForkPack pack;
+                                Int64 cbIn = 0;
+                                {
+                                    TransmitRes res = lpc.Comm.Transmit(new DSICommand().WithRequestPayload(new FPOpenFork()
+                                        .WithVolumeID(lvol.VolID)
+                                        .WithDirectoryID(lvol.DirID)
+                                        .WithPath(fe.MacPath)
+                                        .WithFlag((byte)(isResFork ? 0x80 : 0x00))
+                                        .WithAccessMode(AfpAccessMode.Read | AfpAccessMode.DenyWrite)
+                                        .WithBitmap(AfpFileBitmap.ModificationDate | (isResFork ? AfpFileBitmap.ResourceForkLength : AfpFileBitmap.DataForkLength))
+                                    ));
+
+                                    if (!res.pack.IsResponse) throw new InvalidDataException();
+                                    if (res.pack.ErrorCode != 0) throw new DSIException(res.pack.ErrorCode, res.pack);
+
+                                    pack = new OpenForkPack(res.br);
+
+                                }
+
+                                cbIn = isResFork ? pack.Parms.ResourceForkSize.Value : pack.Parms.DataForkSize.Value;
+
+                                int pos = 0;
+                                int cb = 4096;
+                                byte[] bin;
+                                int cbRead;
+                                while (true) {
+                                    form.SetPos(pos, cbIn);
+
+                                    int cbRest = (int)Math.Min(cbIn - pos, cb);
+
+                                    TransmitRes res = lpc.Comm.Transmit(new DSICommand().WithRequestPayload(new FPRead()
+                                        .WithOffset(Convert.ToInt32(pos))
+                                        .WithOForkRefNum(pack.Fork)
+                                        .WithReqCount(Convert.ToInt32(cb))
+                                    ));
+
+                                    if (!res.pack.IsResponse) throw new InvalidDataException();
+                                    if (res.pack.ErrorCode == (int)DSIException.ResultCode.kFPEOFErr) {
+
+                                    }
+                                    else if (res.pack.ErrorCode != 0) {
+                                        throw new DSIException(res.pack.ErrorCode, res.pack);
+                                    }
+
+                                    bin = res.pack.Payload;
+                                    cbRead = res.pack.Payload.Length;
+
+                                    fs.Write(bin, 0, cbRead);
+
+                                    pos += cbRead;
+
+                                    if (res.pack.ErrorCode == (int)DSIException.ResultCode.kFPEOFErr) {
+                                        break;
+                                    }
+                                }
+
+                                fs.Close();
+
+                                {
+                                    TransmitRes res2 = lpc.Comm.Transmit(new DSICommand().WithRequestPayload(new FPCloseFork()
+                                        .WithFork(pack.Fork)
+                                    ));
+                                }
+
+                                if (pack.Parms.MT.HasValue) File.SetLastWriteTime(fpto, pack.Parms.MT.Value);
+                            }
+
+                            if (isResFork) File.SetAttributes(fpto, File.GetAttributes(fpto) | FileAttributes.Hidden);
+                        }
+                    }
+                }
+            }
+            bGoLoc_Click(sender, e);
+        }
+
+        private void bGoLoc_Click(object sender, EventArgs e) {
+            Naviloc(cbDirLoc.Text);
+        }
+
+        private void bUpLoc_Click(object sender, EventArgs e) {
+            String s = cbDirLoc.Text;
+            int i = s.LastIndexOf('\\');
+            String t = (i < 0) ? "" : s.Substring(0, i);
+            if (s != t) Naviloc(t);
+        }
+
+        #region IHostParm メンバ
+
+        int saveIndex = -1;
+
+        public void SetSaveDir2Reg(int saveIndex) {
+            this.saveIndex = saveIndex;
+        }
+
+        public string GetDirRem() {
+            return cbDirRem.Text;
+        }
+
+        #endregion
+
+        private void mUp_Click(object sender, EventArgs e) {
+            using (WForm form = new WForm()) {
+                form.Show(this);
+                foreach (ListViewItem lvi in lvLoc.SelectedItems) {
+                    String fpfrm = lvi.Tag as String;
+                    if (String.IsNullOrEmpty(fpfrm)) continue;
+                    String fpfork = Path.Combine(Path.GetDirectoryName(fpfrm), "._" + Path.GetFileName(fpfrm));
+                    FileInfo fifrm = new FileInfo(fpfrm);
+
+                    if (0 != (fifrm.Attributes & FileAttributes.Directory)) {
+
+                    }
+                    else {
+                        for (int t = 0; t < 2; t++) {
+                            bool isResFork = (t == 1);
+                            String fpMac2 = cbDirRem.Text + ":" + Path.GetFileName(fpfrm);
+                            if (t == 0) {
+                                TransmitRes res = lpc.Comm.Transmit(new DSICommand().WithRequestPayload(new FPCreateFile()
+                                    .WithVolumeID(lvol.VolID)
+                                    .WithDirectoryID(lvol.DirID)
+                                    .WithPath(APUt.EncodeApplePath(fpMac2, ':'))
+                                    .WithHardCreate()
+                                ));
+
+                                if (!res.pack.IsResponse) throw new InvalidDataException();
+                                if (res.pack.ErrorCode != 0) throw new DSIException(res.pack.ErrorCode, res.pack);
+                            }
+                            if (t == 1 && (fpfork == null || !File.Exists(fpfork))) continue;
+                            using (FileStream fs = File.OpenRead(isResFork ? fpfork : fpfrm)) {
+                                OpenForkPack pack;
+                                {
+                                    TransmitRes res = lpc.Comm.Transmit(new DSICommand().WithRequestPayload(new FPOpenFork()
+                                        .WithVolumeID(lvol.VolID)
+                                        .WithDirectoryID(lvol.DirID)
+                                        .WithPath(APUt.EncodeApplePath(fpMac2, ':'))
+                                        .WithOpenForkOfData(!isResFork)
+                                        .WithAccessMode(AfpAccessMode.Write | AfpAccessMode.DenyWrite)
+                                    ));
+
+                                    if (!res.pack.IsResponse) throw new InvalidDataException();
+                                    if (res.pack.ErrorCode != 0) throw new DSIException(res.pack.ErrorCode, res.pack);
+
+                                    pack = new OpenForkPack(res.br);
+                                }
+
+                                int pos = 0;
+                                Int64 cbIn = fs.Length;
+                                BinaryReader br = new BinaryReader(fs);
+                                while (fs.Position < fs.Length) {
+                                    form.SetPos(pos, cbIn);
+
+                                    byte[] bin = br.ReadBytes(4096);
+
+                                    TransmitRes res = lpc.Comm.Transmit(new DSIWrite().WithRequestPayload(new FPWrite()
+                                        .WithOffset(Convert.ToInt32(pos))
+                                        .WithOForkRefNum(pack.Fork)
+                                        .WithReqCount(Convert.ToInt32(bin.Length))
+                                        .WithForkData(bin)
+                                    ));
+
+                                    if (!res.pack.IsResponse) throw new InvalidDataException();
+                                    if (res.pack.ErrorCode != 0) {
+                                        throw new DSIException(res.pack.ErrorCode, res.pack);
+                                    }
+
+                                    pos += bin.Length;
+                                }
+
+                                {
+                                    TransmitRes res2 = lpc.Comm.Transmit(new DSICommand().WithRequestPayload(new FPCloseFork()
+                                        .WithFork(pack.Fork)
+                                    ));
+                                }
+
+                                fs.Close();
+
+                                {
+                                    FileParameters2 Parms2 = new FileParameters2(false)
+                                        .WithModificationDate(fifrm.LastWriteTimeUtc);
+                                    TransmitRes res = lpc.Comm.Transmit(new DSICommand().WithRequestPayload(new FPSetFileDirParms()
+                                        .WithVolumeID(lvol.VolID)
+                                        .WithDirectoryID(lvol.DirID)
+                                        .WithPath(APUt.EncodeApplePath(fpMac2, ':'))
+                                        .WithParms2(Parms2)
+                                    ));
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            bGoRem_Click(sender, e);
+        }
+
+        private void timerTickle_Tick(object sender, EventArgs e) {
+            if (IsDisposed) return;
+
+            if (lpc == null || !lpc.Connected) return;
+
+            lpc.Comm.Tickle();
+        }
+
+        private void lvLoc_ItemActivate(object sender, EventArgs e) {
+
+        }
+    }
+
+    public interface IHostParm {
+        void SetSaveDir2Reg(int saveIndex);
+        String GetDirRem();
     }
 }

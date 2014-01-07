@@ -151,6 +151,32 @@ namespace AFPt2 {
             }
         }
 
+        public void Tickle() {
+            IDSI dsiReq = new DSITickle();
+
+            ServerDS sv;
+            try {
+                sv = NewServerDS(dsiReq);
+            }
+            catch (ExitShotException err) {
+                throw new TransmitFailureException(err);
+            }
+
+            try {
+                try {
+                    lock (SyncSendSock) {
+                        Sock.Send(dsiReq.ToArray(sv.RId));
+                    }
+                }
+                catch (SocketException err) {
+                    throw new TransmitFailureException(err);
+                }
+            }
+            finally {
+                DisconnecthServerDS(sv);
+            }
+        }
+
         public ushort NewRID() {
             lock (this) {
                 return ++RId;

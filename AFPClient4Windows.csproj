@@ -56,11 +56,24 @@
     <Compile Include="AH.cs" />
     <Compile Include="BER.cs" />
     <Compile Include="BEW.cs" />
+    <Compile Include="Cnf.cs" />
     <Compile Include="ConnForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ConnForm.Designer.cs">
       <DependentUpon>ConnForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GetSrvrInfoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GetSrvrInfoForm.Designer.cs">
+      <DependentUpon>GetSrvrInfoForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HostsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="HostsForm.Designer.cs">
+      <DependentUpon>HostsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="MForm.cs">
       <SubType>Form</SubType>
@@ -69,34 +82,32 @@
       <DependentUpon>MForm.cs</DependentUpon>
     </Compile>
     <Compile Include="MyDSI3.cs" />
-    <Compile Include="PasteForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="PasteForm.Designer.cs">
-      <DependentUpon>PasteForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="ConnForm.resx">
       <SubType>Designer</SubType>
       <DependentUpon>ConnForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GetSrvrInfoForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>GetSrvrInfoForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HostsForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>HostsForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MForm.resx">
       <SubType>Designer</SubType>
       <DependentUpon>MForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PasteForm.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>PasteForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="QueryOverwriteForm.resx">
+    <EmbeddedResource Include="WForm.resx">
       <SubType>Designer</SubType>
-      <DependentUpon>QueryOverwriteForm.cs</DependentUpon>
+      <DependentUpon>WForm.cs</DependentUpon>
     </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -113,11 +124,11 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="QueryOverwriteForm.cs">
+    <Compile Include="WForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="QueryOverwriteForm.Designer.cs">
-      <DependentUpon>QueryOverwriteForm.cs</DependentUpon>
+    <Compile Include="WForm.Designer.cs">
+      <DependentUpon>WForm.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -126,19 +137,16 @@
   <ItemGroup>
     <Content Include="Resources\1326862183_button_ok.png" />
     <Content Include="Resources\1326862315_agt_action_fail1.png" />
+    <None Include="Resources\DoubleLeftArrowHS.png" />
+    <None Include="Resources\DoubleRightArrowHS.png" />
+    <None Include="Resources\disconnect2.ico" />
+    <None Include="Resources\lan disconnect.ico" />
+    <None Include="Resources\delete_16x.ico" />
+    <None Include="Resources\DRIVENET.ICO" />
+    <None Include="Resources\Computer.ico" />
     <None Include="Resources\PlayHS.png" />
     <None Include="Resources\RefreshDocViewHS.png" />
     <None Include="Resources\error.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <COMReference Include="VFCopy">
-      <Guid>{2BABD037-1C20-4369-BFEA-464C817ABCBD}</Guid>
-      <VersionMajor>1</VersionMajor>
-      <VersionMinor>2</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>tlbimp</WrapperTool>
-      <Isolated>True</Isolated>
-    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

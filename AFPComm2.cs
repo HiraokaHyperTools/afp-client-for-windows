@@ -396,6 +396,35 @@ namespace AFPt2 {
         }
     }
 
+    public class FPSetFileDirParms : IFP {
+        public ushort VolumeID;
+        public uint DirectoryID;
+        public byte PathType;
+        public String Path;
+        public FileParameters2 Parms2 = new FileParameters2();
+        public ushort Bitmap { get { return Parms2.Bitmap; } set { Parms2.Bitmap = value; } }
+
+        public FPSetFileDirParms WithVolumeID(ushort VolumeID) { this.VolumeID = VolumeID; return this; }
+        public FPSetFileDirParms WithDirectoryID(uint DirectoryID) { this.DirectoryID = DirectoryID; return this; }
+        public FPSetFileDirParms WithPathType(byte PathType) { this.PathType = PathType; return this; }
+        public FPSetFileDirParms WithPath(String Path) { this.Path = Path; return this; }
+        public FPSetFileDirParms WithParms2(FileParameters2 Parms2) { this.Parms2 = Parms2; return this; }
+
+        public byte[] ToArray() {
+            MemoryStream os = new MemoryStream();
+            BEW wr = new BEW(os);
+            wr.Write((byte)35); // kFPSetFileDirParms  
+            wr.Write((byte)0);
+            wr.Write((ushort)VolumeID);
+            wr.Write((uint)DirectoryID);
+            wr.Write((ushort)Bitmap);
+            wr.Write((byte)PathType);
+            UtAfp.Write1Str(os, Path, (AfpPathType)PathType);
+            wr.Write(Parms2.ToArray());
+            return os.ToArray();
+        }
+
+    }
     public class FPRead : IFP {
         public ushort OForkRefNum;
         public int Offset = 0;
@@ -646,6 +675,100 @@ namespace AFPt2 {
         }
     }
 
+    public class FileParameters2 {
+        public byte? FileDir = null;
+        public ushort? Attributes = null;
+        public uint? ParentDirectoryID = null;
+        public uint? CreationDate = null;
+        public uint? ModificationDate = null;
+        public uint? BackupDate = null;
+        public byte[] FinderInfo = null;
+        public uint? NodeID = null, DataForkSize = null, ResourceForkSize = null;
+
+        public ushort? OffspringCount;
+        public uint? AccessRights;
+
+        public bool IsDirectory;
+
+        public ushort Bitmap = 0;
+
+        public FileParameters2() {
+
+        }
+        public FileParameters2(bool IsDirectory) {
+            this.IsDirectory = IsDirectory;
+        }
+
+        public FileParameters2 WithBitmap(ushort Bitmap) { this.Bitmap = Bitmap; return this; }
+        public FileParameters2 WithFileBitmap(AfpFileBitmap Bitmap) { this.Bitmap = (ushort)Bitmap; IsDirectory = false; return this; }
+        public FileParameters2 WithDirectoryBitmap(AfpDirectoryBitmap Bitmap) { this.Bitmap = (ushort)Bitmap; IsDirectory = true; return this; }
+
+        public FileParameters2 WithFile() { IsDirectory = false; return this; }
+        public FileParameters2 WithDir() { IsDirectory = true; return this; }
+
+        public FileParameters2 WithAttributes(ushort Attributes) { this.Attributes = Attributes; Bitmap |= 0x1; return this; }
+        public FileParameters2 WithParentDirectoryID(uint ParentDirectoryID) { this.ParentDirectoryID = ParentDirectoryID; Bitmap |= 0x2; return this; }
+        public FileParameters2 WithCreationDate(uint CreationDate) { this.CreationDate = CreationDate; Bitmap |= 0x4; return this; }
+        public FileParameters2 WithModificationDate(uint ModificationDate) { this.ModificationDate = ModificationDate; Bitmap |= 0x8; return this; }
+        public FileParameters2 WithModificationDate(DateTime ModificationDate) { this.MT = ModificationDate; Bitmap |= 0x8; return this; }
+        public FileParameters2 WithBackupDate(uint BackupDate) { this.BackupDate = BackupDate; Bitmap |= 0x10; return this; }
+        public FileParameters2 WithFinderInfo(byte[] FinderInfo) { this.FinderInfo = FinderInfo; Bitmap |= 0x20; return this; }
+        public FileParameters2 WithNodeID(uint NodeID) { this.NodeID = NodeID; Bitmap |= 0x100; return this; }
+        public FileParameters2 WithDataForkSize(uint DataForkSize) { this.DataForkSize = DataForkSize; Bitmap |= 0x0200; return this; }
+        public FileParameters2 WithResourceForkSize(uint ResourceForkSize) { this.ResourceForkSize = ResourceForkSize; Bitmap |= 0x0400; return this; }
+
+        public byte[] ToArray() {
+            MemoryStream os = new MemoryStream();
+            BEW wr = new BEW(os);
+
+            if (0 != (Bitmap & 1U)) wr.Write(Attributes.Value);
+            if (0 != (Bitmap & 2U)) wr.Write(ParentDirectoryID.Value);
+            if (0 != (Bitmap & 4U)) wr.Write(CreationDate.Value);
+            if (0 != (Bitmap & 8U)) wr.Write(ModificationDate.Value);
+            if (0 != (Bitmap & 16U)) wr.Write(BackupDate.Value);
+            if (0 != (Bitmap & 32U)) wr.Write(FinderInfo, 0, 32);
+            if (0 != (Bitmap & 64U)) throw new NotSupportedException("kFPLongNameBit");
+            if (0 != (Bitmap & 128U)) throw new NotSupportedException("kFPShortNameBit");
+            if (0 != (Bitmap & 256U)) wr.Write(NodeID.Value);
+            if (!IsDirectory) {
+                if (0 != (Bitmap & 512U)) wr.Write(DataForkSize.Value);
+                if (0 != (Bitmap & 1024U)) wr.Write(ResourceForkSize.Value);
+                if (0 != (Bitmap & 2048U)) throw new NotSupportedException("Extended data fork size");
+                if (0 != (Bitmap & 4096U)) throw new NotSupportedException("Launch limit");
+                if (0 != (Bitmap & 8192U)) throw new NotSupportedException("UTF-8 name");
+                if (0 != (Bitmap & 16384U)) throw new NotSupportedException("Extended resource fork size");
+                if (0 != (Bitmap & 32768U)) throw new NotSupportedException("Unix privileges");
+            }
+            else {
+                if (0 != (Bitmap & 512U)) wr.Write(OffspringCount.Value);
+                if (0 != (Bitmap & 1024U)) throw new NotSupportedException("Owner ID");
+                if (0 != (Bitmap & 2048U)) throw new NotSupportedException("Group ID");
+                if (0 != (Bitmap & 4096U)) wr.Write(AccessRights.Value);
+                if (0 != (Bitmap & 8192U)) throw new NotSupportedException("Unicode Name");
+                if (0 != (Bitmap & 16384U)) throw new NotSupportedException("?");
+                if (0 != (Bitmap & 32768U)) throw new NotSupportedException("Unix privileges");
+            }
+
+            return os.ToArray();
+        }
+
+        DateTime? Conv(uint? v) { return (v.HasValue && v.Value != 0x80000000U) ? new DateTime(2000, 1, 1).AddSeconds(v.Value).ToLocalTime() : new DateTime?(); }
+        uint? Conv(DateTime? value) { return (value != null || value.HasValue) ? (uint)((TimeSpan)value.Value.ToUniversalTime().Subtract(new DateTime(2000, 1, 1))).TotalSeconds : new uint?(); }
+
+        public DateTime? CT {
+            get { return Conv(CreationDate); }
+            set { CreationDate = Conv(value); }
+        }
+        public DateTime? MT {
+            get { return Conv(ModificationDate); }
+            set { ModificationDate = Conv(value); }
+        }
+        public DateTime? BT {
+            get { return Conv(BackupDate); }
+            set { BackupDate = Conv(value); }
+        }
+    }
+
     public class FileParameters {
         public byte? FileDir = null;
         public ushort? Attributes = null;
@@ -728,6 +851,14 @@ namespace AFPt2 {
             Bitmap = br.ReadUInt16();
             Fork = br.ReadUInt16();
             Parms = new FileParameters(br, true, Bitmap);
+        }
+    }
+
+    public class CreateIDPack {
+        public uint FileID;
+
+        public CreateIDPack(BER br) {
+            FileID = br.ReadUInt32();
         }
     }
 
@@ -1040,6 +1171,20 @@ namespace AFPt2 {
             BEW wr = new BEW(os);
             wr.Write((byte)0);// REQ
             wr.Write((byte)3); // Command.GetStatus
+            wr.Write((ushort)RequestID);
+            wr.Write((uint)0); // off
+            wr.Write((uint)0); // len
+            wr.Write((uint)0); // reserved
+            return os.ToArray();
+        }
+    }
+
+    public class DSITickle : IDSI {
+        public byte[] ToArray(ushort RequestID) {
+            MemoryStream os = new MemoryStream();
+            BEW wr = new BEW(os);
+            wr.Write((byte)0);// REQ
+            wr.Write((byte)5); // DSITickle
             wr.Write((ushort)RequestID);
             wr.Write((uint)0); // off
             wr.Write((uint)0); // len
