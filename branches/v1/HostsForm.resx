@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,38 +117,66 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="disconnect2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\disconnect2.ico;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="DoubleRightArrowHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\DoubleRightArrowHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="RefreshDocViewHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\RefreshDocViewHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="PlayHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\PlayHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="DRIVENET" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\DRIVENET.ICO;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="delete_16x" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\delete_16x.ico;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="error" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\error.ico;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="lan disconnect" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\lan disconnect.ico;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Computer" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Computer.ico;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="DialHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\DialHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="DoubleLeftArrowHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\DoubleLeftArrowHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <metadata name="il.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <data name="il.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj0yLjAuMC4w
+        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
+        ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAAAW
+        DAAAAk1TRnQBSQFMAgEBAgEAASABAAEgAQABEAEAARABAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFA
+        AwABEAMAAQEBAAEgBgABEBYAA0cBgAG7AacBmQH/AbQBoAGRAf8BrQGYAYgB/wGmAZABgAH/AZ8BiAF0
+        Af8BmAGBAWwB/wGRAXYBZQH/AYoBbgFcAf8BgwFnAVQB/wF4AV8BTAH/AXEBVwFEAf8BagFQATwB/wJH
+        AUYBgCAAAXIBYwFiAY0BnwF1AXQB0wG2AWYBZwH/nAABxAGwAaIB/wH+Av0B/wG0AdMBrAH/AekB3QHW
+        Af8BogHVAeIB/wHgAc0BwgH/AdsBxQG5Af8B1wG9Aa8B/wHSAbUBpQH/Ac0BrQGbAf8ByQGlAZIB/wHG
+        AaEBjQH/AcQBnwGKAf8BZwFNATgB/xgAAwoBDQGcAXABbgHQAdEBugG0Af8B4gHmAd0B/wGoAYMBgAHa
+        AbYBZgFnAf+YAAHGAbIBpQX/AXMBxQFzAf8B/gH5AfgB/wEoAbcB5gH/AfoB7wHpAf8B+QHpAeEB/wHU
+        AcMBuAH/AcQBsQGkAf8BtAGeAY8B/wGjAYoBdQH/AaMBiQFzAf8B0wGuAZsB/wFqAU8BOwH/FAABWAJL
+        AW8BuwF8AXkB/wHRAboBtAH/AegB9gHrAf8B6QH5Ae4B/wHpAfkB7gH/AZ4BbwFtAdUBtgFmAWcB/5QA
+        AcgBtQGnCf8B/gH9AfwB/wH9AfkB9wH/AfsB9AHwAf8B+QHtAecB/wH4AecB3gH/AfYB4QHXAf8B9AHa
+        Ac0B/wHyAdQBxQH/AfABzgG9Af8B4gHAAa8B/wFsAVIBPgH/DAABGQIYAR8BpAF2AXUB3QHBAZQBkAH/
+        AeIB5gHdAf8B5AHrAeEB/wHEAZkBlAH/AbkBdAFzAf8BwAHDAcEB/wHpAfkB7gH/AZ8BbwFtAdgBtgFm
+        AWcB/5AAAywBQwG8AawBnAH8AcEBrgGgAf8BuwGmAZgB/wGzAZ4BjwH/AasBlQGGAf8BowGNAXkB/wGb
+        AYQBcAH/AZQBeQFnAf8BjAFwAV4B/wGEAWgBVQH/AXgBXwFMAf8BcAFXAUAB/ANAAXAEAAMBAQIBZwFW
+        AVUBhQG4AXoBeAH/AdMBxQG+Af8B6QH5Ae4B/wHXAccBwAH/AcEBgwGBAf8BwwJ8Af8BwgF0AXUB/wG6
+        AW0BbAH/AccBzAHJAf8B6QH5Ae4B/wGhAXABbwHbAbYBZgFnAf+QAAHMAb0BtAH/AfkB6gHkAf8B+AHn
+        Ad8B/wH3AeQB2wH/AfYB4QHXAf8B9QHeAdMB/wH0AdoBzwH/AegBywG9Af8B3QG/AbAB/wHIAasBmgH/
+        AWIBzAFiAf8BoAGGAXAB/wgAAZQBdwF1AdoBugGTAZAB/wHmAfEB5wH/AeQB6wHhAf8BvwGRAY4B/wHC
+        AYUBgwH/AckCgAH/AcgBfAF+Af8BxgJ8Af8BwgF6AXwB/wG6AW0BbAH/AccBzAHJAf8B6QH5Ae4B/wGj
+        AXABbgHeAbYBZgFnAf+MAAHPAcABuQH/AfcBkgFbAf8B/gGaAWMB/wH+AZQBXAH/AfYBjAFVAf8B6QGE
+        AU4B/wHbAXgBSQH/Ac4BcAFDAf8BwAFnATwB/wGzAV0BNgH/AakBVgExAf8BpAGLAXYB/wgAAbgBdQFz
+        Af8B5AHoAd8B/wHPAb8BuQH/AbsBegF4Af8BwQJ+Af8BxgKDAf8ByAKCAf8BxwKDAf8BxgF+AYEB/wHF
+        AXwBewH/AcMBeQF6Af8BuQFsAWsB/wHHAcwByQH/AekB+QHuAf8BpQFxAW4B4QG2AWYBZwH/iAAB0wHF
+        Ab4B/wH8AZgBYQH/Af4BnwFpAv8BmgFjAf8B/QGTAVsB/wHzAYsBVAH/AeUBgwFNAf8B2AF2AUcB/wHM
+        AW4BQgH/Ab4BZQE6Af8BsAFbATMB/wGoAY4BegH/CAABwQGBAX4B/wHSAasBqAH/AcIBgwGBAf8BygGQ
+        AYwB/wHOAY0BjAH/AcwBiwGKAf8BzAGHAYkB/wHJAYYBhwH/AcoBggGFAf8ByQGBAYUB/wHGAX4BgAH/
+        AcICeAH/AbkBawFqAf8BxwHMAckB/wHpAfkB7gH/AagBeAF2AeGIAAHUAcoBwwL/AZ4BaAL/AaYBdAL/
+        AaMBbgL/AZ0BZQH/AfsBlAFbAf8B8QGKAVMB/wHjAYEBTAH/AdYBdQFHAf8ByAFsAUEB/wG6AWEBOQH/
+        AasBkgGBAf8IAAHWAaEBnQH/AdMBqgGoAf8BzAGPAY4B/wHdAaEBnwH/AdgBmgGbAf8B1gGUAZcB/wHT
+        AZEBkwH/AdIBjwGRAf8B0AGMAY4B/wHOAooB/wHNAYgBiQH/AcgCggH/Ab8BdQF2Af8BuAFqAWkB/wHH
+        AcwByQH/Ad0B4QHaAf2IAAHWAcwBxgL/AaUBcQL/Aa8BhgL/Aa0BggL/AacBdgL/AZ4BaQH/AfoBkgFc
+        Af8B7gGHAVIB/wHfAXsBSwH/AdEBcwFFAf8BxAFpAT4B/wGuAZUBhQH/CAABHwIeASYB1gGhAZ0B/wHv
+        AtEB/wHRAZgBlQH/AeEBqQGoAf8B4gKrAf8B3wGkAaYB/wHcAZ8BoAH/AdgCmwH/AdQBmAGXAf8B0QGR
+        AZIB/wHMAooB/wHIAYMBhAH/Ab8BcgFzAf8BuAFqAWkB/wHGAbEBrwH/iAAB2QHRAcsC/wGsAYEC/wG5
+        AZYC/wG2AZEC/wGuAYQC/wGlAXMC/wGbAWUB/wH4AZABVgH/AesBhgFPAf8B3QF5AUsB/wHPAXABRQH/
+        AbEBmAGIAf8MAAEtASsBKgE3AdYBoQGdAf8B7QLJAf8B0QGYAZUB/wHkAbABrwH/AesCtwH/AeYCsAH/
+        AeIBqAGpAf8B3QKiAf8B2QKcAf8B1AKVAf8BzgKPAf8BywKHAf8BvgFxAXIB/wG4AWwBawH/iAAB3AHV
+        AdEC/wGzAYsC/wHDAaQC/wHCAaQC/wG1AZAC/wGqAYAC/wGgAWwB/wH+AZQBXQH/AfYBjAFVAf8B5wGE
+        AU8B/wHZAXcBSAH/AbMBmgGMAf8QAAEtASsBKgE3AdYBoQGdAf8B7QLJAf8B0QGYAZUB/wHmAbMBsgH/
+        AfABvgG/Af8B6wK3Af8B6AGyAbEB/wHlAa8BrgH/AeEBqwGqAf8B3AGiAaMB/wHWApgB/wHPAo4B/wGz
+        AX8BfQHkiAAB3wHaAdcC/wG0AY0C/wHBAaIC/wG/AaAC/wG4AZIC/wGtAYQC/wGjAXEC/wGZAWMB/wH9
+        AZIBWgH/AfIBigFTAf8B5AGBAU0B/wG3AZ4BjwH/FAABLQErASoBNwHWAaEBnQH/Ae0CyQH/AdEBmAGV
+        Af8B6AG2AbUB/wH0AsUB/wHyAcABwwH/AfABwAHBAf8B7QG7AbwB/wHlAq8B/wHQAaIBoAH7AXgCYQGX
+        Aw4BEogAAeIB3QHbAv8BrQGFAv8BqwGAAv8BqQF2Av8BogFvAv8BmgFjAf8B+AGRAVkB/wHtAYcBUQH/
+        AeEBewFMAf8B1QFzAUcB/wHIAWwBQAH/AbgBoAGSAf8YAAEtASsBKgE3AdYBoQGdAf8B7QLJAf8B0QGY
+        AZUB/wHsAcEBwAH/AeQBvgG9Af8B4AG9AbsB/gHSAaYBpQH7AXkCYAGYAw4BEpAAAeAB3QHbAf8B4gHc
+        AdsB/wHhAdoB1wH/Ad0B1AHQAf8B2QHOAcoB/wHUAckBwgH/AdABxAG7Af8ByQG7AbMB/wHFAbUBqwH/
+        AcEBrgGlAf8BvAGpAZ8B/wGyAZoBjgH/HAABLQErASoBNwHWAaEBnQH/Ae0C0QH/AdkBoAGfAf8BzwGj
+        AaIB+AF5AmEBmAMTARjoAAEfAh4BJgGkAn0ByQF7AmIBmwEWAhUBG5gAAUIBTQE+BwABPgMAASgDAAFA
+        AwABEAMAAQEBAAEBBQABgBcAA/8BAAGAAQEB/gE/BAABgAEBAfgBHwQAAYABAQHwAQ8EAAGAAQEBwAEH
+        BAABgAEBAQABAwQAAcABAwEAAQEEAAHAAQMGAAHAAQMGAAHAAQMGAAHAAQMGAAHAAQMBgAUAAcABAwHA
+        BQABwAEDAeAFAAHAAQMB8AEDBAABwAEDAfgBDwQAAv8B/AE/BAAL
+</value>
   </data>
 </root>

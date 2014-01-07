@@ -28,431 +28,324 @@
             this.label3 = new System.Windows.Forms.Label();
             this.bOk = new System.Windows.Forms.Button();
             this.bCancel = new System.Windows.Forms.Button();
-            this.tlp = new System.Windows.Forms.TableLayoutPanel();
-            this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
             this.cbDHX2 = new System.Windows.Forms.CheckBox();
-            this.cbDHX = new System.Windows.Forms.CheckBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
+            this.cbDHCAST128 = new System.Windows.Forms.CheckBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.cb2w = new System.Windows.Forms.CheckBox();
-            this.cb0 = new System.Windows.Forms.CheckBox();
-            this.cb1 = new System.Windows.Forms.CheckBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.tbP = new System.Windows.Forms.TextBox();
-            this.tbU = new System.Windows.Forms.TextBox();
-            this.tbHost = new System.Windows.Forms.TextBox();
-            this.bSave = new System.Windows.Forms.Button();
+            this.cb2WayRandnumExchange = new System.Windows.Forms.CheckBox();
+            this.cbNoUserAuthent = new System.Windows.Forms.CheckBox();
+            this.cbCleartxtPasswrd = new System.Windows.Forms.CheckBox();
+            this.tbPassword = new System.Windows.Forms.TextBox();
+            this.tbUserName = new System.Windows.Forms.TextBox();
+            this.tbHostAdrs = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
-            this.tbHostDir = new System.Windows.Forms.TextBox();
-            this.tlp.SuspendLayout();
-            this.flowLayoutPanel2.SuspendLayout();
-            this.flowLayoutPanel1.SuspendLayout();
+            this.tbRemoteDir = new System.Windows.Forms.TextBox();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.bConfirm = new System.Windows.Forms.Button();
+            this.tbHostVol = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.bPutRem = new System.Windows.Forms.Button();
+            this.bRefLoc = new System.Windows.Forms.Button();
+            this.cbLast = new System.Windows.Forms.CheckBox();
+            this.tbLocalDir = new System.Windows.Forms.TextBox();
+            this.label21 = new System.Windows.Forms.Label();
+            this.tbHostName = new System.Windows.Forms.TextBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.bVolRem = new System.Windows.Forms.Button();
+            this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 9);
+            this.label1.Location = new System.Drawing.Point(174, 3);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(164, 12);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "接続先のIPアドレス又はホスト名：";
+            this.label1.Size = new System.Drawing.Size(104, 12);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "ホスト名(アドレス)(&N)";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 46);
+            this.label2.Location = new System.Drawing.Point(6, 77);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(29, 12);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "User";
+            this.label2.Size = new System.Drawing.Size(63, 12);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "ユーザ名(&U)";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 83);
+            this.label3.Location = new System.Drawing.Point(139, 77);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(30, 12);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "Pass";
+            this.label3.Size = new System.Drawing.Size(129, 12);
+            this.label3.TabIndex = 7;
+            this.label3.Text = "パスワード/パスフレーズ(&P)";
             // 
             // bOk
             // 
-            this.bOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.bOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.bOk.Location = new System.Drawing.Point(12, 342);
+            this.bOk.Location = new System.Drawing.Point(219, 440);
             this.bOk.Name = "bOk";
-            this.bOk.Size = new System.Drawing.Size(150, 23);
-            this.bOk.TabIndex = 9;
-            this.bOk.Text = "接続する";
+            this.bOk.Size = new System.Drawing.Size(75, 23);
+            this.bOk.TabIndex = 1;
+            this.bOk.Text = "OK";
             this.bOk.UseVisualStyleBackColor = true;
             this.bOk.Click += new System.EventHandler(this.bOk_Click);
             // 
             // bCancel
             // 
-            this.bCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.bCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.bCancel.Location = new System.Drawing.Point(168, 342);
+            this.bCancel.Location = new System.Drawing.Point(306, 440);
             this.bCancel.Name = "bCancel";
             this.bCancel.Size = new System.Drawing.Size(75, 23);
-            this.bCancel.TabIndex = 10;
-            this.bCancel.Text = "閉じる";
+            this.bCancel.TabIndex = 2;
+            this.bCancel.Text = "キャンセル";
             this.bCancel.UseVisualStyleBackColor = true;
             this.bCancel.Click += new System.EventHandler(this.bCancel_Click);
             // 
-            // tlp
-            // 
-            this.tlp.AutoSize = true;
-            this.tlp.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.tlp.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
-            this.tlp.ColumnCount = 3;
-            this.tlp.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tlp.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tlp.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tlp.Controls.Add(this.flowLayoutPanel2, 2, 5);
-            this.tlp.Controls.Add(this.flowLayoutPanel1, 2, 4);
-            this.tlp.Controls.Add(this.cbDHX2, 0, 5);
-            this.tlp.Controls.Add(this.cbDHX, 0, 4);
-            this.tlp.Controls.Add(this.label8, 1, 3);
-            this.tlp.Controls.Add(this.label7, 1, 2);
-            this.tlp.Controls.Add(this.label4, 0, 0);
-            this.tlp.Controls.Add(this.cb2w, 0, 3);
-            this.tlp.Controls.Add(this.cb0, 0, 1);
-            this.tlp.Controls.Add(this.cb1, 0, 2);
-            this.tlp.Controls.Add(this.label5, 1, 0);
-            this.tlp.Controls.Add(this.label6, 1, 1);
-            this.tlp.Controls.Add(this.label9, 1, 4);
-            this.tlp.Controls.Add(this.label10, 2, 0);
-            this.tlp.Controls.Add(this.label11, 2, 1);
-            this.tlp.Controls.Add(this.label12, 2, 2);
-            this.tlp.Controls.Add(this.label13, 2, 3);
-            this.tlp.Controls.Add(this.label15, 1, 5);
-            this.tlp.Location = new System.Drawing.Point(12, 173);
-            this.tlp.Name = "tlp";
-            this.tlp.RowCount = 6;
-            this.tlp.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tlp.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tlp.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tlp.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tlp.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tlp.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tlp.Size = new System.Drawing.Size(383, 129);
-            this.tlp.TabIndex = 8;
-            // 
-            // flowLayoutPanel2
-            // 
-            this.flowLayoutPanel2.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.flowLayoutPanel2.AutoSize = true;
-            this.flowLayoutPanel2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.flowLayoutPanel2.Controls.Add(this.label16);
-            this.flowLayoutPanel2.Controls.Add(this.label19);
-            this.flowLayoutPanel2.Location = new System.Drawing.Point(259, 111);
-            this.flowLayoutPanel2.Margin = new System.Windows.Forms.Padding(0);
-            this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(123, 12);
-            this.flowLayoutPanel2.TabIndex = 13;
-            // 
-            // label16
-            // 
-            this.label16.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(3, 0);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(33, 12);
-            this.label16.TabIndex = 4;
-            this.label16.Text = "できる";
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(42, 0);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(78, 12);
-            this.label19.TabIndex = 5;
-            this.label19.Text = "(但し、非対応)";
-            // 
-            // flowLayoutPanel1
-            // 
-            this.flowLayoutPanel1.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.flowLayoutPanel1.AutoSize = true;
-            this.flowLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.flowLayoutPanel1.Controls.Add(this.label14);
-            this.flowLayoutPanel1.Controls.Add(this.label18);
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(259, 88);
-            this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(123, 12);
-            this.flowLayoutPanel1.TabIndex = 12;
-            // 
-            // label14
-            // 
-            this.label14.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(3, 0);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(33, 12);
-            this.label14.TabIndex = 4;
-            this.label14.Text = "できる";
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(42, 0);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(78, 12);
-            this.label18.TabIndex = 5;
-            this.label18.Text = "(但し、非対応)";
-            // 
             // cbDHX2
             // 
-            this.cbDHX2.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.cbDHX2.AutoSize = true;
-            this.cbDHX2.Checked = global::AFPClient4Windows.Properties.Settings.Default.DHX2;
-            this.cbDHX2.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::AFPClient4Windows.Properties.Settings.Default, "DHX2", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.cbDHX2.Enabled = false;
-            this.cbDHX2.Location = new System.Drawing.Point(4, 109);
+            this.cbDHX2.Location = new System.Drawing.Point(6, 364);
             this.cbDHX2.Name = "cbDHX2";
             this.cbDHX2.Size = new System.Drawing.Size(53, 16);
-            this.cbDHX2.TabIndex = 10;
+            this.cbDHX2.TabIndex = 24;
             this.cbDHX2.Text = "DHX2";
             this.cbDHX2.UseVisualStyleBackColor = true;
             // 
-            // cbDHX
+            // cbDHCAST128
             // 
-            this.cbDHX.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.cbDHX.AutoSize = true;
-            this.cbDHX.Checked = global::AFPClient4Windows.Properties.Settings.Default.DHCAST128;
-            this.cbDHX.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::AFPClient4Windows.Properties.Settings.Default, "DHCAST128", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.cbDHX.Enabled = false;
-            this.cbDHX.Location = new System.Drawing.Point(4, 86);
-            this.cbDHX.Name = "cbDHX";
-            this.cbDHX.Size = new System.Drawing.Size(88, 16);
-            this.cbDHX.TabIndex = 7;
-            this.cbDHX.Text = "DHCAST128";
-            this.cbDHX.UseVisualStyleBackColor = true;
-            // 
-            // label8
-            // 
-            this.label8.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(172, 65);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(53, 12);
-            this.label8.TabIndex = 6;
-            this.label8.Text = "とても低い";
-            // 
-            // label7
-            // 
-            this.label7.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(172, 42);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(60, 12);
-            this.label7.TabIndex = 5;
-            this.label7.Text = "非常に低い";
+            this.cbDHCAST128.AutoSize = true;
+            this.cbDHCAST128.Enabled = false;
+            this.cbDHCAST128.Location = new System.Drawing.Point(6, 342);
+            this.cbDHCAST128.Name = "cbDHCAST128";
+            this.cbDHCAST128.Size = new System.Drawing.Size(88, 16);
+            this.cbDHCAST128.TabIndex = 23;
+            this.cbDHCAST128.Text = "DHCAST128";
+            this.cbDHCAST128.UseVisualStyleBackColor = true;
             // 
             // label4
             // 
             this.label4.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label4.Location = new System.Drawing.Point(19, 1);
+            this.label4.Location = new System.Drawing.Point(6, 261);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(130, 12);
-            this.label4.TabIndex = 0;
-            this.label4.Text = "許可する方式をOn/Off";
+            this.label4.Size = new System.Drawing.Size(156, 12);
+            this.label4.TabIndex = 19;
+            this.label4.Text = "許可する認証方式をOn/Off";
             // 
-            // cb2w
+            // cb2WayRandnumExchange
             // 
-            this.cb2w.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.cb2w.AutoSize = true;
-            this.cb2w.Checked = global::AFPClient4Windows.Properties.Settings.Default.TwoWayRandnumExchange;
-            this.cb2w.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::AFPClient4Windows.Properties.Settings.Default, "TwoWayRandnumExchange", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.cb2w.Location = new System.Drawing.Point(4, 63);
-            this.cb2w.Name = "cb2w";
-            this.cb2w.Size = new System.Drawing.Size(161, 16);
-            this.cb2w.TabIndex = 2;
-            this.cb2w.Text = "2-Way Randnum Exchange";
-            this.cb2w.UseVisualStyleBackColor = true;
+            this.cb2WayRandnumExchange.AutoSize = true;
+            this.cb2WayRandnumExchange.Location = new System.Drawing.Point(6, 320);
+            this.cb2WayRandnumExchange.Name = "cb2WayRandnumExchange";
+            this.cb2WayRandnumExchange.Size = new System.Drawing.Size(161, 16);
+            this.cb2WayRandnumExchange.TabIndex = 22;
+            this.cb2WayRandnumExchange.Text = "2-Way Randnum Exchange";
+            this.cb2WayRandnumExchange.UseVisualStyleBackColor = true;
             // 
-            // cb0
+            // cbNoUserAuthent
             // 
-            this.cb0.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.cb0.AutoSize = true;
-            this.cb0.Checked = global::AFPClient4Windows.Properties.Settings.Default.NoUserAuthent;
-            this.cb0.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::AFPClient4Windows.Properties.Settings.Default, "NoUserAuthent", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.cb0.Location = new System.Drawing.Point(4, 17);
-            this.cb0.Name = "cb0";
-            this.cb0.Size = new System.Drawing.Size(110, 16);
-            this.cb0.TabIndex = 0;
-            this.cb0.Text = "No User Authent";
-            this.cb0.UseVisualStyleBackColor = true;
+            this.cbNoUserAuthent.AutoSize = true;
+            this.cbNoUserAuthent.Location = new System.Drawing.Point(6, 276);
+            this.cbNoUserAuthent.Name = "cbNoUserAuthent";
+            this.cbNoUserAuthent.Size = new System.Drawing.Size(110, 16);
+            this.cbNoUserAuthent.TabIndex = 20;
+            this.cbNoUserAuthent.Text = "No User Authent";
+            this.cbNoUserAuthent.UseVisualStyleBackColor = true;
             // 
-            // cb1
+            // cbCleartxtPasswrd
             // 
-            this.cb1.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.cb1.AutoSize = true;
-            this.cb1.Checked = global::AFPClient4Windows.Properties.Settings.Default.CleartxtPasswrd;
-            this.cb1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cb1.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::AFPClient4Windows.Properties.Settings.Default, "CleartxtPasswrd", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.cb1.Location = new System.Drawing.Point(4, 40);
-            this.cb1.Name = "cb1";
-            this.cb1.Size = new System.Drawing.Size(112, 16);
-            this.cb1.TabIndex = 1;
-            this.cb1.Text = "Cleartxt Passwrd";
-            this.cb1.UseVisualStyleBackColor = true;
+            this.cbCleartxtPasswrd.AutoSize = true;
+            this.cbCleartxtPasswrd.Location = new System.Drawing.Point(6, 298);
+            this.cbCleartxtPasswrd.Name = "cbCleartxtPasswrd";
+            this.cbCleartxtPasswrd.Size = new System.Drawing.Size(112, 16);
+            this.cbCleartxtPasswrd.TabIndex = 21;
+            this.cbCleartxtPasswrd.Text = "Cleartxt Passwrd";
+            this.cbCleartxtPasswrd.UseVisualStyleBackColor = true;
             // 
-            // label5
+            // tbPassword
             // 
-            this.label5.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label5.Location = new System.Drawing.Point(172, 1);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(83, 12);
-            this.label5.TabIndex = 3;
-            this.label5.Text = "パスワード保護";
+            this.tbPassword.Location = new System.Drawing.Point(139, 92);
+            this.tbPassword.Name = "tbPassword";
+            this.tbPassword.PasswordChar = '*';
+            this.tbPassword.Size = new System.Drawing.Size(199, 19);
+            this.tbPassword.TabIndex = 8;
             // 
-            // label6
+            // tbUserName
             // 
-            this.label6.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(172, 19);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(27, 12);
-            this.label6.TabIndex = 4;
-            this.label6.Text = "無い";
+            this.tbUserName.Location = new System.Drawing.Point(6, 92);
+            this.tbUserName.Name = "tbUserName";
+            this.tbUserName.Size = new System.Drawing.Size(121, 19);
+            this.tbUserName.TabIndex = 6;
             // 
-            // label9
+            // tbHostAdrs
             // 
-            this.label9.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(172, 88);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(29, 12);
-            this.label9.TabIndex = 8;
-            this.label9.Text = "普通";
-            // 
-            // label10
-            // 
-            this.label10.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label10.Location = new System.Drawing.Point(305, 1);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(31, 12);
-            this.label10.TabIndex = 9;
-            this.label10.Text = "推奨";
-            // 
-            // label11
-            // 
-            this.label11.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(262, 19);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(44, 12);
-            this.label11.TabIndex = 4;
-            this.label11.Text = "できない";
-            // 
-            // label12
-            // 
-            this.label12.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(262, 42);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(44, 12);
-            this.label12.TabIndex = 4;
-            this.label12.Text = "できない";
-            // 
-            // label13
-            // 
-            this.label13.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(262, 65);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(44, 12);
-            this.label13.TabIndex = 4;
-            this.label13.Text = "できない";
-            // 
-            // label15
-            // 
-            this.label15.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(172, 111);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(29, 12);
-            this.label15.TabIndex = 8;
-            this.label15.Text = "普通";
-            // 
-            // tbP
-            // 
-            this.tbP.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::AFPClient4Windows.Properties.Settings.Default, "P", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.tbP.Location = new System.Drawing.Point(12, 98);
-            this.tbP.Name = "tbP";
-            this.tbP.PasswordChar = '*';
-            this.tbP.Size = new System.Drawing.Size(100, 19);
-            this.tbP.TabIndex = 5;
-            this.tbP.Text = global::AFPClient4Windows.Properties.Settings.Default.P;
-            // 
-            // tbU
-            // 
-            this.tbU.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::AFPClient4Windows.Properties.Settings.Default, "U", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.tbU.Location = new System.Drawing.Point(12, 61);
-            this.tbU.Name = "tbU";
-            this.tbU.Size = new System.Drawing.Size(100, 19);
-            this.tbU.TabIndex = 3;
-            this.tbU.Text = global::AFPClient4Windows.Properties.Settings.Default.U;
-            // 
-            // tbHost
-            // 
-            this.tbHost.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::AFPClient4Windows.Properties.Settings.Default, "Host", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.tbHost.Location = new System.Drawing.Point(12, 24);
-            this.tbHost.Name = "tbHost";
-            this.tbHost.Size = new System.Drawing.Size(100, 19);
-            this.tbHost.TabIndex = 1;
-            this.tbHost.Text = global::AFPClient4Windows.Properties.Settings.Default.Host;
-            // 
-            // bSave
-            // 
-            this.bSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.bSave.Location = new System.Drawing.Point(264, 342);
-            this.bSave.Name = "bSave";
-            this.bSave.Size = new System.Drawing.Size(118, 23);
-            this.bSave.TabIndex = 11;
-            this.bSave.Text = "既定値として保存";
-            this.bSave.UseVisualStyleBackColor = true;
-            this.bSave.Click += new System.EventHandler(this.bSave_Click);
+            this.tbHostAdrs.Location = new System.Drawing.Point(176, 18);
+            this.tbHostAdrs.Name = "tbHostAdrs";
+            this.tbHostAdrs.Size = new System.Drawing.Size(183, 19);
+            this.tbHostAdrs.TabIndex = 3;
             // 
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(12, 120);
+            this.label17.Location = new System.Drawing.Point(6, 188);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(147, 12);
-            this.label17.TabIndex = 6;
-            this.label17.Text = "ホストの初期フォルダ(\\区切り)";
+            this.label17.Size = new System.Drawing.Size(219, 12);
+            this.label17.TabIndex = 15;
+            this.label17.Text = "ホストの初期フォルダ(&R) … 半角コロン区切り";
             // 
-            // tbHostDir
+            // tbRemoteDir
             // 
-            this.tbHostDir.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::AFPClient4Windows.Properties.Settings.Default, "Hostdir", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.tbHostDir.Location = new System.Drawing.Point(12, 135);
-            this.tbHostDir.Name = "tbHostDir";
-            this.tbHostDir.Size = new System.Drawing.Size(231, 19);
-            this.tbHostDir.TabIndex = 7;
-            this.tbHostDir.Text = global::AFPClient4Windows.Properties.Settings.Default.HostDir;
+            this.tbRemoteDir.Location = new System.Drawing.Point(6, 203);
+            this.tbRemoteDir.Name = "tbRemoteDir";
+            this.tbRemoteDir.Size = new System.Drawing.Size(231, 19);
+            this.tbRemoteDir.TabIndex = 16;
+            // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Location = new System.Drawing.Point(12, 12);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(373, 422);
+            this.tabControl1.TabIndex = 0;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.bVolRem);
+            this.tabPage1.Controls.Add(this.bConfirm);
+            this.tabPage1.Controls.Add(this.tbHostVol);
+            this.tabPage1.Controls.Add(this.label5);
+            this.tabPage1.Controls.Add(this.bPutRem);
+            this.tabPage1.Controls.Add(this.bRefLoc);
+            this.tabPage1.Controls.Add(this.cbDHX2);
+            this.tabPage1.Controls.Add(this.cbLast);
+            this.tabPage1.Controls.Add(this.cbDHCAST128);
+            this.tabPage1.Controls.Add(this.tbLocalDir);
+            this.tabPage1.Controls.Add(this.tbRemoteDir);
+            this.tabPage1.Controls.Add(this.label21);
+            this.tabPage1.Controls.Add(this.cb2WayRandnumExchange);
+            this.tabPage1.Controls.Add(this.label4);
+            this.tabPage1.Controls.Add(this.cbCleartxtPasswrd);
+            this.tabPage1.Controls.Add(this.cbNoUserAuthent);
+            this.tabPage1.Controls.Add(this.label17);
+            this.tabPage1.Controls.Add(this.tbHostName);
+            this.tabPage1.Controls.Add(this.label20);
+            this.tabPage1.Controls.Add(this.label1);
+            this.tabPage1.Controls.Add(this.tbHostAdrs);
+            this.tabPage1.Controls.Add(this.label2);
+            this.tabPage1.Controls.Add(this.tbUserName);
+            this.tabPage1.Controls.Add(this.tbPassword);
+            this.tabPage1.Controls.Add(this.label3);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(365, 396);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "基本";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // bConfirm
+            // 
+            this.bConfirm.Location = new System.Drawing.Point(175, 43);
+            this.bConfirm.Name = "bConfirm";
+            this.bConfirm.Size = new System.Drawing.Size(118, 23);
+            this.bConfirm.TabIndex = 4;
+            this.bConfirm.Text = "GetSrvrInfoで確認";
+            this.bConfirm.UseVisualStyleBackColor = true;
+            this.bConfirm.Click += new System.EventHandler(this.bConfirm_Click);
+            // 
+            // tbHostVol
+            // 
+            this.tbHostVol.Location = new System.Drawing.Point(6, 166);
+            this.tbHostVol.Name = "tbHostVol";
+            this.tbHostVol.Size = new System.Drawing.Size(121, 19);
+            this.tbHostVol.TabIndex = 13;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(6, 151);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(103, 12);
+            this.label5.TabIndex = 12;
+            this.label5.Text = "ホストのボリューム(&V)";
+            // 
+            // bPutRem
+            // 
+            this.bPutRem.Location = new System.Drawing.Point(243, 201);
+            this.bPutRem.Name = "bPutRem";
+            this.bPutRem.Size = new System.Drawing.Size(91, 23);
+            this.bPutRem.TabIndex = 17;
+            this.bPutRem.Text = "現在のﾌｫﾙﾀﾞ";
+            this.bPutRem.UseVisualStyleBackColor = true;
+            this.bPutRem.Click += new System.EventHandler(this.bPutRem_Click);
+            // 
+            // bRefLoc
+            // 
+            this.bRefLoc.Location = new System.Drawing.Point(243, 127);
+            this.bRefLoc.Name = "bRefLoc";
+            this.bRefLoc.Size = new System.Drawing.Size(50, 23);
+            this.bRefLoc.TabIndex = 11;
+            this.bRefLoc.Text = "...";
+            this.bRefLoc.UseVisualStyleBackColor = true;
+            // 
+            // cbLast
+            // 
+            this.cbLast.AutoSize = true;
+            this.cbLast.Location = new System.Drawing.Point(6, 228);
+            this.cbLast.Name = "cbLast";
+            this.cbLast.Size = new System.Drawing.Size(299, 16);
+            this.cbLast.TabIndex = 18;
+            this.cbLast.Text = "最後にアクセスしたフォルダを次回の初期フォルダをとする(&F)";
+            this.cbLast.UseVisualStyleBackColor = true;
+            // 
+            // tbLocalDir
+            // 
+            this.tbLocalDir.Location = new System.Drawing.Point(6, 129);
+            this.tbLocalDir.Name = "tbLocalDir";
+            this.tbLocalDir.Size = new System.Drawing.Size(231, 19);
+            this.tbLocalDir.TabIndex = 10;
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(6, 114);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(126, 12);
+            this.label21.TabIndex = 9;
+            this.label21.Text = "ローカルの初期フォルダ(&L)";
+            // 
+            // tbHostName
+            // 
+            this.tbHostName.Location = new System.Drawing.Point(6, 18);
+            this.tbHostName.Name = "tbHostName";
+            this.tbHostName.Size = new System.Drawing.Size(160, 19);
+            this.tbHostName.TabIndex = 1;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(6, 3);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(93, 12);
+            this.label20.TabIndex = 0;
+            this.label20.Text = "ホストの設定名(&T)";
+            // 
+            // bVolRem
+            // 
+            this.bVolRem.Image = global::AFPClient4Windows.Properties.Resources.DRIVENET;
+            this.bVolRem.Location = new System.Drawing.Point(133, 164);
+            this.bVolRem.Name = "bVolRem";
+            this.bVolRem.Size = new System.Drawing.Size(50, 23);
+            this.bVolRem.TabIndex = 14;
+            this.bVolRem.UseVisualStyleBackColor = true;
+            this.bVolRem.Click += new System.EventHandler(this.bRefHostVol_Click);
             // 
             // ConnForm
             // 
@@ -460,33 +353,21 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.bCancel;
-            this.ClientSize = new System.Drawing.Size(425, 377);
-            this.Controls.Add(this.tbHostDir);
-            this.Controls.Add(this.label17);
-            this.Controls.Add(this.tlp);
-            this.Controls.Add(this.bSave);
+            this.ClientSize = new System.Drawing.Size(402, 475);
+            this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.bCancel);
             this.Controls.Add(this.bOk);
-            this.Controls.Add(this.tbP);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.tbU);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.tbHost);
-            this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ConnForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "ConnForm";
-            this.tlp.ResumeLayout(false);
-            this.tlp.PerformLayout();
-            this.flowLayoutPanel2.ResumeLayout(false);
-            this.flowLayoutPanel2.PerformLayout();
-            this.flowLayoutPanel1.ResumeLayout(false);
-            this.flowLayoutPanel1.PerformLayout();
+            this.Text = "ホストの設定";
+            this.Load += new System.EventHandler(this.ConnForm_Load);
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -497,34 +378,29 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button bOk;
         private System.Windows.Forms.Button bCancel;
-        internal System.Windows.Forms.TextBox tbHost;
-        internal System.Windows.Forms.TextBox tbU;
-        internal System.Windows.Forms.TextBox tbP;
-        internal System.Windows.Forms.CheckBox cb2w;
-        internal System.Windows.Forms.CheckBox cb1;
-        internal System.Windows.Forms.CheckBox cb0;
-        private System.Windows.Forms.TableLayoutPanel tlp;
+        internal System.Windows.Forms.TextBox tbHostAdrs;
+        internal System.Windows.Forms.TextBox tbUserName;
+        internal System.Windows.Forms.TextBox tbPassword;
+        internal System.Windows.Forms.CheckBox cb2WayRandnumExchange;
+        internal System.Windows.Forms.CheckBox cbCleartxtPasswrd;
+        internal System.Windows.Forms.CheckBox cbNoUserAuthent;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label6;
-        internal System.Windows.Forms.CheckBox cbDHX;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Label label14;
+        internal System.Windows.Forms.CheckBox cbDHCAST128;
         internal System.Windows.Forms.CheckBox cbDHX2;
-        private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.Button bSave;
         private System.Windows.Forms.Label label17;
-        internal System.Windows.Forms.TextBox tbHostDir;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
-        private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
-        private System.Windows.Forms.Label label18;
+        internal System.Windows.Forms.TextBox tbRemoteDir;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.TextBox tbHostName;
+        private System.Windows.Forms.TextBox tbLocalDir;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.CheckBox cbLast;
+        private System.Windows.Forms.Button bRefLoc;
+        private System.Windows.Forms.Button bPutRem;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox tbHostVol;
+        private System.Windows.Forms.Button bConfirm;
+        private System.Windows.Forms.Button bVolRem;
     }
 }
