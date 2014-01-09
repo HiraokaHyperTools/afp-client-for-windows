@@ -8,8 +8,8 @@
 ;--------------------------------
 
 !define APP "AFPClient4Windows"
-!define VER "0.11"
-!define APV "0_11"
+!define VER "0.11'"
+!define APV "0_11'"
 
 !define EXT ".AFPClient4Windows"
 !define MIME "application/x-AFPClient4Windows"
@@ -90,6 +90,13 @@ Section "拡張子 関連付け HKCU"
   WriteRegStr HKCU "Software\Classes\${APP}\shell\open\command" "" '"$INSTDIR\AFPClient4Windows.exe" /open "%1"'
   
   !insertmacro UPDATEFILEASSOC
+SectionEnd
+
+Section "スタートメニューへ登録"
+  CreateShortcut "$SMPROGRAMS\AFPClient4Windows.lnk" \
+    "$INSTDIR\AFPClient4Windows.exe" \
+    "" \
+    "$INSTDIR\1.ico"
 SectionEnd
 
 Section "起動"
