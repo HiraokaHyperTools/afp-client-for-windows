@@ -1,0 +1,7 @@
+#summary Downloads here
+
+= Windows .NET Framework版 バイナリの入手 =
+
+AFPClient4Windows_0_12_portable.exe
+
+https://drive.google.com/file/d/0Bygl-em20CSKZ1dQeXpCak5WZ1U/edit?usp=sharing
