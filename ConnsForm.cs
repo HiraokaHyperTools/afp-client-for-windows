@@ -44,29 +44,42 @@ namespace AFPClient4Windows {
         }
 
         private void Upt() {
-            tvC.Nodes.Clear();
+            System.Collections.ArrayList al = new System.Collections.ArrayList(lvC.Items);
 
             foreach (String fp in Directory.GetFiles(BaseDir, "*" + Resources.FExt, SearchOption.AllDirectories)) {
                 String relfp = fp.Substring(BaseDir.Length).TrimStart('\\');
-                String[] cols = relfp.Split('\\');
-                TreeNodeCollection tnc = tvC.Nodes;
-                for (int x = 0; x < cols.Length; x++) {
-                    String n = cols[x];
-                    TreeNode tn = tnc[n];
-                    if (tn == null) {
-                        tn = tnc.Add(n, n);
+                int p = lvC.Items.IndexOfKey(relfp);
+                ListViewItem lvi = (p < 0) ? new ListViewItem() : lvC.Items[p];
+                lvi.Name = relfp;
+                lvi.Tag = fp;
+                lvi.ImageKey = "E";
+                lvi.Text = Path.GetFileNameWithoutExtension(relfp);
+
+                try {
+                    XmlSerializer xmls = new XmlSerializer(typeof(Conn));
+                    Conn conn;
+                    using (FileStream fs = File.OpenRead(fp)) {
+                        conn = (Conn)xmls.Deserialize(fs);
                     }
-                    tn.ImageKey = "D";
-                    if (x + 1 == cols.Length) {
-                        tn.Text = tn.Name = Path.GetFileNameWithoutExtension(tn.Name);
-                        tn.Tag = fp;
-                    }
+                    while (lvi.SubItems.Count < 3) lvi.SubItems.Add("");
+                    lvi.SubItems[1].Text = (conn.Host);
+                    lvi.SubItems[2].Text = (conn.U);
                 }
+                catch (Exception err) {
+                    lvi.ImageKey = "X";
+                    lvi.SubItems.Add(err.Message);
+                }
+
+                al.Remove(lvi);
+
+                if (p < 0) lvC.Items.Add(lvi);
             }
 
-            if (tvC.SelectedNode == null)
-                foreach (TreeNode tn in tvC.Nodes) {
-                    tvC.SelectedNode = tn;
+            foreach (ListViewItem lvi in al) lvi.Remove();
+
+            if (lvC.SelectedItems.Count == 0)
+                foreach (ListViewItem lvi in lvC.Items) {
+                    lvi.Focused = lvi.Selected = true;
                     break;
                 }
         }
@@ -80,46 +93,44 @@ namespace AFPClient4Windows {
         }
 
         private void bEdit_Click(object sender, EventArgs e) {
-            TreeNode tn = tvC.SelectedNode;
-            if (tn == null) return;
-            String fp = (String)tn.Tag;
-            if (fp == null) return;
+            foreach (ListViewItem lvi in lvC.SelectedItems) {
+                String fp = (String)lvi.Tag;
+                if (fp == null) return;
 
-            XmlSerializer xmls = new XmlSerializer(typeof(Conn));
-            Conn conn;
-            using (FileStream fs = File.OpenRead(fp)) {
-                conn = (Conn)xmls.Deserialize(fs);
-            }
-            using (ConnForm form = new ConnForm(conn)) {
-                form.tbFName.Text = Path.GetFileNameWithoutExtension(fp);
-                if (form.ShowDialog() == DialogResult.OK) {
-                    File.Delete(fp);
-                    fp = Path.Combine(Path.GetDirectoryName(fp), form.tbFName.Text + Resources.FExt);
-                    using (FileStream fs = File.Create(fp)) {
-                        xmls.Serialize(fs, conn);
+                XmlSerializer xmls = new XmlSerializer(typeof(Conn));
+                Conn conn;
+                using (FileStream fs = File.OpenRead(fp)) {
+                    conn = (Conn)xmls.Deserialize(fs);
+                }
+                using (ConnForm form = new ConnForm(conn)) {
+                    form.tbFName.Text = Path.GetFileNameWithoutExtension(fp);
+                    if (form.ShowDialog() == DialogResult.OK) {
+                        File.Delete(fp);
+                        fp = Path.Combine(Path.GetDirectoryName(fp), form.tbFName.Text + Resources.FExt);
+                        using (FileStream fs = File.Create(fp)) {
+                            xmls.Serialize(fs, conn);
+                        }
                     }
                 }
+                break;
             }
             Upt();
         }
 
         private void bConn_Click(object sender, EventArgs e) {
-            TreeNode tn = tvC.SelectedNode;
-            if (tn == null) return;
-            String fp = (String)tn.Tag;
-            if (fp == null) return;
+            foreach (ListViewItem lvi in lvC.SelectedItems) {
+                String fp = (String)lvi.Tag;
+                if (fp == null) return;
 
-            XmlSerializer xmls = new XmlSerializer(typeof(Conn));
-            using (FileStream fs = File.OpenRead(fp)) {
-                this.connSel = (Conn)xmls.Deserialize(fs);
+                XmlSerializer xmls = new XmlSerializer(typeof(Conn));
+                using (FileStream fs = File.OpenRead(fp)) {
+                    this.connSel = (Conn)xmls.Deserialize(fs);
+                }
+
+                DialogResult = DialogResult.OK;
+                Close();
+                break;
             }
-
-            DialogResult = DialogResult.OK;
-            Close();
-        }
-
-        private void tvC_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e) {
-            bConn.PerformClick();
         }
 
         private void tvC_KeyDown(object sender, KeyEventArgs e) {
@@ -127,6 +138,35 @@ namespace AFPClient4Windows {
                 e.Handled = true;
                 bConn.PerformClick();
             }
+        }
+
+        private void lvC_ItemActivate(object sender, EventArgs e) {
+            bConn.PerformClick();
+        }
+
+        class Sort : System.Collections.IComparer {
+            int i, ord;
+            public Sort(int i, int ord) {
+                this.i = i;
+                this.ord = ord;
+            }
+
+            #region IComparer ƒƒ“ƒo
+
+            public int Compare(object ax, object ay) {
+                ListViewItem x = (ListViewItem)ax;
+                ListViewItem y = (ListViewItem)ay;
+                bool fx = i < x.SubItems.Count;
+                bool fy = i < y.SubItems.Count;
+                if (!fx || fx != fy) return fx.CompareTo(fy) * ord;
+                return x.SubItems[i].Text.CompareTo(y.SubItems[i].Text) * ord;
+            }
+
+            #endregion
+        }
+
+        private void lvC_ColumnClick(object sender, ColumnClickEventArgs e) {
+            lvC.ListViewItemSorter = new Sort(e.Column, ((ModifierKeys & Keys.Shift) == 0) ? 1 : -1);
         }
     }
 }

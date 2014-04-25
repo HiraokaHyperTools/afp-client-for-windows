@@ -117,89 +117,333 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="il16.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>127, 17</value>
-  </metadata>
+  <data name="&gt;&gt;tsc.BottomToolStripPanel.Name" xml:space="preserve">
+    <value>tsc.BottomToolStripPanel</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="chu.Width" type="System.Int32, mscorlib">
+    <value>100</value>
+  </data>
+  <data name="tsc.Text" xml:space="preserve">
+    <value>toolStripContainer1</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="bConn.Size" type="System.Drawing.Size, System.Drawing">
+    <value>94, 22</value>
+  </data>
+  <data name="&gt;&gt;bConn.Name" xml:space="preserve">
+    <value>bConn</value>
+  </data>
+  <data name="chfn.Width" type="System.Int32, mscorlib">
+    <value>250</value>
+  </data>
+  <data name="&gt;&gt;bRefreshTree.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="bNew.Text" xml:space="preserve">
+    <value>&amp;New connection</value>
+  </data>
+  <data name="&gt;&gt;bEdit.Name" xml:space="preserve">
+    <value>bEdit</value>
+  </data>
+  <data name="&gt;&gt;tsc.RightToolStripPanel.Name" xml:space="preserve">
+    <value>tsc.RightToolStripPanel</value>
+  </data>
+  <data name="bEdit.Text" xml:space="preserve">
+    <value>&amp;Edit...</value>
+  </data>
+  <data name="&gt;&gt;toolStrip1.Name" xml:space="preserve">
+    <value>toolStrip1</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
+    <value>CenterParent</value>
+  </data>
+  <data name="bEdit.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
+  </data>
+  <data name="&gt;&gt;toolStrip1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="bNew.Size" type="System.Drawing.Size, System.Drawing">
+    <value>131, 22</value>
+  </data>
+  <data name="&gt;&gt;lvC.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="bRefreshTree.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
+  </data>
+  <data name="&gt;&gt;chhost.Name" xml:space="preserve">
+    <value>chhost</value>
+  </data>
+  <data name="&gt;&gt;tsc.TopToolStripPanel.Name" xml:space="preserve">
+    <value>tsc.TopToolStripPanel</value>
+  </data>
+  <data name="bConn.Text" xml:space="preserve">
+    <value>&amp;Connect</value>
+  </data>
+  <data name="toolStrip1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 0</value>
+  </data>
+  <data name="lvC.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Connect to</value>
+  </data>
+  <data name="&gt;&gt;chfn.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tsc.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripContainer, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 12</value>
+  </data>
+  <data name="bConn.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
+  </data>
+  <data name="bRefreshTree.Size" type="System.Drawing.Size, System.Drawing">
+    <value>70, 22</value>
+  </data>
+  <data name="&gt;&gt;tsc.BottomToolStripPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripPanel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="bEdit.Size" type="System.Drawing.Size, System.Drawing">
+    <value>81, 22</value>
+  </data>
+  <data name="&gt;&gt;bRefreshTree.Name" xml:space="preserve">
+    <value>bRefreshTree</value>
+  </data>
+  <data name="chhost.Width" type="System.Int32, mscorlib">
+    <value>120</value>
+  </data>
+  <data name="&gt;&gt;tsc.RightToolStripPanel.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;il16.Name" xml:space="preserve">
+    <value>il16</value>
+  </data>
+  <data name="lvC.Size" type="System.Drawing.Size, System.Drawing">
+    <value>609, 240</value>
+  </data>
+  <data name="&gt;&gt;bNew.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="chfn.Text" xml:space="preserve">
+    <value>Filename</value>
+  </data>
+  <data name="bExplorer.Size" type="System.Drawing.Size, System.Drawing">
+    <value>129, 22</value>
+  </data>
+  <data name="&gt;&gt;tsc.ContentPanel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;tsc.LeftToolStripPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripPanel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tsc.LeftToolStripPanel.Name" xml:space="preserve">
+    <value>tsc.LeftToolStripPanel</value>
+  </data>
+  <data name="chu.Text" xml:space="preserve">
+    <value>User</value>
+  </data>
+  <data name="chhost.Text" xml:space="preserve">
+    <value>Host</value>
+  </data>
+  <data name="&gt;&gt;toolStrip1.Parent" xml:space="preserve">
+    <value>tsc.TopToolStripPanel</value>
+  </data>
+  <data name="&gt;&gt;tsc.ContentPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripContentPanel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>ConnsForm</value>
+  </data>
+  <data name="toolStrip1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>517, 25</value>
+  </data>
+  <data name="&gt;&gt;tsc.BottomToolStripPanel.Parent" xml:space="preserve">
+    <value>tsc</value>
+  </data>
+  <data name="&gt;&gt;tsc.RightToolStripPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripPanel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tsc.LeftToolStripPanel.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="bNew.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
+  </data>
   <data name="il16.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj0yLjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
-        ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAAD+
-        BQAAAk1TRnQBSQFMAwEBAAEYAQABGAEAARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMA
-        ARADAAEBAQABIAYAARAuAAFOAk0BjQF8AmcB0wG2AWQBZQH/7AADCgENAXgCZQHQAdEBugG0Af8B4gHm
-        Ad0B/wGHAnIB2gG2AWQBZQH/5AABQQJAAW8BuwF6AXcB/wHRAboBtAH/AegB9gHrAf8B6QH5Ae4B/wHp
-        AfkB7gH/AX0BZwFlAdUBtgFkAWUB/9gAAxYBHwGGAmsB3QHBAZQBkAH/AeIB5gHdAf8B5AHrAeEB/wHE
-        AZkBlAH/AbkBcgFxAf8BwAHDAcEB/wHpAfkB7gH/AYABZgFjAdgBtgFkAWUB/8wAAwEBAgFKAkkBhQG4
-        AXgBdgH/AdMBxQG+Af8B6QH5Ae4B/wHXAccBwAH/AcEBgwGBAf8BwwJ6Af8BwgFyAXMB/wG6AWsBagH/
-        AccBzAHJAf8B6QH5Ae4B/wGDAmYB2wG2AWQBZQH/yAABfQFtAWsB2gG6AZMBkAH/AeYB8QHnAf8B5AHr
-        AeEB/wG/AZEBjgH/AcIBhQGDAf8ByQKAAf8ByAF6AXwB/wHGAnoB/wHCAXgBegH/AboBawFqAf8BxwHM
-        AckB/wHpAfkB7gH/AYcBaAFmAd4BtgFkAWUB/8QAAbgBcwFxAf8B5AHoAd8B/wHPAb8BuQH/AbsBeAF2
-        Af8BwQJ8Af8BxgKDAf8ByAKCAf8BxwKDAf8BxgF8AYEB/wHFAXoBeQH/AcMBdwF4Af8BuQFqAWkB/wHH
-        AcwByQH/AekB+QHuAf8BigFpAWgB4QG2AWQBZQH/wAABwQGBAXwB/wHSAasBqAH/AcIBgwGBAf8BygGQ
-        AYwB/wHOAY0BjAH/AcwBiwGKAf8BzAGHAYkB/wHJAYYBhwH/AcoBggGFAf8ByQGBAYUB/wHGAXwBgAH/
-        AcICdgH/AbkBaQFoAf8BxwHMAckB/wHpAfkB7gH/AYsBbgFtAeHAAAHWAaEBnQH/AdMBqgGoAf8BzAGP
-        AY4B/wHdAaEBnwH/AdgBmgGbAf8B1gGUAZcB/wHTAZEBkwH/AdIBjwGRAf8B0AGMAY4B/wHOAooB/wHN
-        AYgBiQH/AcgCggH/Ab8BcwF0Af8BuAFoAWcB/wHHAcwByQH/AdcB2wHUAf3AAAMbASYB1gGhAZ0B/wHv
-        AtEB/wHRAZgBlQH/AeEBqQGoAf8B4gKrAf8B3wGkAaYB/wHcAZ8BoAH/AdgCmwH/AdQBmAGXAf8B0QGR
-        AZIB/wHMAooB/wHIAYMBhAH/Ab8BcAFxAf8BuAFoAWcB/wHGAbEBrwH/xAADJQE3AdYBoQGdAf8B7QLJ
-        Af8B0QGYAZUB/wHkAbABrwH/AesCtwH/AeYCsAH/AeIBqAGpAf8B3QKiAf8B2QKcAf8B1AKVAf8BzgKP
-        Af8BywKHAf8BvgFvAXAB/wG4AWoBaQH/yAADJQE3AdYBoQGdAf8B7QLJAf8B0QGYAZUB/wHmAbMBsgH/
-        AfABvgG/Af8B6wK3Af8B6AGyAbEB/wHlAa8BrgH/AeEBqwGqAf8B3AGiAaMB/wHWApgB/wHPAo4B/wGV
-        AXQBcgHkzAADJQE3AdYBoQGdAf8B7QLJAf8B0QGYAZUB/wHoAbYBtQH/AfQCxQH/AfIBwAHDAf8B8AHA
-        AcEB/wHtAbsBvAH/AeUCrwH/AcgBnAGbAfsBUwJQAZcDDQES0AADJQE3AdYBoQGdAf8B7QLJAf8B0QGY
-        AZUB/wHsAcEBwAH/AeQBvgG9Af8B3AG5AbcB/gHKAZ4BnQH7AVMCUAGYAw0BEtwAAyUBNwHWAaEBnQH/
-        Ae0C0QH/AdkBoAGfAf8BwwGdAZwB+AFTAlEBmAMSARjoAAMbASYBdwJpAckBVQJSAZsDFAEb2AABQgFN
-        AT4HAAE+AwABKAMAAUADAAEQAwABAQEAAQEFAAGAFwAD/wEAAf4BPwYAAfgBHwYAAfABDwYAAcABBwcA
-        AQMHAAEBJgABgAcAAcAHAAHgBwAB8AEDBgAB+AEPBgAB/AE/BgAL
+        ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAACA
+        CAAAAk1TRnQBSQFMAgEBAgEAAUgBAAFQAQABEAEAARABAAT/ASEBEAj/AUIBTQE2BwABNgMAASgDAAFA
+        AwABEAMAAQEBAAEgBgABEC4AA0oBjQFeAl0B0wG2AV4BXwH/7AADCgENA14B0AHRAboBtAH/AeIB5gHd
+        Af8BZgJhAdoBtgFeAV8B/+QAA0ABbwG7AXQBcQH/AdEBugG0Af8B6AH2AesB/wHpAfkB7gH/AekB+QHu
+        Af8BYgJeAdUBtgFeAV8B/xgAAyIBMgNMAZEDKQE+AwoBDRgAAwMBBAMHAQqQAAMWAR8BZQJhAd0BwQGU
+        AZAB/wHiAeYB3QH/AeQB6wHhAf8BxAGZAZQB/wG5AWwBawH/AcABwwHBAf8B6QH5Ae4B/wFhAl4B2AG2
+        AV4BXwH/EAADBAEGA0gBhQERAQ0BDAH/A1UBugMbASYDAQECEAADAgEDA0wBkwMkATUDAQEChAADAQEC
+        A0gBhQG4AXIBcAH/AdMBxQG+Af8B6QH5Ae4B/wHXAccBwAH/AcEBgwGBAf8BwwJ0Af8BwgFsAW0B/wG6
+        AWUBZAH/AccBzAHJAf8B6QH5Ae4B/wFkAl8B2wG2AV4BXwH/EAADMAFLARoBEgEQAf8BJQEgAR8B/wNI
+        AYUDCAELDAADAQECAxoBJANRAd8DFgEfAwEBAoQAAWMCYQHaAboBkwGQAf8B5gHxAecB/wHkAesB4QH/
+        Ab8BkQGOAf8BwgGFAYMB/wHJAoAB/wHIAXQBdgH/AcYCdAH/AcIBcgF0Af8BugFlAWQB/wHHAcwByQH/
+        AekB+QHuAf8BZgJgAd4BtgFeAV8B/wwAAwYBCANRAaIBQAE9ATwB8QFRAlAB5AMdASoIAAMGAQgDCgEO
+        AlgBVwHNA0wBkgMCAQOIAAG4AW0BawH/AeQB6AHfAf8BzwG/AbkB/wG7AXIBcAH/AcECdgH/AcYCgwH/
+        AcgCggH/AccCgwH/AcYBdgGBAf8BxQF0AXMB/wHDAXEBcgH/AbkBZAFjAf8BxwHMAckB/wHpAfkB7gH/
+        AWkCYQHhAbYBXgFfAf8MAAMSARgDVwHKAR8BGwEYAf8DVwHCAw0BEgMIAQsDCAELA04BlwFAAj8B9AMV
+        AR2MAAHBAYEBdgH/AdIBqwGoAf8BwgGDAYEB/wHKAZABjAH/Ac4BjQGMAf8BzAGLAYoB/wHMAYcBiQH/
+        AckBhgGHAf8BygGCAYUB/wHJAYEBhQH/AcYBdgGAAf8BwgJwAf8BuQFjAWIB/wHHAcwByQH/AekB+QHu
+        Af8BaQJhAeEQAAMWAR8DVwHVAysB/ANTAawDIwE0A1UBtgEtASsBKgH/Az0BaZAAAdYBoQGdAf8B0wGq
+        AagB/wHMAY8BjgH/Ad0BoQGfAf8B2AGaAZsB/wHWAZQBlwH/AdMBkQGTAf8B0gGPAZEB/wHQAYwBjgH/
+        Ac4CigH/Ac0BiAGJAf8ByAKCAf8BvwFtAW4B/wG4AWIBYQH/AccBzAHJAf8BxQHJAcIB/RQAAxcBIAFY
+        AlYB0gExAS4BLQH+AS4BKgEpAf8BMgEvAS4B/wNXAdqUAAMbASYB1gGhAZ0B/wHvAtEB/wHRAZgBlQH/
+        AeEBqQGoAf8B4gKrAf8B3wGkAaYB/wHcAZ8BoAH/AdgCmwH/AdQBmAGXAf8B0QGRAZIB/wHMAooB/wHI
+        AYMBhAH/Ab8BagFrAf8BuAFiAWEB/wHGAbEBrwH/GAADKgJAATsBOgH5ATcBNAEzAf8DVAHeAw0BEpgA
+        AyUBNwHWAaEBnQH/Ae0CyQH/AdEBmAGVAf8B5AGwAa8B/wHrArcB/wHmArAB/wHiAagBqQH/Ad0CogH/
+        AdkCnAH/AdQClQH/Ac4CjwH/AcsChwH/Ab4BaQFqAf8BuAFkAWMB/xMAAQEDHQEpA1kBzwE1ATEBMAH/
+        AT0BOwE6AfcDSQHvA1QBrgMHAQmYAAMlATcB1gGhAZ0B/wHtAskB/wHRAZgBlQH/AeYBswGyAf8B8AG+
+        Ab8B/wHrArcB/wHoAbIBsQH/AeUBrwGuAf8B4QGrAaoB/wHcAaIBowH/AdYCmAH/Ac8CjgH/AWsBYgFh
+        AeQMAAMEAQYDQAFwAUMBQAE6AfsBPAI4Af8DUgGmAyABLgNMAZMCNgE3Af8DTAGTAwsBD5gAAyUBNwHW
+        AaEBnQH/Ae0CyQH/AdEBmAGVAf8B6AG2AbUB/wH0AsUB/wHyAcABwwH/AfABwAHBAf8B7QG7AbwB/wHl
+        Aq8B/wGzApMB+wNPAZcDDQESBAADEgEZAyYBOANWAbYBOQE2ATQB/wE6ATkBOAH/A1UBsQMIAQsEAAMH
+        AQkDUgGoAUIBOgE4AfsDSgGLAwkBDJgAAyUBNwHWAaEBnQH/Ae0CyQH/AdEBmAGVAf8B7AHBAcAB/wHk
+        Ab4BvQH/AdABrQGrAf4BtgKUAfsDTgGYAw0BEggAAwMBBAM6AWIDVgG2ATcBMwExAf8BPAI6AfwDRAF6
+        AwIBAwwAAwYBCAMrAUIDUQH3A08BnJwAAyUBNwHWAaEBnQH/Ae0C0QH/AdkBoAGfAf8BpwGRAZAB+ANO
+        AZgDEgEYEAADAgEDAz0BZwE+AjsB/wNIAfYDMgFRAwIBAxQAAwMBBAMYASIDQAFuoAADGwEmA1wByQNQ
+        AZsDFAEbHAADIQEwA1YBvAMrAUIDAQECrAABQgFNAT4HAAE+AwABKAMAAUADAAEQAwABAQEAAQEFAAGA
+        FwAD/wEAAf4BPwL/BAAB+AEfAv8EAAHwAQ8BwwHzBAABwAEHAYEB4QUAAQMCwQUAAQEBwQGDBgAB4AEH
+        BgAB8AEPBgAB+AEfBgAB/AEfBAABgAEAAfABDwQAAcABAAHgAQcEAAHgAQABgAGDBAAB8AEDAQEBwwQA
+        AfgBDwEDAeMEAAH8AT8BhwH/GgAL
 </value>
+  </data>
+  <data name="&gt;&gt;bExplorer.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="tsc.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="tsc.Size" type="System.Drawing.Size, System.Drawing">
+    <value>609, 265</value>
+  </data>
+  <data name="&gt;&gt;lvC.Parent" xml:space="preserve">
+    <value>tsc.ContentPanel</value>
+  </data>
+  <data name="bRefreshTree.Text" xml:space="preserve">
+    <value>&amp;Refresh</value>
+  </data>
+  <data name="&gt;&gt;tsc.BottomToolStripPanel.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="toolStrip1.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="bExplorer.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
+  </data>
+  <data name="lvC.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;bExplorer.Name" xml:space="preserve">
+    <value>bExplorer</value>
+  </data>
+  <data name="&gt;&gt;chu.Name" xml:space="preserve">
+    <value>chu</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tsc.ContentPanel.Name" xml:space="preserve">
+    <value>tsc.ContentPanel</value>
+  </data>
+  <data name="&gt;&gt;tsc.TopToolStripPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripPanel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tsc.TopToolStripPanel.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>609, 265</value>
+  </data>
+  <data name="&gt;&gt;tsc.Name" xml:space="preserve">
+    <value>tsc</value>
+  </data>
+  <data name="&gt;&gt;chu.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tsc.ContentPanel.Parent" xml:space="preserve">
+    <value>tsc</value>
+  </data>
+  <data name="&gt;&gt;lvC.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ListView, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;bNew.Name" xml:space="preserve">
+    <value>bNew</value>
+  </data>
+  <data name="&gt;&gt;tsc.RightToolStripPanel.Parent" xml:space="preserve">
+    <value>tsc</value>
+  </data>
+  <data name="&gt;&gt;tsc.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;chfn.Name" xml:space="preserve">
+    <value>chfn</value>
+  </data>
+  <data name="&gt;&gt;il16.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ImageList, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="tsc.ContentPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>609, 240</value>
+  </data>
+  <data name="bExplorer.Text" xml:space="preserve">
+    <value>Exp&amp;lorer</value>
+  </data>
+  <data name="&gt;&gt;bEdit.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lvC.Name" xml:space="preserve">
+    <value>lvC</value>
+  </data>
+  <data name="toolStrip1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="&gt;&gt;toolStrip1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStrip, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="tsc.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="lvC.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="&gt;&gt;bConn.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tsc.LeftToolStripPanel.Parent" xml:space="preserve">
+    <value>tsc</value>
+  </data>
+  <data name="tsc.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="&gt;&gt;chhost.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tsc.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;tsc.TopToolStripPanel.Parent" xml:space="preserve">
+    <value>tsc</value>
   </data>
   <metadata name="toolStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
+    <value>3, 0</value>
   </metadata>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="bNew.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAIDSURBVDhPpZLrS5NhGMb3j4SWh0oRQVExD4gonkDpg4hG
-        YKxG6WBogkMZKgPNCEVJFBGdGETEvgwyO9DJE5syZw3PIlPEE9pgBCLZ5XvdMB8Ew8gXbl54nuf63dd9
-        0OGSnwCahxbPRNPAPMw9Xpg6ZmF46kZZ0xSKzJPIrhpDWsVnpBhGkKx3nAX8Pv7z1zg8OoY/cITdn4fw
-        bf/C0kYAN3Ma/w3gWfZL5kzTKBxjWyK2DftwI9tyMYCZKXbNHaD91bLYJrDXsYbrWfUKwJrPE9M2M1Oc
-        VzOOpHI7Jr376Hi9ogHqFIANO0/MmmmbmSmm9a8ze+I4MrNWAdjtoJgWcx+PSzg166yZZ8xM8XvXDix9
-        c4jIqFYAjoriBV9AhEPv1mH/sonogha0afbZMMZz+yreTGyhpusHwtNNCsA5U1zS4BLxzJIfg299qO32
-        Ir7UJtZfftyATqeT+8o2D8JSjQrAJblrncYL7ZJ2+bfaFnC/1S1NjL3diRat7qrO7wLRP3HjWsojBeCo
-        mDEo5mNjuweFGvjWg2EBhCbpkW78htSHHwRyNdmgAFzPEee2iFkzayy2OLXzT4gr6UdUnlXrullsxxQ+
-        kx0g8BTA3aZlButjSTyjODq/WcQcW/B/Je4OQhLvKQDnzN1mp0nnkvAhR8VuMzNrpm1mpjgkoVwB/v8D
-        TgDQASA1MVpwzwAAAABJRU5ErkJggg==
-</value>
-  </data>
-  <data name="bEdit.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAIDSURBVDhPpZLrS5NhGMb3j4SWh0oRQVExD4gonkDpg4hG
-        YKxG6WBogkMZKgPNCEVJFBGdGETEvgwyO9DJE5syZw3PIlPEE9pgBCLZ5XvdMB8Ew8gXbl54nuf63dd9
-        0OGSnwCahxbPRNPAPMw9Xpg6ZmF46kZZ0xSKzJPIrhpDWsVnpBhGkKx3nAX8Pv7z1zg8OoY/cITdn4fw
-        bf/C0kYAN3Ma/w3gWfZL5kzTKBxjWyK2DftwI9tyMYCZKXbNHaD91bLYJrDXsYbrWfUKwJrPE9M2M1Oc
-        VzOOpHI7Jr376Hi9ogHqFIANO0/MmmmbmSmm9a8ze+I4MrNWAdjtoJgWcx+PSzg166yZZ8xM8XvXDix9
-        c4jIqFYAjoriBV9AhEPv1mH/sonogha0afbZMMZz+yreTGyhpusHwtNNCsA5U1zS4BLxzJIfg299qO32
-        Ir7UJtZfftyATqeT+8o2D8JSjQrAJblrncYL7ZJ2+bfaFnC/1S1NjL3diRat7qrO7wLRP3HjWsojBeCo
-        mDEo5mNjuweFGvjWg2EBhCbpkW78htSHHwRyNdmgAFzPEee2iFkzayy2OLXzT4gr6UdUnlXrullsxxQ+
-        kx0g8BTA3aZlButjSTyjODq/WcQcW/B/Je4OQhLvKQDnzN1mp0nnkvAhR8VuMzNrpm1mpjgkoVwB/v8D
-        TgDQASA1MVpwzwAAAABJRU5ErkJggg==
-</value>
-  </data>
-  <data name="bExplorer.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAIDSURBVDhPpZLrS5NhGMb3j4SWh0oRQVExD4gonkDpg4hG
-        YKxG6WBogkMZKgPNCEVJFBGdGETEvgwyO9DJE5syZw3PIlPEE9pgBCLZ5XvdMB8Ew8gXbl54nuf63dd9
-        0OGSnwCahxbPRNPAPMw9Xpg6ZmF46kZZ0xSKzJPIrhpDWsVnpBhGkKx3nAX8Pv7z1zg8OoY/cITdn4fw
-        bf/C0kYAN3Ma/w3gWfZL5kzTKBxjWyK2DftwI9tyMYCZKXbNHaD91bLYJrDXsYbrWfUKwJrPE9M2M1Oc
-        VzOOpHI7Jr376Hi9ogHqFIANO0/MmmmbmSmm9a8ze+I4MrNWAdjtoJgWcx+PSzg166yZZ8xM8XvXDix9
-        c4jIqFYAjoriBV9AhEPv1mH/sonogha0afbZMMZz+yreTGyhpusHwtNNCsA5U1zS4BLxzJIfg299qO32
-        Ir7UJtZfftyATqeT+8o2D8JSjQrAJblrncYL7ZJ2+bfaFnC/1S1NjL3diRat7qrO7wLRP3HjWsojBeCo
-        mDEo5mNjuweFGvjWg2EBhCbpkW78htSHHwRyNdmgAFzPEee2iFkzayy2OLXzT4gr6UdUnlXrullsxxQ+
-        kx0g8BTA3aZlButjSTyjODq/WcQcW/B/Je4OQhLvKQDnzN1mp0nnkvAhR8VuMzNrpm1mpjgkoVwB/v8D
-        TgDQASA1MVpwzwAAAABJRU5ErkJggg==
-</value>
-  </data>
+  <metadata name="il16.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>127, 17</value>
+  </metadata>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
 </root>

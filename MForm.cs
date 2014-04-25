@@ -84,6 +84,13 @@ namespace AFPClient4Windows {
 
         private void Connect2(Conn conn) {
             CloseAFP();
+            if (conn.AskPassword) {
+                AskPassForm form = new AskPassForm();
+                form.tbP.Text = conn.P;
+                if (form.ShowDialog(this) != DialogResult.OK) 
+                    return;
+                conn.P = form.tbP.Text;
+            }
             LPC lpc = new LPC(conn, this);
             DelRefs.Add(lpc);
 
@@ -104,7 +111,7 @@ namespace AFPClient4Windows {
                 }
             }
             catch (Exception err) {
-                MessageBox.Show(this, "接続に失敗しました:\n\n" + err.Message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show(this, String.Format(strings.FailedToConnect, err.Message), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 Debug.WriteLine("!" + err);
                 return;
             }
@@ -112,12 +119,7 @@ namespace AFPClient4Windows {
 
         class RUt {
             internal static void Report(IAddLOG logging, GetSrvrInfoPack pack) {
-                logging.AddLOG(String.Format(""
-                    + "GetSrvrInfo 解析結果 \n"
-                    + "  MachineType: {0} \n"
-                    + "  AFP versions: {1} \n"
-                    + "  UAMs: {2} \n"
-                    + "  Server name: {3} \n"
+                logging.AddLOG(String.Format(strings.ReportGetSrvrInfo
                     , pack.MachineType //0
                     , String.Join(",", pack.AFPVersionsList.ToArray()) //1
                     , String.Join(",", pack.UAMsList.ToArray()) //2
@@ -128,19 +130,28 @@ namespace AFPClient4Windows {
 
             internal static void Report(IAddLOG logging, TransmitRes res) {
                 if (res.pack.ErrorCode == 0) {
-                    logging.AddLOG("  結果: Ok\n");
+                    logging.AddLOG(strings.ReportResultOk);
                 }
                 else {
-                    logging.AddLOG("  結果: " + res.pack.ErrorCode + ", " + (DSIException.ResultCode)(res.pack.ErrorCode) + ", " + new DSIException(res.pack.ErrorCode).Message + "\n");
+                    logging.AddLOG(String.Format(strings.ReportResultNg
+                        , res.pack.ErrorCode
+                        , (DSIException.ResultCode)(res.pack.ErrorCode)
+                        , new DSIException(res.pack.ErrorCode).Message
+                        ));
                 }
             }
 
             internal static void ReportErr(IAddLOG logging, TransmitRes res, String what) {
-                logging.AddELog(what + "失敗: " + res.pack.ErrorCode + ", " + (DSIException.ResultCode)(res.pack.ErrorCode) + ", " + new DSIException(res.pack.ErrorCode).Message + "\n");
+                logging.AddELog(String.Format(strings.ReportErr
+                    , what
+                    , res.pack.ErrorCode
+                    , (DSIException.ResultCode)(res.pack.ErrorCode)
+                    , new DSIException(res.pack.ErrorCode).Message
+                    ));
             }
 
             internal static void ReportEx(IAddLOG logging, Exception err, String what) {
-                logging.AddELog(what + "失敗: " + err.Message + "\n");
+                logging.AddELog(String.Format(strings.ReportEx, what, err.Message));
             }
         }
 
@@ -257,10 +268,10 @@ namespace AFPClient4Windows {
 
                 GetSrvrInfoPack pack;
 
-                logging.AddLOG("接続中: " + afp + "\n");
+                logging.AddLOG(String.Format(strings.StatusConnecting, afp));
                 using (comm = new MyDSI3(afp)) {
-                    logging.AddLOG("  Ok\n");
-                    logging.AddLOG("DSIGetStatus 発行\n");
+                    logging.AddLOG(strings.StatusOk);
+                    logging.AddLOG(strings.IssueDSIGetStatus);
                     TransmitRes res = comm.Transmit(new DSIGetStatus());
                     RUt.Report(logging, res);
                     if (!(res.pack.IsResponse && res.pack.ErrorCode == 0)) throw new DSIException(res.pack.ErrorCode, res.pack);
@@ -280,18 +291,18 @@ namespace AFPClient4Windows {
                     else if (pack.AFPVersionsList.Contains(s = "AFPX03")) { afpVer = s; afpVerno = 300; }
                     else if (pack.AFPVersionsList.Contains(s = "AFP2.2")) { afpVer = s; afpVerno = 220; }
 
-                    logging.AddLOG("使用するAFP: " + afpVer + "\n");
+                    logging.AddLOG(String.Format(strings.ReportAFPVer, afpVer));
                 }
 
-                logging.AddLOG("接続中: " + afp + "\n");
+                logging.AddLOG(String.Format(strings.StatusConnecting, afp));
 
                 comm = new MyDSI3(afp);
 
                 comm.NoTimeout = Settings.Default.NoTimeout;
 
-                logging.AddLOG("  Ok\n");
+                logging.AddLOG(strings.StatusOk);
 
-                logging.AddLOG("DSIOpenSession 発行\n");
+                logging.AddLOG(strings.IssueDSIOpenSession);
 
                 {
                     TransmitRes res = comm.Transmit(new DSIOpenSession());
@@ -304,9 +315,9 @@ namespace AFPClient4Windows {
 
                     if (!authDone && conn.AllowDHX2 && pack.UAMsList.Contains(kDHX2UAMStr)) {
 
-                        logging.AddLOG(String.Format("認証手段: {0} \n", kDHX2UAMStr));
+                        logging.AddLOG(String.Format(strings.ReportUAM, kDHX2UAMStr));
 
-                        logging.AddLOG("FPLogin_DHXv2_1 発行\n");
+                        logging.AddLOG(strings.IssueFPLogin_DHXv2_1);
                         TransmitRes res3 = comm.Transmit(new DSICommand().WithRequestPayload(new FPLogin_DHXv2_1()
                             .WithAFPVersion(afpVer)
                             .WithUserID(conn.U)
@@ -317,7 +328,7 @@ namespace AFPClient4Windows {
 
                             UtDHXv2 dhx1 = new UtDHXv2(blk1.g, blk1.p, blk1.Mb);
 
-                            logging.AddLOG("FPLogin_DHXv2_2 発行\n");
+                            logging.AddLOG(strings.IssueFPLogin_DHXv2_2);
                             TransmitRes res4 = comm.Transmit(new DSICommand().WithRequestPayload(new FPLogin_DHXv2_2()
                                 .WithContID(blk1.Id)
                                 .WithMa(dhx1.GetMa())
@@ -329,18 +340,18 @@ namespace AFPClient4Windows {
 
                                 UtDHXv2Cont dhx2 = new UtDHXv2Cont(dhx1, blk2.Body);
 
-                                logging.AddLOG("FPLogin_DHXv2_3 発行\n");
+                                logging.AddLOG(strings.IssueFPLogin_DHXv2_3);
                                 TransmitRes res5 = comm.Transmit(new DSICommand().WithRequestPayload(new FPLogin_DHXv2_3()
                                     .WithContID(blk2.Id)
                                     .WithBody(dhx2.Compute(conn.P))
                                     ));
                                 RUt.Report(logging, res5);
                                 if (res5.pack.IsResponse && res5.pack.ErrorCode == (int)DSIException.ResultCode.kFPNoMoreSessions)
-                                    throw new IOException("セッション数の上限に達しました。\n・Macコンピュータ、又はファイル共有を再起動するか、\n・しばらく時間を置いて再接続してください。");
+                                    throw new IOException(strings.ReportkFPNoMoreSessions);
                                 if (res5.pack.IsResponse && res5.pack.ErrorCode == 0) {
                                     authDone = true;
 
-                                    logging.AddLOG("  認証Ok\n");
+                                    logging.AddLOG(strings.ReportAuthOk);
                                 }
                             }
                         }
@@ -349,11 +360,11 @@ namespace AFPClient4Windows {
 
                     if (!authDone && conn.AllowDHCAST128 && pack.UAMsList.Contains(kDHCAST128UAMStr)) {
 
-                        logging.AddLOG(String.Format("認証手段: {0} \n", kDHCAST128UAMStr));
+                        logging.AddLOG(String.Format(strings.ReportUAM, kDHCAST128UAMStr));
 
                         UtDHCAST128 dhx1 = new UtDHCAST128();
 
-                        logging.AddLOG("FPLogin_DHX 発行\n");
+                        logging.AddLOG(strings.IssueFPLogin_DHX);
                         TransmitRes res3 = comm.Transmit(new DSICommand().WithRequestPayload(new FPLogin_DHX()
                             .WithAFPVersion(afpVer)
                             .WithUserID(conn.U)
@@ -365,18 +376,18 @@ namespace AFPClient4Windows {
 
                             UtDHCAST128Cont dhx2 = new UtDHCAST128Cont(dhx1, blk3.Mb, blk3.nonce_ss);
 
-                            logging.AddLOG("FPLogin_DHX_2 発行\n");
+                            logging.AddLOG(strings.IssueFPLogin_DHX_2);
                             TransmitRes res4 = comm.Transmit(new DSICommand().WithRequestPayload(new FPLogin_DHX_2()
                                 .WithContID(blk3.Id)
                                 .WithNonce1Passwd(dhx2.Compute(conn.P))
                                 ));
                             RUt.Report(logging, res4);
                             if (res4.pack.IsResponse && res4.pack.ErrorCode == (int)DSIException.ResultCode.kFPNoMoreSessions)
-                                throw new IOException("セッション数の上限に達しました。\n・Macコンピュータ、又はファイル共有を再起動するか、\n・しばらく時間を置いて再接続してください。");
+                                throw new IOException(strings.ReportkFPNoMoreSessions);
                             if (res4.pack.IsResponse && res4.pack.ErrorCode == 0) {
                                 authDone = true;
 
-                                logging.AddLOG("  認証Ok\n");
+                                logging.AddLOG(strings.ReportAuthOk);
                             }
                         }
 
@@ -384,9 +395,9 @@ namespace AFPClient4Windows {
 
                     if (!authDone && conn.AllowTwoWayRandNum && pack.UAMsList.Contains(kTwoWayRandNumUAMStr)) {
 
-                        logging.AddLOG(String.Format("認証手段: {0} \n", kTwoWayRandNumUAMStr));
+                        logging.AddLOG(String.Format(strings.ReportUAM, kTwoWayRandNumUAMStr));
 
-                        logging.AddLOG("FPLogin_2w 発行\n");
+                        logging.AddLOG(strings.IssueFPLogin_2w);
                         TransmitRes res3 = comm.Transmit(new DSICommand().WithRequestPayload(new FPLogin_2w()
                             .WithAFPVersion(afpVer)
                             .WithUserID(conn.U)
@@ -413,7 +424,7 @@ namespace AFPClient4Windows {
                             byte[] randKey = new byte[8];
                             new Random().NextBytes(randKey);
 
-                            logging.AddLOG("FPLogin_2w_2 発行\n");
+                            logging.AddLOG(strings.IssueFPLogin_2w_2);
                             TransmitRes res4 = comm.Transmit(new DSICommand().WithRequestPayload(new FPLogin_2w_2()
                                 .WithContID(blk3.Id)
                                 .WithRandKey(randKey)
@@ -431,7 +442,7 @@ namespace AFPClient4Windows {
                                 if (agree) {
                                     authDone = true;
 
-                                    logging.AddLOG("  認証Ok\n");
+                                    logging.AddLOG(strings.ReportAuthOk);
                                 }
                             }
                         }
@@ -440,9 +451,9 @@ namespace AFPClient4Windows {
 
                     if (!authDone && conn.AllowClearText && pack.UAMsList.Contains(kClearTextUAMStr)) {
 
-                        logging.AddLOG(String.Format("認証手段: {0} \n", kClearTextUAMStr));
+                        logging.AddLOG(String.Format(strings.ReportUAM, kClearTextUAMStr));
 
-                        logging.AddLOG("FPLogin_Cleartext_Password 発行\n");
+                        logging.AddLOG(strings.IssueFPLogin_Cleartext_Password);
                         TransmitRes res3 = comm.Transmit(new DSICommand().WithRequestPayload(new FPLogin_Cleartext_Password()
                             .WithAFPVersion(afpVer)
                             .WithUserName(conn.U)
@@ -452,16 +463,16 @@ namespace AFPClient4Windows {
                         if (res3.pack.IsResponse && res3.pack.ErrorCode == 0) {
                             authDone = true;
 
-                            logging.AddLOG("  認証Ok\n");
+                            logging.AddLOG(strings.ReportAuthOk);
                         }
 
                     }
 
                     if (!authDone && conn.AllowNoUserAuth && pack.UAMsList.Contains(kNoUserAuthStr)) {
 
-                        logging.AddLOG(String.Format("認証手段: {0} \n", kNoUserAuthStr));
+                        logging.AddLOG(String.Format(strings.ReportUAM, kNoUserAuthStr));
 
-                        logging.AddLOG("FPLogin 発行\n");
+                        logging.AddLOG(strings.IssueFPLogin);
                         TransmitRes res3 = comm.Transmit(new DSICommand().WithRequestPayload(new FPLogin()
                             .WithAFPVersion(afpVer)
                         ));
@@ -469,14 +480,14 @@ namespace AFPClient4Windows {
                         if (res3.pack.IsResponse && res3.pack.ErrorCode == 0) {
                             authDone = true;
 
-                            logging.AddLOG("  認証Ok\n");
+                            logging.AddLOG(strings.ReportAuthOk);
                         }
 
                     }
 
                     if (!authDone) {
-                        logging.AddLOG(String.Format("認証に失敗しました。\n"));
-                        throw new UnauthorizedAccessException("認証に失敗しました。");
+                        logging.AddLOG(String.Format(strings.ReportAuthFailed));
+                        throw new UnauthorizedAccessException(strings.ReportAuthFailed1L);
                     }
                     else {
                         avail = true;
@@ -489,7 +500,7 @@ namespace AFPClient4Windows {
             private void Disconnect() {
                 if (comm != null) {
                     try {
-                        logging.AddLOG("FPLogout 発行\n");
+                        logging.AddLOG(strings.IssueFPLogout);
                         TransmitRes res = comm.Transmit(new DSICommand().WithRequestPayload(new FPLogout()
                             ));
                         RUt.Report(logging, res);
@@ -521,7 +532,7 @@ namespace AFPClient4Windows {
 
             lpc.ConnectUpper();
 
-            logging.AddLOG("FPGetSrvrParms 発行\n");
+            logging.AddLOG(strings.IssueFPGetSrvrParms);
             TransmitRes res = lpc.Comm.Transmit(new DSICommand().WithRequestPayload(new FPGetSrvrParms()
                 ));
             RUt.Report(logging, res);
@@ -635,7 +646,7 @@ namespace AFPClient4Windows {
                 for (uint pos = 1; ; ) {
                     IFP ifp;
                     if (vd.HasFPEnumerateExt2) {
-                        logging.AddLOG("FPEnumerateExt2 発行 " + lbd.path + "\n");
+                        logging.AddLOG(string.Format(strings.IssueFPEnumerateExt2, lbd.path));
                         ifp = new FPEnumerateExt2()
                             .WithDirectoryID(lbd.lvol.DirID)
                             .WithPath(APUt.EncodeApplePath(lbd.path))
@@ -655,7 +666,7 @@ namespace AFPClient4Windows {
                             ;
                     }
                     else if (vd.HasFPEnumerateExt) {
-                        logging.AddLOG("FPEnumerateExt 発行 " + lbd.path + "\n");
+                        logging.AddLOG(string.Format(strings.IssueFPEnumerateExt, lbd.path));
                         ifp = new FPEnumerateExt()
                             .WithDirectoryID(lbd.lvol.DirID)
                             .WithPath(APUt.EncodeApplePath(lbd.path))
@@ -675,7 +686,7 @@ namespace AFPClient4Windows {
                             ;
                     }
                     else {
-                        logging.AddLOG("FPEnumerate 発行 " + lbd.path + "\n");
+                        logging.AddLOG(string.Format(strings.IssueFPEnumerate, lbd.path));
                         ifp = new FPEnumerate()
                             .WithDirectoryID(lbd.lvol.DirID)
                             .WithPath(APUt.EncodeApplePath(lbd.path))
@@ -788,7 +799,7 @@ namespace AFPClient4Windows {
         private void MForm_FormClosing(object sender, FormClosingEventArgs e) {
             if (e.Cancel) return;
             if (cntAsyncOp != 0) {
-                if (MessageBox.Show(this, "終了しようとしています。終了するとファイル転送が停止します。終了しますか?", Application.ProductName, MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) != DialogResult.Yes) {
+                if (MessageBox.Show(this, strings.QueryFormClosing, Application.ProductName, MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) != DialogResult.Yes) {
                     e.Cancel = true;
                     return;
                 }
@@ -1067,7 +1078,7 @@ namespace AFPClient4Windows {
                 UpdateSel(tn, true);
             }
             catch (Exception err) {
-                MessageBox.Show(this, "更新に失敗しました。\n\n" + err.Message);
+                MessageBox.Show(this, String.Format(strings.ReportRefreshSelFailed, err.Message));
             }
         }
 
@@ -1476,7 +1487,7 @@ namespace AFPClient4Windows {
 
                                 DCR dcr = dcut.ResolveFile(lbd.lvol, fpaDst);
 
-                                logging.AddLOG("FPOpenFork 発行\n");
+                                logging.AddLOG(strings.IssueFPOpenFork);
                                 TransmitRes res6 = lbd.lvol.lpc.Comm.Transmit(new DSICommand().WithRequestPayload(new FPOpenFork()
                                     .WithVolumeID(dcr.VolumeID)
                                     .WithDirectoryID(dcr.DirectoryID)
@@ -1526,7 +1537,7 @@ namespace AFPClient4Windows {
                                                 break;
                                             if (res7.pack.ErrorCode == (int)DSIException.ResultCode.kFPObjectNotFound)
                                                 break;
-                                            RUt.ReportErr(logging, res7, "ファイル名の作成");
+                                            RUt.ReportErr(logging, res7, strings.ReasonFileNumbering);
                                             throw new DSIException(res7.pack.ErrorCode, res7.pack);
                                         }
                                     }
@@ -1541,7 +1552,7 @@ namespace AFPClient4Windows {
                                 }
 
                                 // 名前を変えて上書きされた場合にFPCreateFileが必要
-                                logging.AddLOG("FPCreateFile 発行\n");
+                                logging.AddLOG(strings.IssueFPCreateFile);
                                 TransmitRes res1 = lbd.lvol.lpc.Comm.Transmit(new DSICommand().WithRequestPayload(new FPCreateFile()
                                     .WithVolumeID(dcr.VolumeID)
                                     .WithDirectoryID(dcr.DirectoryID)
@@ -1579,7 +1590,7 @@ namespace AFPClient4Windows {
                                 }
                                 else {
                                     bool isData = pathSrc.fty == FTy.Data;
-                                    logging.AddLOG("FPOpenFork 発行\n");
+                                    logging.AddLOG(strings.IssueFPOpenFork);
                                     TransmitRes res2 = lbd.lvol.lpc.Comm.Transmit(new DSICommand().WithRequestPayload(new FPOpenFork()
                                         .WithVolumeID(dcr.VolumeID)
                                         .WithDirectoryID(dcr.DirectoryID)
@@ -1660,7 +1671,7 @@ namespace AFPClient4Windows {
                                     }
                                     finally {
                                         try {
-                                            logging.AddLOG("FPCloseFork 発行\n");
+                                            logging.AddLOG(strings.IssueFPCloseFork);
                                             TransmitRes resCF = lbd.lvol.lpc.Comm.Transmit(new DSICommand().WithRequestPayload(new FPCloseFork()
                                                 .WithFork(pack2.Fork)
                                                 ));
@@ -1670,10 +1681,10 @@ namespace AFPClient4Windows {
                                             if (incomplete && anywayWritten && es != ExistSel.Resume) {
                                                 bool erase = false;
                                                 Sync.Send(delegate {
-                                                    erase = MessageBox.Show(form, "不完全なファイル\n\n" + fpaDst.Replace('\0', '\\') + "\n\nを消しますか?", "確認", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes;
+                                                    erase = MessageBox.Show(form, String.Format(strings.QueryDeleteIncompleteFile, fpaDst.Replace('\0', '\\')), "確認", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes;
                                                 }, null);
                                                 if (erase) {
-                                                    logging.AddLOG("FPDelete 発行\n");
+                                                    logging.AddLOG(strings.IssueFPDelete);
                                                     TransmitRes resD = lbd.lvol.lpc.Comm.Transmit(new DSICommand().WithRequestPayload(new FPDelete()
                                                         .WithVolumeID(lbd.lvol.VolID)
                                                         .WithDirectoryID(lbd.lvol.DirID)
@@ -1704,7 +1715,7 @@ namespace AFPClient4Windows {
                 }
                 catch (Exception err) {
                     Sync.Send(delegate {
-                        MessageBox.Show(parent, "失敗しました：\n\n" + err.Message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        MessageBox.Show(parent, String.Format(strings.ReportUtDropItGenericFailure, err.Message), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         form.Done();
                         ul.UpdateList();
                     }, null);
@@ -1714,7 +1725,7 @@ namespace AFPClient4Windows {
 
         public class UserCancelException : Exception {
             public UserCancelException()
-                : base("ご要望により、中止しました。") {
+                : base(strings.ReportUserCancelException) {
 
             }
         }
@@ -2206,7 +2217,7 @@ namespace AFPClient4Windows {
                         any = true;
 
                         if (!res.pack.IsResponse) throw new InvalidDataException();
-                        if (res.pack.ErrorCode != 0) RUt.ReportErr(logging, res, "ファイル削除"); //throw new DSIException(res.pack.ErrorCode, res.pack);
+                        if (res.pack.ErrorCode != 0) RUt.ReportErr(logging, res, strings.ReasonFileDelete); //throw new DSIException(res.pack.ErrorCode, res.pack);
                     }
                 }
                 while (dirs.Count != 0) {
@@ -2224,7 +2235,7 @@ namespace AFPClient4Windows {
                     any = true;
 
                     if (!res.pack.IsResponse) throw new InvalidDataException();
-                    if (res.pack.ErrorCode != 0) RUt.ReportErr(logging, res, "フォルダ削除"); //throw new DSIException(res.pack.ErrorCode, res.pack);
+                    if (res.pack.ErrorCode != 0) RUt.ReportErr(logging, res, strings.ReasonFolderDelete); //throw new DSIException(res.pack.ErrorCode, res.pack);
                 }
             }
             if (any) UpdateSel(tvF.SelectedNode, true);
@@ -2287,7 +2298,7 @@ namespace AFPClient4Windows {
                                 DCR dcr2 = dcut.ResolveFile2(lbd.lvol, APUt.EncodeApplePath2(fp2, '\\'), true);
                                 if (dcr1.VolumeID == dcr2.VolumeID) {
                                     if (dcr1.DirectoryID == dcr2.DirectoryID) {
-                                        logging.AddLOG("FPRename 発行\n");
+                                        logging.AddLOG(strings.IssueFPRename);
                                         TransmitRes res = lbd.lvol.lpc.Comm.Transmit(new DSICommand().WithRequestPayload(new FPRename()
                                             .WithVolumeID(dcr1.VolumeID)
                                             .WithDirectoryID(dcr1.DirectoryID)
@@ -2298,10 +2309,10 @@ namespace AFPClient4Windows {
                                             ));
                                         any = true;
                                         RUt.Report(logging, res);
-                                        if (res.pack.IsResponse && res.pack.ErrorCode != 0) RUt.ReportErr(logging, res, "名前変更");
+                                        if (res.pack.IsResponse && res.pack.ErrorCode != 0) RUt.ReportErr(logging, res, strings.ReasonFileRename);
                                     }
                                     else {
-                                        logging.AddLOG("FPMoveAndRename 発行\n");
+                                        logging.AddLOG(strings.IssueFPMoveAndRename);
                                         TransmitRes res = lbd.lvol.lpc.Comm.Transmit(new DSICommand().WithRequestPayload(new FPMoveAndRename()
                                             .WithVolumeID(dcr1.VolumeID)
                                             .WithSourceDirectoryID(dcr1.DirectoryID)
@@ -2315,7 +2326,7 @@ namespace AFPClient4Windows {
                                             ));
                                         any = true;
                                         RUt.Report(logging, res);
-                                        if (res.pack.IsResponse && res.pack.ErrorCode != 0) RUt.ReportErr(logging, res, "移動と名前変更");
+                                        if (res.pack.IsResponse && res.pack.ErrorCode != 0) RUt.ReportErr(logging, res, strings.ReasonMoveOrRename);
                                     }
                                 }
                             }
@@ -2342,7 +2353,7 @@ namespace AFPClient4Windows {
                         String fp1 = Path.Combine(lbd.path, form.fp1);
                         using (DCUt dcut = new DCUt(lbd.lvol.lpc.Comm, lbd.lvol.lpc.MaxPathType)) {
                             DCR dcr = dcut.ResolveFile(lbd.lvol, APUt.EncodeApplePath(fp1));
-                            logging.AddLOG("FPCreateDir 発行\n");
+                            logging.AddLOG(strings.IssueFPCreateDir);
                             TransmitRes res = lbd.lvol.lpc.Comm.Transmit(new DSICommand().WithRequestPayload(new FPCreateDir()
                                 .WithVolumeID(dcr.VolumeID)
                                 .WithDirectoryID(dcr.DirectoryID)
@@ -2350,7 +2361,7 @@ namespace AFPClient4Windows {
                                 .WithPath(dcr.LastName)
                                 ));
                             RUt.Report(logging, res);
-                            if (res.pack.IsResponse && res.pack.ErrorCode != 0) RUt.ReportErr(logging, res, "フォルダ作成");
+                            if (res.pack.IsResponse && res.pack.ErrorCode != 0) RUt.ReportErr(logging, res, strings.ReasonFolderCreate);
                             UpdateSel(tvF.SelectedNode, true);
                         }
                     }

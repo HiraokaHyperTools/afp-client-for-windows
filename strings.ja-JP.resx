@@ -117,38 +117,203 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="NewCardHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\NewCardHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="FailedToConnect" xml:space="preserve">
+    <value>接続に失敗しました:
+
+{0}</value>
   </data>
-  <data name="EditInformationHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\EditInformationHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="IssueDSIGetStatus" xml:space="preserve">
+    <value>DSIGetStatus 発行
+</value>
   </data>
-  <data name="DeleteHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\DeleteHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="IssueDSIOpenSession" xml:space="preserve">
+    <value>DSIOpenSession 発行
+</value>
   </data>
-  <data name="PlayHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\PlayHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="IssueFPCloseFork" xml:space="preserve">
+    <value>FPCloseFork 発行
+</value>
   </data>
-  <data name="FExt" xml:space="preserve">
-    <value>.AFPClient4Windows</value>
+  <data name="IssueFPCreateDir" xml:space="preserve">
+    <value>FPCreateDir 発行
+</value>
   </data>
-  <data name="error" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\error.ico;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="IssueFPCreateFile" xml:space="preserve">
+    <value>FPCreateFile 発行
+</value>
   </data>
-  <data name="RefreshDocViewHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\RefreshDocViewHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="IssueFPDelete" xml:space="preserve">
+    <value>FPDelete 発行
+</value>
   </data>
-  <data name="About" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\about.rtf;System.Byte[], mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="IssueFPEnumerate" xml:space="preserve">
+    <value>FPEnumerate 発行 {0}
+</value>
   </data>
-  <data name="Help" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Help.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="IssueFPEnumerateExt" xml:space="preserve">
+    <value>FPEnumerateExt 発行 {0}
+</value>
   </data>
-  <data name="DialHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\DialHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="IssueFPEnumerateExt2" xml:space="preserve">
+    <value>FPEnumerateExt2 発行 {0}
+</value>
   </data>
-  <data name="SearchFolderHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\SearchFolderHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="IssueFPGetSrvrParms" xml:space="preserve">
+    <value>FPGetSrvrParms 発行
+</value>
+  </data>
+  <data name="IssueFPLogin" xml:space="preserve">
+    <value>FPLogin 発行
+</value>
+  </data>
+  <data name="IssueFPLogin_2w" xml:space="preserve">
+    <value>FPLogin_2w 発行
+</value>
+  </data>
+  <data name="IssueFPLogin_2w_2" xml:space="preserve">
+    <value>FPLogin_2w_2 発行
+</value>
+  </data>
+  <data name="IssueFPLogin_Cleartext_Password" xml:space="preserve">
+    <value>FPLogin_Cleartext_Password 発行
+</value>
+  </data>
+  <data name="IssueFPLogin_DHX" xml:space="preserve">
+    <value>FPLogin_DHX 発行
+</value>
+  </data>
+  <data name="IssueFPLogin_DHX_2" xml:space="preserve">
+    <value>FPLogin_DHX_2 発行
+</value>
+  </data>
+  <data name="IssueFPLogin_DHXv2_1" xml:space="preserve">
+    <value>FPLogin_DHXv2_1 発行
+</value>
+  </data>
+  <data name="IssueFPLogin_DHXv2_2" xml:space="preserve">
+    <value>FPLogin_DHXv2_2 発行
+</value>
+  </data>
+  <data name="IssueFPLogin_DHXv2_3" xml:space="preserve">
+    <value>FPLogin_DHXv2_3 発行
+</value>
+  </data>
+  <data name="IssueFPLogout" xml:space="preserve">
+    <value>FPLogout 発行
+</value>
+  </data>
+  <data name="IssueFPMoveAndRename" xml:space="preserve">
+    <value>FPMoveAndRename 発行
+</value>
+  </data>
+  <data name="IssueFPOpenFork" xml:space="preserve">
+    <value>FPOpenFork 発行
+</value>
+  </data>
+  <data name="IssueFPRename" xml:space="preserve">
+    <value>FPRename 発行
+</value>
+  </data>
+  <data name="QueryDeleteIncompleteFile" xml:space="preserve">
+    <value>不完全なファイル
+
+{0}
+
+を消しますか?</value>
+  </data>
+  <data name="QueryFormClosing" xml:space="preserve">
+    <value>終了しようとしています。終了するとファイル転送が停止します。終了しますか?</value>
+  </data>
+  <data name="ReasonFileDelete" xml:space="preserve">
+    <value>ファイル削除</value>
+  </data>
+  <data name="ReasonFileNumbering" xml:space="preserve">
+    <value>ファイル名の作成</value>
+  </data>
+  <data name="ReasonFileRename" xml:space="preserve">
+    <value>名前変更</value>
+  </data>
+  <data name="ReasonFolderCreate" xml:space="preserve">
+    <value>フォルダ作成</value>
+  </data>
+  <data name="ReasonFolderDelete" xml:space="preserve">
+    <value>フォルダ削除</value>
+  </data>
+  <data name="ReasonMoveOrRename" xml:space="preserve">
+    <value>移動と名前変更</value>
+  </data>
+  <data name="ReportAFPVer" xml:space="preserve">
+    <value>使用するAFP: {0}
+</value>
+  </data>
+  <data name="ReportAuthFailed" xml:space="preserve">
+    <value>認証に失敗しました。
+</value>
+  </data>
+  <data name="ReportAuthFailed1L" xml:space="preserve">
+    <value>認証に失敗しました。</value>
+  </data>
+  <data name="ReportAuthOk" xml:space="preserve">
+    <value>  認証Ok
+</value>
+  </data>
+  <data name="ReportErr" xml:space="preserve">
+    <value>{0}失敗: {1}, {2}, {3}
+</value>
+  </data>
+  <data name="ReportEx" xml:space="preserve">
+    <value>{0}失敗: {1}
+</value>
+  </data>
+  <data name="ReportExitShotException" xml:space="preserve">
+    <value>evExitがショットされました</value>
+  </data>
+  <data name="ReportGetSrvrInfo" xml:space="preserve">
+    <value>GetSrvrInfo 解析結果 
+  MachineType: {0} 
+  AFP versions: {1} 
+  UAMs: {2} 
+  Server name: {3}</value>
+  </data>
+  <data name="ReportkFPNoMoreSessions" xml:space="preserve">
+    <value>セッション数の上限に達しました。
+・Macコンピュータ、又はファイル共有を再起動するか、
+・しばらく時間を置いて再接続してください。</value>
+  </data>
+  <data name="ReportRefreshSelFailed" xml:space="preserve">
+    <value>更新に失敗しました。
+
+{1}</value>
+  </data>
+  <data name="ReportResultNg" xml:space="preserve">
+    <value>結果: {0}, {1}, {2}
+</value>
+  </data>
+  <data name="ReportResultOk" xml:space="preserve">
+    <value>結果: Ok
+</value>
+  </data>
+  <data name="ReportTransmitFailureException" xml:space="preserve">
+    <value>通信に失敗しました</value>
+  </data>
+  <data name="ReportUAM" xml:space="preserve">
+    <value>認証手段: {0} 
+</value>
+  </data>
+  <data name="ReportUserCancelException" xml:space="preserve">
+    <value>ご要望により、中止しました。</value>
+  </data>
+  <data name="ReportUtDropItGenericFailure" xml:space="preserve">
+    <value>失敗しました：
+
+{0}</value>
+  </data>
+  <data name="StatusConnecting" xml:space="preserve">
+    <value>接続中: {0}
+</value>
+  </data>
+  <data name="StatusOk" xml:space="preserve">
+    <value>  Ok
+</value>
   </data>
 </root>

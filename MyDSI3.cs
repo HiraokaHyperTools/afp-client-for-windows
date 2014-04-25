@@ -208,7 +208,7 @@ namespace AFPt2 {
 
         public class ExitShotException : ApplicationException {
             public ExitShotException()
-                : base("evExitがショットされました") {
+                : base(AFPClient4Windows.strings.ReportExitShotException) {
 
             }
         }
@@ -224,7 +224,7 @@ namespace AFPt2 {
 
     public class TransmitFailureException : ApplicationException {
         public TransmitFailureException(Exception innerException)
-            : base("通信に失敗しました", innerException) {
+            : base(AFPClient4Windows.strings.ReportTransmitFailureException, innerException) {
 
         }
     }

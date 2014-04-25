@@ -33,15 +33,20 @@ namespace AFPClient4Windows {
 
         [XmlAttribute()]
         public bool AllowClearText { get { return BitUt.Get(_AuthMethod, 1); } set { _AuthMethod = BitUt.Set(_AuthMethod, 1, value); } }
-        
+
         [XmlAttribute()]
         public bool AllowTwoWayRandNum { get { return BitUt.Get(_AuthMethod, 2); } set { _AuthMethod = BitUt.Set(_AuthMethod, 2, value); } }
-        
+
         [XmlAttribute()]
         public bool AllowDHCAST128 { get { return BitUt.Get(_AuthMethod, 3); } set { _AuthMethod = BitUt.Set(_AuthMethod, 3, value); } }
-        
+
         [XmlAttribute()]
         public bool AllowDHX2 { get { return BitUt.Get(_AuthMethod, 4); } set { _AuthMethod = BitUt.Set(_AuthMethod, 4, value); } }
+
+        bool _AskPassword = false;
+
+        [XmlAttribute()]
+        public bool AskPassword { get { return _AskPassword; } set { _AskPassword = value; } }
 
         class BitUt {
             internal static bool Get(uint v, int x) { return 0 != (v & (1U << x)); }
