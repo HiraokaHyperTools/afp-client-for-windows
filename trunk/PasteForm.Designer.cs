@@ -23,6 +23,7 @@
         /// コード エディタで変更しないでください。
         /// </summary>
         private void InitializeComponent() {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PasteForm));
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.bCancel = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -34,78 +35,77 @@
             // 
             // progressBar1
             // 
-            this.progressBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressBar1.Location = new System.Drawing.Point(63, 37);
+            this.progressBar1.AccessibleDescription = null;
+            this.progressBar1.AccessibleName = null;
+            resources.ApplyResources(this.progressBar1, "progressBar1");
+            this.progressBar1.BackgroundImage = null;
+            this.progressBar1.Font = null;
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(512, 23);
             this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
-            this.progressBar1.TabIndex = 1;
             // 
             // bCancel
             // 
-            this.bCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.bCancel.Location = new System.Drawing.Point(450, 115);
+            this.bCancel.AccessibleDescription = null;
+            this.bCancel.AccessibleName = null;
+            resources.ApplyResources(this.bCancel, "bCancel");
+            this.bCancel.BackgroundImage = null;
+            this.bCancel.Font = null;
             this.bCancel.Name = "bCancel";
-            this.bCancel.Size = new System.Drawing.Size(125, 23);
-            this.bCancel.TabIndex = 2;
-            this.bCancel.Text = "キャンセル";
             this.bCancel.UseVisualStyleBackColor = true;
             this.bCancel.Click += new System.EventHandler(this.bCancel_Click);
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 37);
+            this.label1.AccessibleDescription = null;
+            this.label1.AccessibleName = null;
+            resources.ApplyResources(this.label1, "label1");
+            this.label1.Font = null;
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 12);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "全体：";
             // 
             // progressBar2
             // 
-            this.progressBar2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressBar2.Location = new System.Drawing.Point(63, 66);
+            this.progressBar2.AccessibleDescription = null;
+            this.progressBar2.AccessibleName = null;
+            resources.ApplyResources(this.progressBar2, "progressBar2");
+            this.progressBar2.BackgroundImage = null;
+            this.progressBar2.Font = null;
             this.progressBar2.Name = "progressBar2";
-            this.progressBar2.Size = new System.Drawing.Size(512, 23);
             this.progressBar2.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
-            this.progressBar2.TabIndex = 4;
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 66);
+            this.label2.AccessibleDescription = null;
+            this.label2.AccessibleName = null;
+            resources.ApplyResources(this.label2, "label2");
+            this.label2.Font = null;
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(45, 12);
-            this.label2.TabIndex = 5;
-            this.label2.Text = "ファイル：";
             // 
             // lStat
             // 
-            this.lStat.AutoSize = true;
-            this.lStat.Location = new System.Drawing.Point(61, 92);
+            this.lStat.AccessibleDescription = null;
+            this.lStat.AccessibleName = null;
+            resources.ApplyResources(this.lStat, "lStat");
+            this.lStat.Font = null;
             this.lStat.Name = "lStat";
-            this.lStat.Size = new System.Drawing.Size(11, 12);
-            this.lStat.TabIndex = 6;
-            this.lStat.Text = "...";
             // 
             // lfp
             // 
-            this.lfp.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.lfp.AccessibleDescription = null;
+            this.lfp.AccessibleName = null;
+            resources.ApplyResources(this.lfp, "lfp");
+            this.lfp.BackgroundImage = null;
             this.lfp.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.lfp.Location = new System.Drawing.Point(12, 12);
+            this.lfp.Font = null;
             this.lfp.Name = "lfp";
             this.lfp.ReadOnly = true;
-            this.lfp.Size = new System.Drawing.Size(563, 12);
-            this.lfp.TabIndex = 7;
             // 
             // PasteForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AccessibleDescription = null;
+            this.AccessibleName = null;
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(587, 150);
+            this.BackgroundImage = null;
             this.Controls.Add(this.lfp);
             this.Controls.Add(this.lStat);
             this.Controls.Add(this.label2);
@@ -113,12 +113,11 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.bCancel);
             this.Controls.Add(this.progressBar1);
+            this.Font = null;
+            this.Icon = null;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(225, 136);
             this.Name = "PasteForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            this.Text = "貼り付け";
             this.Load += new System.EventHandler(this.PasteForm_Load);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PasteForm_FormClosing);
             this.ResumeLayout(false);

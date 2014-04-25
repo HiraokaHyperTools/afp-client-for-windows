@@ -63,6 +63,12 @@
     </Compile>
     <Compile Include="AFPComm2.cs" />
     <Compile Include="AH.cs" />
+    <Compile Include="AskPassForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AskPassForm.Designer.cs">
+      <DependentUpon>AskPassForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="BER.cs" />
     <Compile Include="BEW.cs" />
     <Compile Include="Conn.cs" />
@@ -109,25 +115,57 @@
       <SubType>Designer</SubType>
       <DependentUpon>AboutForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AskPassForm.ja-JP.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>AskPassForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AskPassForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>AskPassForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConnForm.ja-JP.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ConnForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ConnForm.resx">
       <SubType>Designer</SubType>
       <DependentUpon>ConnForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConnsForm.ja-JP.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ConnsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ConnsForm.resx">
       <SubType>Designer</SubType>
       <DependentUpon>ConnsForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="IfDelForm.ja-JP.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>IfDelForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="IfDelForm.resx">
       <SubType>Designer</SubType>
       <DependentUpon>IfDelForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MForm.ja-JP.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>MForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MForm.resx">
       <SubType>Designer</SubType>
       <DependentUpon>MForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="NewDirForm.ja-JP.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>NewDirForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="NewDirForm.resx">
       <SubType>Designer</SubType>
       <DependentUpon>NewDirForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PasteForm.ja-JP.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>PasteForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PasteForm.resx">
       <SubType>Designer</SubType>
@@ -138,13 +176,31 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="QueryOverwriteForm.ja-JP.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>QueryOverwriteForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="QueryOverwriteForm.resx">
       <SubType>Designer</SubType>
       <DependentUpon>QueryOverwriteForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="RenForm.ja-JP.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>RenForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="RenForm.resx">
       <SubType>Designer</SubType>
       <DependentUpon>RenForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="strings.ja-JP.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>strings.ja-JP.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="strings.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>strings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -173,6 +229,16 @@
     <Compile Include="RenForm.Designer.cs">
       <DependentUpon>RenForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="strings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>strings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="strings.ja-JP.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>strings.ja-JP.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\DialHS.png" />
@@ -188,6 +254,9 @@
     <None Include="Resources\About.rtf" />
     <None Include="Resources\Help.png" />
     <None Include="Resources\DeleteHS.png" />
+    <None Include="Resources\NewCardHS.png" />
+    <None Include="Resources\EditInformationHS.png" />
+    <None Include="Resources\SearchFolderHS.png" />
     <Content Include="TODO.txt" />
     <None Include="Resources\PlayHS.png" />
     <None Include="Resources\RefreshDocViewHS.png" />

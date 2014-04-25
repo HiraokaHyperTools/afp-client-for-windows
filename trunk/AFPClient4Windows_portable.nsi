@@ -8,8 +8,8 @@
 ;--------------------------------
 
 !define APP "AFPClient4Windows"
-!define VER "0.11'"
-!define APV "0_11'"
+!define VER "0.12"
+!define APV "0_12"
 
 !define EXT ".AFPClient4Windows"
 !define MIME "application/x-AFPClient4Windows"

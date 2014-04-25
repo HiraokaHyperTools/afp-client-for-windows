@@ -117,38 +117,201 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="NewCardHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\NewCardHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="FailedToConnect" xml:space="preserve">
+    <value>Connection failed:
+
+{0}</value>
   </data>
-  <data name="EditInformationHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\EditInformationHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="IssueDSIGetStatus" xml:space="preserve">
+    <value>DSIGetStatus issued
+</value>
   </data>
-  <data name="DeleteHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\DeleteHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="IssueDSIOpenSession" xml:space="preserve">
+    <value>DSIOpenSession issued
+</value>
   </data>
-  <data name="PlayHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\PlayHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="IssueFPCloseFork" xml:space="preserve">
+    <value>FPCloseFork issued
+</value>
   </data>
-  <data name="FExt" xml:space="preserve">
-    <value>.AFPClient4Windows</value>
+  <data name="IssueFPCreateDir" xml:space="preserve">
+    <value>FPCreateDir issued
+</value>
   </data>
-  <data name="error" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\error.ico;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="IssueFPCreateFile" xml:space="preserve">
+    <value>FPCreateFile issued
+</value>
   </data>
-  <data name="RefreshDocViewHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\RefreshDocViewHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="IssueFPDelete" xml:space="preserve">
+    <value>FPDelete issued
+</value>
   </data>
-  <data name="About" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\about.rtf;System.Byte[], mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="IssueFPEnumerate" xml:space="preserve">
+    <value>FPEnumerate issued {0}
+</value>
   </data>
-  <data name="Help" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Help.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="IssueFPEnumerateExt" xml:space="preserve">
+    <value>FPEnumerateExt issued {0}
+</value>
   </data>
-  <data name="DialHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\DialHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="IssueFPEnumerateExt2" xml:space="preserve">
+    <value>FPEnumerateExt2 issued {0}
+</value>
   </data>
-  <data name="SearchFolderHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\SearchFolderHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="IssueFPGetSrvrParms" xml:space="preserve">
+    <value>FPGetSrvrParms issued
+</value>
+  </data>
+  <data name="IssueFPLogin" xml:space="preserve">
+    <value>FPLogin issued
+</value>
+  </data>
+  <data name="IssueFPLogin_2w" xml:space="preserve">
+    <value>FPLogin_2w issued
+</value>
+  </data>
+  <data name="IssueFPLogin_2w_2" xml:space="preserve">
+    <value>FPLogin_2w_2 issued
+</value>
+  </data>
+  <data name="IssueFPLogin_Cleartext_Password" xml:space="preserve">
+    <value>FPLogin_Cleartext_Password issued
+</value>
+  </data>
+  <data name="IssueFPLogin_DHX" xml:space="preserve">
+    <value>FPLogin_DHX issued
+</value>
+  </data>
+  <data name="IssueFPLogin_DHX_2" xml:space="preserve">
+    <value>FPLogin_DHX_2 issued
+</value>
+  </data>
+  <data name="IssueFPLogin_DHXv2_1" xml:space="preserve">
+    <value>FPLogin_DHXv2_1 issued
+</value>
+  </data>
+  <data name="IssueFPLogin_DHXv2_2" xml:space="preserve">
+    <value>FPLogin_DHXv2_2 issued
+</value>
+  </data>
+  <data name="IssueFPLogin_DHXv2_3" xml:space="preserve">
+    <value>FPLogin_DHXv2_3 issued
+</value>
+  </data>
+  <data name="IssueFPLogout" xml:space="preserve">
+    <value>FPLogout issued
+</value>
+  </data>
+  <data name="IssueFPMoveAndRename" xml:space="preserve">
+    <value>FPMoveAndRename issued
+</value>
+  </data>
+  <data name="IssueFPOpenFork" xml:space="preserve">
+    <value>FPOpenFork issued
+</value>
+  </data>
+  <data name="IssueFPRename" xml:space="preserve">
+    <value>FPRename issued
+</value>
+  </data>
+  <data name="QueryDeleteIncompleteFile" xml:space="preserve">
+    <value>Delete the following incomplete file?
+
+{0}</value>
+  </data>
+  <data name="QueryFormClosing" xml:space="preserve">
+    <value>Do you really want to quit? File transfer in progress will be disturbed.</value>
+  </data>
+  <data name="ReasonFileDelete" xml:space="preserve">
+    <value>File deletion</value>
+  </data>
+  <data name="ReasonFileNumbering" xml:space="preserve">
+    <value>Filename numbering</value>
+  </data>
+  <data name="ReasonFileRename" xml:space="preserve">
+    <value>File rename</value>
+  </data>
+  <data name="ReasonFolderCreate" xml:space="preserve">
+    <value>Folder creation</value>
+  </data>
+  <data name="ReasonFolderDelete" xml:space="preserve">
+    <value>Folder deletion</value>
+  </data>
+  <data name="ReasonMoveOrRename" xml:space="preserve">
+    <value>Move or rename</value>
+  </data>
+  <data name="ReportAFPVer" xml:space="preserve">
+    <value>Using AFP ver: {0}
+</value>
+  </data>
+  <data name="ReportAuthFailed" xml:space="preserve">
+    <value>Auth failed.
+</value>
+  </data>
+  <data name="ReportAuthFailed1L" xml:space="preserve">
+    <value>Auth failed.</value>
+  </data>
+  <data name="ReportAuthOk" xml:space="preserve">
+    <value>  Auth Ok
+</value>
+  </data>
+  <data name="ReportErr" xml:space="preserve">
+    <value>{0} failed: {1}, {2}, {3}
+</value>
+  </data>
+  <data name="ReportEx" xml:space="preserve">
+    <value>{0} failed: {1}
+</value>
+  </data>
+  <data name="ReportExitShotException" xml:space="preserve">
+    <value>evExit is shot.</value>
+  </data>
+  <data name="ReportGetSrvrInfo" xml:space="preserve">
+    <value>GetSrvrInfo result:
+  MachineType: {0} 
+  AFP versions: {1} 
+  UAMs: {2} 
+  Server name: {3}</value>
+  </data>
+  <data name="ReportkFPNoMoreSessions" xml:space="preserve">
+    <value>Session count limit hit.。
+- Restart your Mac, or restart AFP sharing service,
+- Reconnect after a while.</value>
+  </data>
+  <data name="ReportRefreshSelFailed" xml:space="preserve">
+    <value>Failed to refresh:
+
+{1}</value>
+  </data>
+  <data name="ReportResultNg" xml:space="preserve">
+    <value>Result: {0}, {1}, {2}
+</value>
+  </data>
+  <data name="ReportResultOk" xml:space="preserve">
+    <value>Result: Ok
+</value>
+  </data>
+  <data name="ReportTransmitFailureException" xml:space="preserve">
+    <value>Transmit failed.</value>
+  </data>
+  <data name="ReportUAM" xml:space="preserve">
+    <value>Auth method: {0} 
+</value>
+  </data>
+  <data name="ReportUserCancelException" xml:space="preserve">
+    <value>User cancel requested.</value>
+  </data>
+  <data name="ReportUtDropItGenericFailure" xml:space="preserve">
+    <value>Failed:
+
+{0}</value>
+  </data>
+  <data name="StatusConnecting" xml:space="preserve">
+    <value>Connecting: {0}
+</value>
+  </data>
+  <data name="StatusOk" xml:space="preserve">
+    <value>  Ok
+</value>
   </data>
 </root>

@@ -30,6 +30,7 @@ namespace AFPClient4Windows {
             checkBox3.DataBindings.Add("Checked", conn, "AllowTwoWayRandNum");
             checkBox4.DataBindings.Add("Checked", conn, "AllowClearText");
             checkBox5.DataBindings.Add("Checked", conn, "AllowNoUserAuth");
+            cbAskPass.DataBindings.Add("Checked", conn, "AskPassword");
         }
 
         private void bOk_Click(object sender, EventArgs e) {

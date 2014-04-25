@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,38 +117,75 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="NewCardHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\NewCardHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="chfn.Text" xml:space="preserve">
+    <value>名称</value>
   </data>
-  <data name="EditInformationHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\EditInformationHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="chhost.Text" xml:space="preserve">
+    <value>ホスト</value>
   </data>
-  <data name="DeleteHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\DeleteHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="chu.Text" xml:space="preserve">
+    <value>ユーザー</value>
   </data>
-  <data name="PlayHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\PlayHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="il16.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj0yLjAuMC4w
+        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
+        ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAAB0
+        CAAAAk1TRnQBSQFMAgEBAgEAAVgBAAFYAQABEAEAARABAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFA
+        AwABEAMAAQEBAAEgBgABEC4AA0oBjQNdAdMBtgFcAV0B/+wAAwoBDQNeAdAB0QG6AbQB/wHiAeYB3QH/
+        AWICYQHaAbYBXAFdAf/kAANAAW8BuwFyAW8B/wHRAboBtAH/AegB9gHrAf8B6QH5Ae4B/wHpAfkB7gH/
+        AV8CXgHVAbYBXAFdAf8YAAMiATIDTAGRAykBPgMKAQ0YAAMDAQQDBwEKkAADFgEfAWMCXgHdAcEBlAGQ
+        Af8B4gHmAd0B/wHkAesB4QH/AcQBmQGUAf8BuQFqAWkB/wHAAcMBwQH/AekB+QHuAf8DXgHYAbYBXAFd
+        Af8QAAMEAQYDSAGFAQ8BCwEKAf8DVQG6AxsBJgMBAQIQAAMCAQMDTAGTAyQBNQMBAQKEAAMBAQIDSAGF
+        AbgBcAFuAf8B0wHFAb4B/wHpAfkB7gH/AdcBxwHAAf8BwQGDAYEB/wHDAnIB/wHCAWoBawH/AboBYwFi
+        Af8BxwHMAckB/wHpAfkB7gH/AWECXwHbAbYBXAFdAf8QAAMwAUsBGAEQAQ4B/wEjAR4BHQH/A0gBhQMI
+        AQsMAAMBAQIDGgEkA1YB3wMWAR8DAQEChAADYQHaAboBkwGQAf8B5gHxAecB/wHkAesB4QH/Ab8BkQGO
+        Af8BwgGFAYMB/wHJAoAB/wHIAXIBdAH/AcYCcgH/AcIBcAFyAf8BugFjAWIB/wHHAcwByQH/AekB+QHu
+        Af8BYQJgAd4BtgFcAV0B/wwAAwYBCANRAaIBRQJDAfEDVAHkAx0BKggAAwYBCAMKAQ4CWgFZAc0DTAGS
+        AwIBA4gAAbgBawFpAf8B5AHoAd8B/wHPAb8BuQH/AbsBcAFuAf8BwQJ0Af8BxgKDAf8ByAKCAf8BxwKD
+        Af8BxgF0AYEB/wHFAXIBcQH/AcMBbwFwAf8BuQFiAWEB/wHHAcwByQH/AekB+QHuAf8BZQJhAeEBtgFc
+        AV0B/wwAAxIBGANaAcoBHQEZARYB/wNXAcIDDQESAwgBCwMIAQsDTgGXAUICQQH0AxUBHYwAAcEBgQF0
+        Af8B0gGrAagB/wHCAYMBgQH/AcoBkAGMAf8BzgGNAYwB/wHMAYsBigH/AcwBhwGJAf8ByQGGAYcB/wHK
+        AYIBhQH/AckBgQGFAf8BxgF0AYAB/wHCAm4B/wG5AWEBYAH/AccBzAHJAf8B6QH5Ae4B/wFlAmEB4RAA
+        AxYBHwNaAdUDKwH8A1MBrAMjATQDVgG2ASsBKQEoAf8DPQFpkAAB1gGhAZ0B/wHTAaoBqAH/AcwBjwGO
+        Af8B3QGhAZ8B/wHYAZoBmwH/AdYBlAGXAf8B0wGRAZMB/wHSAY8BkQH/AdABjAGOAf8BzgKKAf8BzQGI
+        AYkB/wHIAoIB/wG/AWsBbAH/AbgBYAFfAf8BxwHMAckB/wG/AcMBvgH9FAADFwEgA1kB0gExAS4BLQH+
+        ASwBKAEnAf8BMAEtASwB/wNaAdqUAAMbASYB1gGhAZ0B/wHvAtEB/wHRAZgBlQH/AeEBqQGoAf8B4gKr
+        Af8B3wGkAaYB/wHcAZ8BoAH/AdgCmwH/AdQBmAGXAf8B0QGRAZIB/wHMAooB/wHIAYMBhAH/Ab8BaAFp
+        Af8BuAFgAV8B/wHGAbEBrwH/GAADKgFAAUEBPwE+AfkBNQEyATEB/wNWAd4DDQESmAADJQE3AdYBoQGd
+        Af8B7QLJAf8B0QGYAZUB/wHkAbABrwH/AesCtwH/AeYCsAH/AeIBqAGpAf8B3QKiAf8B2QKcAf8B1AKV
+        Af8BzgKPAf8BywKHAf8BvgFnAWgB/wG4AWIBYQH/EwABAQMdASkDWQHPATMBLwEuAf8BPwE9ATwB9wNL
+        Ae8DVAGuAwcBCZgAAyUBNwHWAaEBnQH/Ae0CyQH/AdEBmAGVAf8B5gGzAbIB/wHwAb4BvwH/AesCtwH/
+        AegBsgGxAf8B5QGvAa4B/wHhAasBqgH/AdwBogGjAf8B1gKYAf8BzwKOAf8BZwJhAeQMAAMEAQYDQAFw
+        AUMBQAE4AfsBOgI2Af8DUgGmAyABLgNMAZMCNAE1Af8DTAGTAwsBD5gAAyUBNwHWAaEBnQH/Ae0CyQH/
+        AdEBmAGVAf8B6AG2AbUB/wH0AsUB/wHyAcABwwH/AfABwAHBAf8B7QG7AbwB/wHlAq8B/wGrApEB+wNP
+        AZcDDQESBAADEgEZAyYBOANWAbYBNwE0ATIB/wE4ATcBNgH/A1UBsQMIAQsEAAMHAQkDUgGoAUIBOAE2
+        AfsDSgGLAwkBDJgAAyUBNwHWAaEBnQH/Ae0CyQH/AdEBmAGVAf8B7AHBAcAB/wHkAb4BvQH/AcwBqQGn
+        Af4BrgKSAfsDTgGYAw0BEggAAwMBBAM6AWIDVgG2ATUBMQEvAf8BOgI4AfwDRAF6AwIBAwwAAwYBCAMr
+        AUIDUQH3A08BnJwAAyUBNwHWAaEBnQH/Ae0C0QH/AdkBoAGfAf8BnwGLAYoB+ANOAZgDEgEYEAADAgED
+        Az0BZwE8AjkB/wNIAfYDMgFRAwIBAxQAAwMBBAMYASIDQAFuoAADGwEmA1wByQNQAZsDFAEbHAADIQEw
+        A1YBvAMrAUIDAQECrAABQgFNAT4HAAE+AwABKAMAAUADAAEQAwABAQEAAQEFAAGAFwAD/wEAAf4BPwL/
+        BAAB+AEfAv8EAAHwAQ8BwwHzBAABwAEHAYEB4QUAAQMCwQUAAQEBwQGDBgAB4AEHBgAB8AEPBgAB+AEf
+        BgAB/AEfBAABgAEAAfABDwQAAcABAAHgAQcEAAHgAQABgAGDBAAB8AEDAQEBwwQAAfgBDwEDAeMEAAH8
+        AT8BhwH/BAAL
+</value>
   </data>
-  <data name="FExt" xml:space="preserve">
-    <value>.AFPClient4Windows</value>
+  <data name="bNew.Text" xml:space="preserve">
+    <value>新しい接続先(&amp;N)...</value>
   </data>
-  <data name="error" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\error.ico;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="bEdit.Text" xml:space="preserve">
+    <value>編集(&amp;E)...</value>
   </data>
-  <data name="RefreshDocViewHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\RefreshDocViewHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="bConn.Text" xml:space="preserve">
+    <value>接続する(&amp;C)</value>
   </data>
-  <data name="About" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\about.rtf;System.Byte[], mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="bExplorer.Text" xml:space="preserve">
+    <value>エクスプローラ(&amp;L)</value>
   </data>
-  <data name="Help" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Help.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="bRefreshTree.Text" xml:space="preserve">
+    <value>更新(&amp;R)</value>
   </data>
-  <data name="DialHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\DialHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="SearchFolderHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\SearchFolderHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="$this.Text" xml:space="preserve">
+    <value>接続する</value>
   </data>
 </root>

@@ -26,14 +26,17 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConnsForm));
             this.tsc = new System.Windows.Forms.ToolStripContainer();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.tvC = new System.Windows.Forms.TreeView();
+            this.lvC = new System.Windows.Forms.ListView();
+            this.chfn = new System.Windows.Forms.ColumnHeader();
+            this.chhost = new System.Windows.Forms.ColumnHeader();
+            this.chu = new System.Windows.Forms.ColumnHeader();
             this.il16 = new System.Windows.Forms.ImageList(this.components);
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.bNew = new System.Windows.Forms.ToolStripButton();
             this.bEdit = new System.Windows.Forms.ToolStripButton();
+            this.bConn = new System.Windows.Forms.ToolStripButton();
             this.bExplorer = new System.Windows.Forms.ToolStripButton();
             this.bRefreshTree = new System.Windows.Forms.ToolStripButton();
-            this.bConn = new System.Windows.Forms.ToolStripButton();
             this.tsc.ContentPanel.SuspendLayout();
             this.tsc.TopToolStripPanel.SuspendLayout();
             this.tsc.SuspendLayout();
@@ -42,110 +45,170 @@
             // 
             // tsc
             // 
+            this.tsc.AccessibleDescription = null;
+            this.tsc.AccessibleName = null;
+            resources.ApplyResources(this.tsc, "tsc");
+            // 
+            // tsc.BottomToolStripPanel
+            // 
+            this.tsc.BottomToolStripPanel.AccessibleDescription = null;
+            this.tsc.BottomToolStripPanel.AccessibleName = null;
+            this.tsc.BottomToolStripPanel.BackgroundImage = null;
+            resources.ApplyResources(this.tsc.BottomToolStripPanel, "tsc.BottomToolStripPanel");
+            this.tsc.BottomToolStripPanel.Font = null;
             // 
             // tsc.ContentPanel
             // 
-            this.tsc.ContentPanel.Controls.Add(this.tvC);
-            this.tsc.ContentPanel.Size = new System.Drawing.Size(579, 240);
-            this.tsc.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tsc.Location = new System.Drawing.Point(0, 0);
+            this.tsc.ContentPanel.AccessibleDescription = null;
+            this.tsc.ContentPanel.AccessibleName = null;
+            resources.ApplyResources(this.tsc.ContentPanel, "tsc.ContentPanel");
+            this.tsc.ContentPanel.BackgroundImage = null;
+            this.tsc.ContentPanel.Controls.Add(this.lvC);
+            this.tsc.ContentPanel.Font = null;
+            this.tsc.Font = null;
+            // 
+            // tsc.LeftToolStripPanel
+            // 
+            this.tsc.LeftToolStripPanel.AccessibleDescription = null;
+            this.tsc.LeftToolStripPanel.AccessibleName = null;
+            this.tsc.LeftToolStripPanel.BackgroundImage = null;
+            resources.ApplyResources(this.tsc.LeftToolStripPanel, "tsc.LeftToolStripPanel");
+            this.tsc.LeftToolStripPanel.Font = null;
             this.tsc.Name = "tsc";
-            this.tsc.Size = new System.Drawing.Size(579, 265);
-            this.tsc.TabIndex = 0;
-            this.tsc.Text = "toolStripContainer1";
+            // 
+            // tsc.RightToolStripPanel
+            // 
+            this.tsc.RightToolStripPanel.AccessibleDescription = null;
+            this.tsc.RightToolStripPanel.AccessibleName = null;
+            this.tsc.RightToolStripPanel.BackgroundImage = null;
+            resources.ApplyResources(this.tsc.RightToolStripPanel, "tsc.RightToolStripPanel");
+            this.tsc.RightToolStripPanel.Font = null;
             // 
             // tsc.TopToolStripPanel
             // 
+            this.tsc.TopToolStripPanel.AccessibleDescription = null;
+            this.tsc.TopToolStripPanel.AccessibleName = null;
+            this.tsc.TopToolStripPanel.BackgroundImage = null;
+            resources.ApplyResources(this.tsc.TopToolStripPanel, "tsc.TopToolStripPanel");
             this.tsc.TopToolStripPanel.Controls.Add(this.toolStrip1);
+            this.tsc.TopToolStripPanel.Font = null;
+            // 
+            // lvC
+            // 
+            this.lvC.AccessibleDescription = null;
+            this.lvC.AccessibleName = null;
+            resources.ApplyResources(this.lvC, "lvC");
+            this.lvC.BackgroundImage = null;
+            this.lvC.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.chfn,
+            this.chhost,
+            this.chu});
+            this.lvC.Font = null;
+            this.lvC.FullRowSelect = true;
+            this.lvC.GridLines = true;
+            this.lvC.MultiSelect = false;
+            this.lvC.Name = "lvC";
+            this.lvC.SmallImageList = this.il16;
+            this.lvC.UseCompatibleStateImageBehavior = false;
+            this.lvC.View = System.Windows.Forms.View.Details;
+            this.lvC.ItemActivate += new System.EventHandler(this.lvC_ItemActivate);
+            this.lvC.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lvC_ColumnClick);
+            // 
+            // chfn
+            // 
+            resources.ApplyResources(this.chfn, "chfn");
+            // 
+            // chhost
+            // 
+            resources.ApplyResources(this.chhost, "chhost");
+            // 
+            // chu
+            // 
+            resources.ApplyResources(this.chu, "chu");
+            // 
+            // il16
+            // 
+            this.il16.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("il16.ImageStream")));
+            this.il16.TransparentColor = System.Drawing.Color.Transparent;
+            this.il16.Images.SetKeyName(0, "E");
+            this.il16.Images.SetKeyName(1, "X");
             // 
             // toolStrip1
             // 
-            this.toolStrip1.Dock = System.Windows.Forms.DockStyle.None;
+            this.toolStrip1.AccessibleDescription = null;
+            this.toolStrip1.AccessibleName = null;
+            resources.ApplyResources(this.toolStrip1, "toolStrip1");
+            this.toolStrip1.BackgroundImage = null;
+            this.toolStrip1.Font = null;
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.bNew,
             this.bEdit,
             this.bConn,
             this.bExplorer,
             this.bRefreshTree});
-            this.toolStrip1.Location = new System.Drawing.Point(3, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(480, 25);
-            this.toolStrip1.TabIndex = 0;
-            // 
-            // tvC
-            // 
-            this.tvC.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tvC.ImageIndex = 0;
-            this.tvC.ImageList = this.il16;
-            this.tvC.Location = new System.Drawing.Point(0, 0);
-            this.tvC.Name = "tvC";
-            this.tvC.SelectedImageIndex = 0;
-            this.tvC.ShowRootLines = false;
-            this.tvC.Size = new System.Drawing.Size(579, 240);
-            this.tvC.TabIndex = 0;
-            this.tvC.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.tvC_NodeMouseDoubleClick);
-            this.tvC.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tvC_KeyDown);
-            // 
-            // il16
-            // 
-            this.il16.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("il16.ImageStream")));
-            this.il16.TransparentColor = System.Drawing.Color.Transparent;
-            this.il16.Images.SetKeyName(0, "D");
             // 
             // bNew
             // 
-            this.bNew.Image = ((System.Drawing.Image)(resources.GetObject("bNew.Image")));
-            this.bNew.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.bNew.AccessibleDescription = null;
+            this.bNew.AccessibleName = null;
+            resources.ApplyResources(this.bNew, "bNew");
+            this.bNew.BackgroundImage = null;
+            this.bNew.Image = global::AFPClient4Windows.Properties.Resources.NewCardHS;
             this.bNew.Name = "bNew";
-            this.bNew.Size = new System.Drawing.Size(125, 22);
-            this.bNew.Text = "新しい接続先(&N)...";
             this.bNew.Click += new System.EventHandler(this.bNew_Click);
             // 
             // bEdit
             // 
-            this.bEdit.Image = ((System.Drawing.Image)(resources.GetObject("bEdit.Image")));
-            this.bEdit.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.bEdit.AccessibleDescription = null;
+            this.bEdit.AccessibleName = null;
+            resources.ApplyResources(this.bEdit, "bEdit");
+            this.bEdit.BackgroundImage = null;
+            this.bEdit.Image = global::AFPClient4Windows.Properties.Resources.EditInformationHS;
             this.bEdit.Name = "bEdit";
-            this.bEdit.Size = new System.Drawing.Size(80, 22);
-            this.bEdit.Text = "編集(&E)...";
             this.bEdit.Click += new System.EventHandler(this.bEdit_Click);
+            // 
+            // bConn
+            // 
+            this.bConn.AccessibleDescription = null;
+            this.bConn.AccessibleName = null;
+            resources.ApplyResources(this.bConn, "bConn");
+            this.bConn.BackgroundImage = null;
+            this.bConn.Image = global::AFPClient4Windows.Properties.Resources.DialHS;
+            this.bConn.Name = "bConn";
+            this.bConn.Click += new System.EventHandler(this.bConn_Click);
             // 
             // bExplorer
             // 
-            this.bExplorer.Image = ((System.Drawing.Image)(resources.GetObject("bExplorer.Image")));
-            this.bExplorer.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.bExplorer.AccessibleDescription = null;
+            this.bExplorer.AccessibleName = null;
+            resources.ApplyResources(this.bExplorer, "bExplorer");
+            this.bExplorer.BackgroundImage = null;
+            this.bExplorer.Image = global::AFPClient4Windows.Properties.Resources.SearchFolderHS;
             this.bExplorer.Name = "bExplorer";
-            this.bExplorer.Size = new System.Drawing.Size(106, 22);
-            this.bExplorer.Text = "エクスプローラ(&L)";
             this.bExplorer.Click += new System.EventHandler(this.bExplorer_Click);
             // 
             // bRefreshTree
             // 
+            this.bRefreshTree.AccessibleDescription = null;
+            this.bRefreshTree.AccessibleName = null;
+            resources.ApplyResources(this.bRefreshTree, "bRefreshTree");
+            this.bRefreshTree.BackgroundImage = null;
             this.bRefreshTree.Image = global::AFPClient4Windows.Properties.Resources.RefreshDocViewHS;
-            this.bRefreshTree.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.bRefreshTree.Name = "bRefreshTree";
-            this.bRefreshTree.Size = new System.Drawing.Size(69, 22);
-            this.bRefreshTree.Text = "更新(&R)";
             this.bRefreshTree.Click += new System.EventHandler(this.bRefreshTree_Click);
-            // 
-            // bConn
-            // 
-            this.bConn.Image = global::AFPClient4Windows.Properties.Resources.DialHS;
-            this.bConn.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.bConn.Name = "bConn";
-            this.bConn.Size = new System.Drawing.Size(88, 22);
-            this.bConn.Text = "接続する(&C)";
-            this.bConn.Click += new System.EventHandler(this.bConn_Click);
             // 
             // ConnsForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AccessibleDescription = null;
+            this.AccessibleName = null;
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(579, 265);
+            this.BackgroundImage = null;
             this.Controls.Add(this.tsc);
+            this.Font = null;
+            this.Icon = null;
             this.Name = "ConnsForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "接続する";
             this.Load += new System.EventHandler(this.ConnsForm_Load);
             this.tsc.ContentPanel.ResumeLayout(false);
             this.tsc.TopToolStripPanel.ResumeLayout(false);
@@ -164,10 +227,13 @@
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton bNew;
         private System.Windows.Forms.ToolStripButton bExplorer;
-        private System.Windows.Forms.TreeView tvC;
         private System.Windows.Forms.ImageList il16;
         private System.Windows.Forms.ToolStripButton bRefreshTree;
         private System.Windows.Forms.ToolStripButton bEdit;
         private System.Windows.Forms.ToolStripButton bConn;
+        private System.Windows.Forms.ListView lvC;
+        private System.Windows.Forms.ColumnHeader chfn;
+        private System.Windows.Forms.ColumnHeader chhost;
+        private System.Windows.Forms.ColumnHeader chu;
     }
 }
