@@ -1033,6 +1033,22 @@ namespace AFPt2 {
                 VolName = UtAfp.Read1Str(si);
             }
         }
+
+        public ulong? VolBytesFree64 {
+            get {
+                if (VolExtBytesFree.HasValue) return VolExtBytesFree;
+                if (VolBytesFree.HasValue) return VolBytesFree;
+                return null;
+            }
+        }
+
+        public ulong? VolBytesTotal64 {
+            get {
+                if (VolExtBytesTotal.HasValue) return VolExtBytesTotal;
+                if (VolBytesTotal.HasValue) return VolBytesTotal;
+                return null;
+            }
+        }
     }
 
     public class FileParameters {

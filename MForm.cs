@@ -87,7 +87,7 @@ namespace AFPClient4Windows {
             if (conn.AskPassword) {
                 AskPassForm form = new AskPassForm();
                 form.tbP.Text = conn.P;
-                if (form.ShowDialog(this) != DialogResult.OK) 
+                if (form.ShowDialog(this) != DialogResult.OK)
                     return;
                 conn.P = form.tbP.Text;
             }
@@ -247,6 +247,7 @@ namespace AFPClient4Windows {
             public bool HasFPEnumerateExt { get { return IsVer(300); } }
             public bool HasFPEnumerateExt2 { get { return IsVer(310); } }
             public bool UseUTC { get { return IsVer(300); } }
+            public bool FPVolExtBytes { get { return IsVer(300); } }
 
             public AfpPathType MaxPathType {
                 get {
@@ -588,6 +589,8 @@ namespace AFPClient4Windows {
 
             public ushort DirID { get { return 2; } }
 
+            public ulong? free, total;
+
             bool avail = false;
 
             public new void Dispose() {
@@ -608,7 +611,12 @@ namespace AFPClient4Windows {
                 avail = false;
 
                 TransmitRes res = lpc.Comm.Transmit(new DSICommand().WithRequestPayload(new FPOpenVol()
-                    .WithBitmap(AfpVolumeBitmap.kFPVolIDBit)
+                    .WithBitmap(AfpVolumeBitmap.kFPVolIDBit
+                        | (lpc.FPVolExtBytes
+                            ? AfpVolumeBitmap.kFPVolExtBytesFreeBit | AfpVolumeBitmap.kFPVolExtBytesTotalBit
+                            : AfpVolumeBitmap.kFPVolBytesFreeBit | AfpVolumeBitmap.kFPVolBytesTotalBit
+                            )
+                        )
                     .WithVolumeName(volName)
                     .WithIsAFPv3(lpc.IsVer(300))
                 ));
@@ -617,6 +625,9 @@ namespace AFPClient4Windows {
                 OpenVolPack pack = new OpenVolPack(res.br);
 
                 volId = pack.Ent.VolID.Value;
+
+                free = pack.Ent.VolBytesFree64;
+                total = pack.Ent.VolBytesTotal64;
 
                 avail = true;
                 lvol = this;
@@ -826,6 +837,7 @@ namespace AFPClient4Windows {
                 if (force)
                     EnumPC(lpc, tn, 1);
                 Listup(null);
+                UpdateVolSize(tn);
                 return;
             }
             LVol lvol = tn.Tag as LVol;
@@ -833,6 +845,7 @@ namespace AFPClient4Windows {
                 if (force || !lvol.isListed)
                     EnumVol(lvol, tn, 1);
                 Listup(lvol);
+                UpdateVolSize(tn);
                 return;
             }
             LBaseDir lbd = tn.Tag as LBaseDir;
@@ -843,7 +856,41 @@ namespace AFPClient4Windows {
                         return;
                 }
                 Listup(lbd);
+                UpdateVolSize(tn);
                 return;
+            }
+        }
+
+        private void UpdateVolSize(TreeNode tn) {
+            while (tn != null) {
+                LVol lvol = tn.Tag as LVol;
+                if (lvol != null) {
+                    tsslFree.Text = (lvol.free.HasValue) ? GoodSize.Format(lvol.free.Value) : "";
+                    tsslTotal.Text = (lvol.total.HasValue) ? GoodSize.Format(lvol.total.Value) : "";
+                    break;
+                }
+                tn = tn.Parent;
+            }
+        }
+
+        class GoodSize {
+            public static string Format(double v) {
+                if (v < 0)
+                    return "-" + Format(-v);
+
+                if (v < 1024) return string.Format("{0} B", v);
+
+                v /= 1024;
+                if (v < 1024) return string.Format("{0:0.0} KB", v);
+
+                v /= 1024;
+                if (v < 1024) return string.Format("{0:0.0} MB", v);
+
+                v /= 1024;
+                if (v < 1024) return string.Format("{0:0.0} GB", v);
+
+                v /= 1024;
+                return string.Format("{0:0.0} TB", v);
             }
         }
 
